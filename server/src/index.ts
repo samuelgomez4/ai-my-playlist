@@ -8,7 +8,7 @@ const app = express()
 // avoid cors error
 app.use(cors())
 
-app.get('/login', (req, res) => {
+app.get('/login', (_, res) => {
   // Spotify suggests using state to avoid attacks such as cross-site request forgery
   const state = generateRandomString(16)
   const queryParams: QueryParams = {
