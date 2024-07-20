@@ -6,15 +6,17 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch --env-file=.env src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@types/spotify-web-api-node": "^5.0.11",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
