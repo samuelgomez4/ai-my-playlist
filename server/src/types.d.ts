@@ -7,6 +7,10 @@ export type QueryParams = {
 }
 
 export type TokenBody = {
-  code: string
-  state: string
+  authCode: string
+  authState: string | null
+}
+
+export type RefreshBody = {
+  refreshToken: string
 }

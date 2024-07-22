@@ -10,11 +10,12 @@ import {
   REDIRECT_URI,
   SCOPE,
 } from './constants'
-import type { TokenBody, QueryParams } from './types'
+import type { TokenBody, QueryParams, RefreshBody } from './types'
 
 const app = express()
 // avoid cors error
 app.use(cors())
+app.use(express.json())
 
 app.get('/login', (_, res) => {
   // Spotify suggests using state to avoid attacks such as cross-site request forgery
@@ -33,7 +34,8 @@ app.get('/login', (_, res) => {
 })
 
 app.post('/token', (req, res) => {
-  const { code, state } = <TokenBody>req.body
+  const { authCode, authState } = <TokenBody>req.body
+  // TODO: validate state
   const spotifyApi = new SpotifyWebApi({
     redirectUri: REDIRECT_URI,
     clientId: CLIENT_ID,
@@ -41,7 +43,7 @@ app.post('/token', (req, res) => {
   })
   // request to url for Spotify Accounts service to get access token and refresh token
   spotifyApi
-    .authorizationCodeGrant(code)
+    .authorizationCodeGrant(authCode)
     .then((data) => {
       res.json({
         accesToken: data.body.access_token,
@@ -49,8 +51,34 @@ app.post('/token', (req, res) => {
         expiresIn: data.body.expires_in,
       })
     })
-    .catch(() => {
-      res.sendStatus(400)
+    .catch((e) => {
+      res.status(400).json({
+        message: `An error occurred while processing your request: ${e}`,
+      })
     })
 })
+
+app.post('/refresh', (req, res) => {
+  const { refreshToken } = <RefreshBody>req.body
+  const spotifyApi = new SpotifyWebApi({
+    redirectUri: REDIRECT_URI,
+    clientId: CLIENT_ID,
+    clientSecret: CLIENT_SECRET,
+    refreshToken,
+  })
+  spotifyApi
+    .refreshAccessToken()
+    .then((data) => {
+      res.json({
+        accesToken: data.body.access_token,
+        expiresIn: data.body.expires_in,
+      })
+    })
+    .catch((e) => {
+      res.status(400).json({
+        message: `An error occurred while processing your request: ${e}`,
+      })
+    })
+})
+
 app.listen(8888)
