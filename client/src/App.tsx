@@ -1,12 +1,20 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import './App.css'
 import { Login } from './components/Login'
+import { Dashboard } from './components/Dashboard'
+import { useCode } from './hooks/useCode'
 
 function App() {
-  const code = useMemo(() => {
-    return new URLSearchParams(window.location.search).get('code')
+  // remove queryparams from url after page renders
+  useEffect(() => {
+    window.history.pushState({}, '', '/')
   }, [])
-  return <Login />
+  const { authCode, authState, authError } = useCode()
+  return authCode ? (
+    <Dashboard tokenReqBody={{ authCode, authState }} />
+  ) : (
+    <Login authError={authError} />
+  )
 }
 
 export default App

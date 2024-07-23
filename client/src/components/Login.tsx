@@ -1,6 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export function Login() {
+interface Props {
+  authError: string | null
+}
+export function Login({ authError }: Props) {
   const [error, setError] = useState<string | null>(null)
   const handleClick = () => {
     fetch('http://localhost:8888/login')
@@ -14,6 +17,10 @@ export function Login() {
         setError(e.message)
       })
   }
+  useEffect(() => {
+    setError(authError)
+  }, [authError])
+
   return (
     <>
       <button
