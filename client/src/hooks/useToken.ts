@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import type { TokenRes, TokenReqBody } from '../types'
+import { BACKEND_API_URL } from '../constants'
 
 export function useToken(tokenReqBody: TokenReqBody) {
   const [tokenRes, setTokenRes] = useState<TokenRes>()
@@ -13,12 +14,14 @@ export function useToken(tokenReqBody: TokenReqBody) {
   // If an error ocur, the user will be redirected to home with an error.
   useEffect(() => {
     axios
-      .post('http://localhost:8888/token', tokenReqBody)
+      .post(`${BACKEND_API_URL}/token`, tokenReqBody)
       .then((res) => {
-        setTokenRes({ ...res.data, expiresIn: 70 })
+        // TODO: Type response
+        setTokenRes(res.data)
       })
       .catch((e) => {
         const queryParams = new URLSearchParams({
+          // TODO: Type error
           error: e.response.data.message,
         })
         window.location.replace(`/?${queryParams}`)
@@ -33,7 +36,7 @@ export function useToken(tokenReqBody: TokenReqBody) {
     const interval = setInterval(
       () => {
         axios
-          .post('http://localhost:8888/refresh', { refreshToken })
+          .post(`${BACKEND_API_URL}/refresh`, { refreshToken })
           .then((res) => {
             setTokenRes((prevState) => {
               return { ...prevState, ...res.data }
