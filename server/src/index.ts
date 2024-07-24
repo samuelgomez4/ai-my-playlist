@@ -46,7 +46,7 @@ app.post('/token', (req, res) => {
     .authorizationCodeGrant(authCode)
     .then((data) => {
       res.json({
-        accesToken: data.body.access_token,
+        accessToken: data.body.access_token,
         refreshToken: data.body.refresh_token,
         expiresIn: data.body.expires_in,
       })
@@ -70,7 +70,7 @@ app.post('/refresh', (req, res) => {
     .refreshAccessToken()
     .then((data) => {
       res.json({
-        accesToken: data.body.access_token,
+        accessToken: data.body.access_token,
         expiresIn: data.body.expires_in,
       })
     })
