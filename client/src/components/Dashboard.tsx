@@ -1,7 +1,7 @@
 import { usePlaylists } from '../hooks/usePlaylists'
 import { useToken } from '../hooks/useToken'
 import type { TokenReqBody } from '../types'
-import Layout from './Layout'
+import { Layout } from './Layout'
 
 interface Props {
   tokenReqBody: TokenReqBody
