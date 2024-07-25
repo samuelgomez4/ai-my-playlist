@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import './App.css'
 import { Login } from './components/Login'
 import { Dashboard } from './components/Dashboard'
 import { useCode } from './hooks/useCode'

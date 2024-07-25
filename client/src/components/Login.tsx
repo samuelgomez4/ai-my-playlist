@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { BACKEND_API_URL } from '../constants'
 
 interface Props {
   authError: string | null
@@ -6,7 +7,7 @@ interface Props {
 export function Login({ authError }: Props) {
   const [error, setError] = useState<string | null>(null)
   const handleClick = () => {
-    fetch('http://localhost:8888/login')
+    fetch(`${BACKEND_API_URL}/login`)
       .then((response) => {
         return response.text()
       })
