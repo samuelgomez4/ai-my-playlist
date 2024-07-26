@@ -12,9 +12,9 @@ export interface TokenRes {
 export interface PlayListsRes {
   href: string
   limit: number
-  next: null
+  next: string | null
   offset: number
-  previous: null
+  previous: string | null
   total: number
   items: Item[]
 }
@@ -64,7 +64,4 @@ export interface PlayListsItemsError {
   error: Error
 }
 
-export interface Error {
-  status: number
-  message: string
-}
+export type HasNext = Pick<PlayListsRes, 'next'>

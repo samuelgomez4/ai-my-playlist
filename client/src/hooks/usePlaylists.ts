@@ -1,24 +1,37 @@
 import type { AxiosError, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import type { PlayListsItemsError, PlayListsRes } from '../types'
+import type { HasNext, PlayListsItemsError, PlayListsRes } from '../types'
+import type { Playlists } from '@/services/filterPlaylistsData'
+import { filterPlaylistsData } from '@/services/filterPlaylistsData'
 
 export function usePlaylists(token: string | undefined) {
-  const [playlists, setPlaylists] = useState(null)
+  const [playlists, setPlaylists] = useState<Playlists | null>(null)
+  const [error, setError] = useState<PlayListsItemsError | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  // indicates whether there are more playlists to fetch or not
+  const [hasNext, setHasNext] = useState<HasNext>({ next: null })
   useEffect(() => {
     if (!token) return
+    // return only 10 playlists initially
     axios
-      .get('https://api.spotify.com/v1/me/playlists?offset=0&limit=50', {
+      .get('https://api.spotify.com/v1/me/playlists?offset=0&limit=10', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res: AxiosResponse) => {
         const playlistsRes: PlayListsRes = res.data
-        console.log(playlistsRes)
+        const hasMore = { next: playlistsRes.next }
+        const playlistsItems = filterPlaylistsData(playlistsRes)
+        setHasNext(hasMore)
+        setPlaylists(playlistsItems)
       })
       .catch((e: AxiosError) => {
         const playlistsItemsError = e.response?.data as PlayListsItemsError
-        console.log(playlistsItemsError.error)
+        setError(playlistsItemsError)
+      })
+      .finally(() => {
+        setIsLoading(false)
       })
   }, [token])
-  return playlists
+  return { playlists, error, isLoading, hasNext }
 }

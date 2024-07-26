@@ -6,6 +6,10 @@ export function filterPlaylistsData(playlistsRes: PlayListsRes) {
       id: playlist.id,
       name: playlist.name,
       numberTracks: playlist.tracks.total,
+      imageUrl: playlist.images[0].url,
     }
   })
 }
+
+export type Playlists = ReturnType<typeof filterPlaylistsData>
+export type Playlist = Playlists[number]
