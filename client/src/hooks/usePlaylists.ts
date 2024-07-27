@@ -1,8 +1,12 @@
 import type { AxiosError, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import type { HasNext, PlayListsItemsError, PlayListsRes } from '../types'
-import type { Playlists } from '@/services/filterPlaylistsData'
+import type {
+  HasNext,
+  Playlists,
+  PlayListsItemsError,
+  PlayListsRes,
+} from '../types'
 import { filterPlaylistsData } from '@/services/filterPlaylistsData'
 
 export function usePlaylists(token: string | undefined) {

@@ -1,6 +1,6 @@
 import { Button } from './ui/button'
 
-export function PlaylistInfo() {
+export function PlaylistInfo({}) {
   return (
     <div className="flex items-start gap-4 rounded-lg border border-input bg-background p-4">
       <img

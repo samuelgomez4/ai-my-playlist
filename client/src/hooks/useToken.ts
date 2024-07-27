@@ -11,7 +11,7 @@ export function useToken(tokenReqBody: TokenReqBody) {
   // once an authCode is obtained from the spotifyApi, the dashboard component will be rendered
   // and this customHook will be called. An initial accesToken will be requested and the reponse
   // will obtain the accessToken, the refreshToken and the time the accessToken is valid for.
-  // If an error ocur, the user will be redirected to home with an error.
+  // If an error ocurrs, the user will be redirected to home with an error.
   useEffect(() => {
     axios
       .post(`${BACKEND_API_URL}/token`, tokenReqBody)

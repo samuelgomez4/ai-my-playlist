@@ -1,12 +1,16 @@
-import { Playlist, Playlists } from "@/services/filterPlaylistsData"
+import type { Playlist } from '@/types'
 
 interface Props {
   playlist: Playlist
+  isActive: boolean
 }
-export function PlaylistCard({ playlist }: Props) {
-  const { id, name, numberTracks, imageUrl } = playlist
+export function PlaylistCard({ playlist, isActive }: Props) {
+  const { name, numberTracks, imageUrl } = playlist
   return (
-    <div className="flex items-top gap-4 rounded-lg bg-muted/50 p-4 transition-colors hover:bg-muted">
+    <div
+      className={`flex items-top gap-4 rounded-lg p-4 transition-colors  ${
+        isActive ? 'bg-gray-600' : 'bg-muted/50 hover:bg-muted'
+      }`}>
       <img
         src={imageUrl}
         alt="Playlist Thumbnail"
@@ -14,7 +18,7 @@ export function PlaylistCard({ playlist }: Props) {
         height={64}
         className="rounded-lg"
       />
-      <div className="flex-1">
+      <div className="flex-1 text-left">
         <p className="font-medium">{name}</p>
         <p className="text-xs text-muted-foreground">{numberTracks} songs</p>
       </div>

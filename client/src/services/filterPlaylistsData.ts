@@ -10,6 +10,3 @@ export function filterPlaylistsData(playlistsRes: PlayListsRes) {
     }
   })
 }
-
-export type Playlists = ReturnType<typeof filterPlaylistsData>
-export type Playlist = Playlists[number]

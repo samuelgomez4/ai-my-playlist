@@ -1,16 +1,17 @@
-import { usePlaylists } from '../hooks/usePlaylists'
 import { useToken } from '../hooks/useToken'
 import type { TokenReqBody } from '../types'
 import { PlaylistContent } from './PlaylistContent'
 import { PlaylistsSection } from './PlaylistsSection'
 import { PromptForm } from './PromptForm'
 import { SideBar } from './SideBar'
+import { useCurrentPlaylist } from '@/hooks/useCurrentPlaylist'
 
 interface Props {
   tokenReqBody: TokenReqBody
 }
 export function Dashboard({ tokenReqBody }: Props) {
   const token = useToken(tokenReqBody)
+  const { currentPlaylistId, updateCurrentPlaylistId } = useCurrentPlaylist()
   return (
     <div className="flex min-h-screen w-full">
       <SideBar />
@@ -20,11 +21,18 @@ export function Dashboard({ tokenReqBody }: Props) {
             <PromptForm />
           </section>
           <section className="flex-1 overflow-auto rounded-lg border border-input bg-background p-4">
-            <PlaylistsSection token={token} />
+            <PlaylistsSection
+              token={token}
+              currentPlaylistId={currentPlaylistId}
+              updateCurrentPlaylistId={updateCurrentPlaylistId}
+            />
           </section>
         </div>
         <section>
-          <PlaylistContent />
+          <PlaylistContent
+            token={token}
+            currentPlaylistId={currentPlaylistId}
+          />
         </section>
       </main>
     </div>
