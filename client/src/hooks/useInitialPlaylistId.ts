@@ -1,16 +1,16 @@
 import { useEffect, useRef } from 'react'
-import type { Playlists } from '@/types'
+import type { PlaylistDetails, PlaylistsDetailsList } from '@/types'
 
-export function useInitialPlaylistId(
-  playlists: Playlists | null,
-  updateCurrentPlaylistId: (id: string) => void
+export function useInitialPlaylistDetails(
+  playlists: PlaylistsDetailsList | null,
+  updateCurrentPlaylistDetails: (details: PlaylistDetails) => void
 ) {
   const isFirstPlaylistsRender = useRef(true)
   useEffect(() => {
     if (isFirstPlaylistsRender.current && playlists) {
-      const initialPlaylistId = playlists[0].id
-      updateCurrentPlaylistId(initialPlaylistId)
+      const initialPlaylistDetails = playlists[0]
+      updateCurrentPlaylistDetails(initialPlaylistDetails)
       isFirstPlaylistsRender.current = false
     }
-  }, [playlists, updateCurrentPlaylistId])
+  }, [playlists, updateCurrentPlaylistDetails])
 }

@@ -1,25 +1,26 @@
 import { ScrollArea, Scrollbar } from '@radix-ui/react-scroll-area'
 import { usePlaylists } from '@/hooks/usePlaylists'
 import { PlaylistCard } from './PlaylistCard'
-import { useInitialPlaylistId } from '@/hooks/useInitialPlaylistId'
+import { useInitialPlaylistDetails } from '@/hooks/useInitialPlaylistId'
+import type { PlaylistDetails, Token } from '@/types'
 
 interface Props {
-  token: string | undefined
-  currentPlaylistId: string
-  updateCurrentPlaylistId: (id: string) => void
+  token: Token
+  currentPlaylistDetails: PlaylistDetails | null
+  updateCurrentPlaylistDetails: (details: PlaylistDetails) => void
 }
 
 export function PlaylistsSection({
   token,
-  currentPlaylistId,
-  updateCurrentPlaylistId,
+  currentPlaylistDetails,
+  updateCurrentPlaylistDetails,
 }: Props) {
   // TODO display error, loading, etc. lazyload more playlists.
   const { playlists, error, isLoading, hasNext } = usePlaylists(token)
-  useInitialPlaylistId(playlists, updateCurrentPlaylistId)
+  useInitialPlaylistDetails(playlists, updateCurrentPlaylistDetails)
   return (
     <ScrollArea className="h-72">
-      <ul className="grid gap-4">
+      <ul className="flex flex-col gap-4">
         {playlists &&
           playlists.map((playlist) => (
             <li key={playlist.id}>
@@ -28,16 +29,15 @@ export function PlaylistsSection({
                 type="button"
                 aria-label={`Select playlist ${playlist.name}`}
                 onClick={() => {
-                  updateCurrentPlaylistId(playlist.id)
+                  updateCurrentPlaylistDetails(playlist)
                 }}>
                 <PlaylistCard
                   playlist={playlist}
-                  isActive={playlist.id === currentPlaylistId}
+                  isActive={playlist.id === currentPlaylistDetails?.id}
                 />
               </button>
             </li>
           ))}
-        <Scrollbar orientation="vertical" />
       </ul>
     </ScrollArea>
   )

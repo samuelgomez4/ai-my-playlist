@@ -1,3 +1,4 @@
+import type { useToken } from './hooks/useToken'
 import type { filterPlaylistItemsData } from './services/filterPlaylistItemsData'
 import type { filterPlaylistsData } from './services/filterPlaylistsData'
 
@@ -68,7 +69,6 @@ export interface PlayListsItemsError {
 }
 
 export type HasNext = Pick<PlayListsRes, 'next'>
-
 export interface GetPlaylistRes {
   href: string
   items: PlaylistItem[]
@@ -80,7 +80,7 @@ export interface GetPlaylistRes {
 }
 
 export interface PlaylistItem {
-  added_at: Date
+  added_at: string
   added_by: AddedBy
   is_local: boolean
   primary_color: null
@@ -132,7 +132,7 @@ export interface Album {
   id: string
   images: Image[]
   name: string
-  release_date: Date
+  release_date: string
   release_date_precision: ReleaseDatePrecision
   uri: string
   artists: AddedBy[]
@@ -161,6 +161,8 @@ export interface VideoThumbnail {
   url: null
 }
 
-export type Playlists = ReturnType<typeof filterPlaylistsData>
-export type Playlist = Playlists[number]
+export type PlaylistsDetailsList = ReturnType<typeof filterPlaylistsData>
+export type PlaylistDetails = PlaylistsDetailsList[number]
 export type PlaylistItems = ReturnType<typeof filterPlaylistItemsData>
+export type Song = PlaylistItems[number]
+export type Token = ReturnType<typeof useToken>

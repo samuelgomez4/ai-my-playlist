@@ -1,13 +1,13 @@
-import type { Playlist } from '@/types'
+import type { PlaylistDetails } from '@/types'
 
 interface Props {
-  playlist: Playlist
+  playlist: PlaylistDetails
   isActive: boolean
 }
 export function PlaylistCard({ playlist, isActive }: Props) {
   const { name, numberTracks, imageUrl } = playlist
   return (
-    <div
+    <article
       className={`flex items-top gap-4 rounded-lg p-4 transition-colors  ${
         isActive ? 'bg-gray-600' : 'bg-muted/50 hover:bg-muted'
       }`}>
@@ -22,6 +22,6 @@ export function PlaylistCard({ playlist, isActive }: Props) {
         <p className="font-medium">{name}</p>
         <p className="text-xs text-muted-foreground">{numberTracks} songs</p>
       </div>
-    </div>
+    </article>
   )
 }

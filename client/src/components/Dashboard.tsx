@@ -11,27 +11,32 @@ interface Props {
 }
 export function Dashboard({ tokenReqBody }: Props) {
   const token = useToken(tokenReqBody)
-  const { currentPlaylistId, updateCurrentPlaylistId } = useCurrentPlaylist()
+  const {
+    currentPlaylistDetails,
+    currentPlaylistSongs,
+    updateCurrentPlaylistDetails,
+  } = useCurrentPlaylist(token)
+  // TODO fix scrolls
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="flex w-full">
       <SideBar />
-      <main className="flex-1 grid grid-cols-[1fr_2fr] gap-6 p-6">
-        <div className="flex flex-col gap-6">
+      <main className="flex-1 grid grid-cols-[1fr_2fr] gap-6 p-6 max-h-dvh">
+        <div className="flex flex-col gap-6 pb-4">
           <section>
             <PromptForm />
           </section>
-          <section className="flex-1 overflow-auto rounded-lg border border-input bg-background p-4">
+          <section className="flex-1 rounded-lg border border-input bg-background p-4 overflow-auto">
             <PlaylistsSection
               token={token}
-              currentPlaylistId={currentPlaylistId}
-              updateCurrentPlaylistId={updateCurrentPlaylistId}
+              currentPlaylistDetails={currentPlaylistDetails}
+              updateCurrentPlaylistDetails={updateCurrentPlaylistDetails}
             />
           </section>
         </div>
-        <section>
+        <section className="pb-4">
           <PlaylistContent
-            token={token}
-            currentPlaylistId={currentPlaylistId}
+            currentPlaylistDetails={currentPlaylistDetails}
+            currentPlaylistSongs={currentPlaylistSongs}
           />
         </section>
       </main>

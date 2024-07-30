@@ -5,6 +5,9 @@ export function filterPlaylistsData(playlistsRes: PlayListsRes) {
     return {
       id: playlist.id,
       name: playlist.name,
+      description: playlist.description,
+      public: playlist.public,
+      owner: playlist.owner.display_name,
       numberTracks: playlist.tracks.total,
       imageUrl: playlist.images[0].url,
     }

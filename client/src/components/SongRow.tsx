@@ -1,16 +1,38 @@
+import type { Song } from '@/types'
 import { TableRow, TableCell } from './ui/table'
 
-export function SongRow() {
+interface Props {
+  song: Song
+}
+export function SongRow({ song }: Props) {
+  const artists = song.artists.map((artist) => artist.name).join(', ')
   return (
     <TableRow>
-      <TableCell>
-        <div className="font-medium">Quemando calorias</div>
-        <div className="text-xs text-muted-foreground">Feid</div>
+      <TableCell className="flex gap-4">
+        <img
+          src={song.album.imageUrl}
+          alt="Song Album Thumbnail"
+          width={48}
+          height={48}
+          className="rounded-lg"
+        />
+        <div className="overflow-hidden flex flex-col justify-center">
+          <p
+            title={song.name}
+            className="font-medium overflow-hidden text-ellipsis">
+            {song.name}
+          </p>
+          <p
+            title={artists}
+            className="text-xs text-muted-foreground overflow-hidden text-ellipsis">
+            {artists}
+          </p>
+        </div>
       </TableCell>
-      <TableCell>Chill Beats Vol. 1</TableCell>
-      <TableCell>2022-06-15</TableCell>
-      <TableCell>3:45</TableCell>
-      <TableCell>2023-04-01</TableCell>
+      <TableCell title={song.album.name}>{song.album.name}</TableCell>
+      <TableCell>{song.releaseDate}</TableCell>
+      <TableCell>{song.addedByUserAt}</TableCell>
+      <TableCell>{song.duration}</TableCell>
     </TableRow>
   )
 }

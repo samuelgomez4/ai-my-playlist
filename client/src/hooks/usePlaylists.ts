@@ -3,14 +3,14 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import type {
   HasNext,
-  Playlists,
+  PlaylistsDetailsList,
   PlayListsItemsError,
   PlayListsRes,
 } from '../types'
 import { filterPlaylistsData } from '@/services/filterPlaylistsData'
 
 export function usePlaylists(token: string | undefined) {
-  const [playlists, setPlaylists] = useState<Playlists | null>(null)
+  const [playlists, setPlaylists] = useState<PlaylistsDetailsList | null>(null)
   const [error, setError] = useState<PlayListsItemsError | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   // indicates whether there are more playlists to fetch or not
