@@ -1,15 +1,16 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { AxiosError, AxiosResponse } from 'axios'
 import axios from 'axios'
 import type {
   PlaylistItems,
-  HasNext,
+  NextEndpoint,
   PlayListsItemsError,
   GetPlaylistRes,
   PlaylistDetails,
   Token,
 } from '@/types'
 import { filterPlaylistItemsData } from '@/services/filterPlaylistItemsData'
+
 
 export function useCurrentPlaylist(token: Token) {
   const [currentPlaylistDetails, setCurrentPlaylistDetails] =
@@ -19,27 +20,33 @@ export function useCurrentPlaylist(token: Token) {
   // TODO display error and loading
   const [error, setError] = useState<PlayListsItemsError | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [hasNext, setHasNext] = useState<HasNext>({ next: null })
+  const [nextEndpoint, setnextEndpoint] = useState<NextEndpoint>({ next: null })
   const updateCurrentPlaylistDetails = useCallback(
     (details: PlaylistDetails) => {
       setCurrentPlaylistDetails(details)
     },
     []
   )
+  const fetchSongs = ({
+    tracksEndpoint,
+    userToken,
+  }: {
+    tracksEndpoint: string
+    userToken: Token
+  }) => {
+    return axios.get(tracksEndpoint, {
+      headers: { Authorization: `Bearer ${userToken}` },
+    })
+  }
   useEffect(() => {
     if (!token || !currentPlaylistDetails?.id) return
-    axios
-      .get(
-        `https://api.spotify.com/v1/playlists/${currentPlaylistDetails.id}/tracks?offset=0&limit=50`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+    const tracksEndpoint = `https://api.spotify.com/v1/playlists/${currentPlaylistDetails.id}/tracks?offset=0&limit=50`
+    fetchSongs({ tracksEndpoint, userToken: token })
       .then((res: AxiosResponse) => {
         const playlistRes: GetPlaylistRes = res.data
         const hasMore = { next: playlistRes.next }
         const playlistsItems = filterPlaylistItemsData(playlistRes)
-        setHasNext(hasMore)
+        setnextEndpoint(hasMore)
         setCurrentPlaylistSongs(playlistsItems)
       })
       .catch((e: AxiosError) => {
@@ -54,5 +61,6 @@ export function useCurrentPlaylist(token: Token) {
     currentPlaylistDetails,
     currentPlaylistSongs,
     updateCurrentPlaylistDetails,
+    fetchSongs,
   }
 }

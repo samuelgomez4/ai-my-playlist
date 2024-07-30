@@ -2,7 +2,7 @@ import type { AxiosError, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import type {
-  HasNext,
+  NextEndpoint,
   PlaylistsDetailsList,
   PlayListsItemsError,
   PlayListsRes,
@@ -14,7 +14,7 @@ export function usePlaylists(token: string | undefined) {
   const [error, setError] = useState<PlayListsItemsError | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   // indicates whether there are more playlists to fetch or not
-  const [hasNext, setHasNext] = useState<HasNext>({ next: null })
+  const [hasNext, setHasNext] = useState<NextEndpoint>({ next: null })
   useEffect(() => {
     if (!token) return
     // return only 10 playlists initially

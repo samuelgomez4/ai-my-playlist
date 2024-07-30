@@ -15,6 +15,7 @@ export function Dashboard({ tokenReqBody }: Props) {
     currentPlaylistDetails,
     currentPlaylistSongs,
     updateCurrentPlaylistDetails,
+    fetchSongs,
   } = useCurrentPlaylist(token)
   // TODO fix scrolls
   return (
@@ -23,7 +24,11 @@ export function Dashboard({ tokenReqBody }: Props) {
       <main className="flex-1 grid grid-cols-[1fr_2fr] gap-6 p-6 max-h-dvh">
         <div className="flex flex-col gap-6 pb-4">
           <section>
-            <PromptForm />
+            <PromptForm
+              token={token}
+              currentPlaylistId={currentPlaylistDetails?.id}
+              fetchSongs={fetchSongs}
+            />
           </section>
           <section className="flex-1 rounded-lg border border-input bg-background p-4 overflow-auto">
             <PlaylistsSection

@@ -68,7 +68,7 @@ export interface PlayListsItemsError {
   error: Error
 }
 
-export type HasNext = Pick<PlayListsRes, 'next'>
+export type NextEndpoint = Pick<PlayListsRes, 'next'>
 export interface GetPlaylistRes {
   href: string
   items: PlaylistItem[]
