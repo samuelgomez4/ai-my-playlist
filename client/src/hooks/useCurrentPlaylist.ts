@@ -9,7 +9,7 @@ import type {
   Token,
 } from '@/types'
 import { filterPlaylistItemsDataToShow } from '@/services/filterPlaylistItemsData'
-import { fetchSongs } from '@/services/fetchSongs'
+import { fetchSongs, getTracksEndpoint } from '@/services/songs'
 
 export function useCurrentPlaylist(token: Token) {
   const [currentPlaylistDetails, setCurrentPlaylistDetails] =
@@ -17,7 +17,7 @@ export function useCurrentPlaylist(token: Token) {
   const [currentPlaylistSongs, setCurrentPlaylistSongs] =
     useState<PlaylistItems | null>(null)
   // TODO display error and loading
-  const [error, setError] = useState<PlayListsItemsError | null>(null)
+  const [error, setError] = useState<Error | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [nextEndpoint, setnextEndpoint] = useState<NextEndpoint>({ next: null })
   const updateCurrentPlaylistDetails = useCallback(
@@ -29,18 +29,20 @@ export function useCurrentPlaylist(token: Token) {
 
   useEffect(() => {
     if (!token || !currentPlaylistDetails?.id) return
-    const tracksEndpoint = `https://api.spotify.com/v1/playlists/${currentPlaylistDetails.id}/tracks?offset=0&limit=20`
+    setIsLoading(true)
+    const tracksEndpoint = getTracksEndpoint({
+      playlistId: currentPlaylistDetails.id,
+      limit: '20',
+    })
     fetchSongs({ tracksEndpoint, userToken: token })
-      .then((res: AxiosResponse) => {
-        const playlistRes: GetPlaylistRes = res.data
-        const hasMore = { next: playlistRes.next }
+      .then((playlistRes: GetPlaylistRes) => {
         const playlistsItems = filterPlaylistItemsDataToShow(playlistRes)
-        setnextEndpoint(hasMore)
+        setnextEndpoint({ next: playlistRes.next })
         setCurrentPlaylistSongs(playlistsItems)
       })
-      .catch((e: AxiosError) => {
-        const playlistsItemsError = e.response?.data as PlayListsItemsError
-        setError(playlistsItemsError)
+      .catch((e: Error) => {
+        setError(e)
+        console.log(e.message)
       })
       .finally(() => {
         setIsLoading(false)
@@ -50,6 +52,5 @@ export function useCurrentPlaylist(token: Token) {
     currentPlaylistDetails,
     currentPlaylistSongs,
     updateCurrentPlaylistDetails,
-    fetchSongs,
   }
 }

@@ -15,7 +15,6 @@ export function Dashboard({ tokenReqBody }: Props) {
     currentPlaylistDetails,
     currentPlaylistSongs,
     updateCurrentPlaylistDetails,
-    fetchSongs,
   } = useCurrentPlaylist(token)
   // TODO fix scrolls
   return (

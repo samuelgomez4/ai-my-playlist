@@ -9,7 +9,7 @@ import type {
   AiPlaylistParams,
   SongsForAi,
 } from '@/types'
-import { fetchSongs } from './fetchSongs'
+import { fetchSongs } from './songs'
 import { filterPlaylistItemsDataForAi } from './filterPlaylistItemsData'
 
 // function getTracksUrls = ({ })
