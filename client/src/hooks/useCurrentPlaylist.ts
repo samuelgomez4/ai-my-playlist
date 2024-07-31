@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { AxiosError, AxiosResponse } from 'axios'
-import axios from 'axios'
 import type {
   PlaylistItems,
   NextEndpoint,
@@ -9,8 +8,8 @@ import type {
   PlaylistDetails,
   Token,
 } from '@/types'
-import { filterPlaylistItemsData } from '@/services/filterPlaylistItemsData'
-
+import { filterPlaylistItemsDataToShow } from '@/services/filterPlaylistItemsData'
+import { fetchSongs } from '@/services/fetchSongs'
 
 export function useCurrentPlaylist(token: Token) {
   const [currentPlaylistDetails, setCurrentPlaylistDetails] =
@@ -27,25 +26,15 @@ export function useCurrentPlaylist(token: Token) {
     },
     []
   )
-  const fetchSongs = ({
-    tracksEndpoint,
-    userToken,
-  }: {
-    tracksEndpoint: string
-    userToken: Token
-  }) => {
-    return axios.get(tracksEndpoint, {
-      headers: { Authorization: `Bearer ${userToken}` },
-    })
-  }
+
   useEffect(() => {
     if (!token || !currentPlaylistDetails?.id) return
-    const tracksEndpoint = `https://api.spotify.com/v1/playlists/${currentPlaylistDetails.id}/tracks?offset=0&limit=50`
+    const tracksEndpoint = `https://api.spotify.com/v1/playlists/${currentPlaylistDetails.id}/tracks?offset=0&limit=20`
     fetchSongs({ tracksEndpoint, userToken: token })
       .then((res: AxiosResponse) => {
         const playlistRes: GetPlaylistRes = res.data
         const hasMore = { next: playlistRes.next }
-        const playlistsItems = filterPlaylistItemsData(playlistRes)
+        const playlistsItems = filterPlaylistItemsDataToShow(playlistRes)
         setnextEndpoint(hasMore)
         setCurrentPlaylistSongs(playlistsItems)
       })

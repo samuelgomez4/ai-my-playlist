@@ -1,5 +1,9 @@
+import type { AI_ACTIONS } from './constants'
 import type { useToken } from './hooks/useToken'
-import type { filterPlaylistItemsData } from './services/filterPlaylistItemsData'
+import type {
+  filterPlaylistItemsDataForAi,
+  filterPlaylistItemsDataToShow,
+} from './services/filterPlaylistItemsData'
 import type { filterPlaylistsData } from './services/filterPlaylistsData'
 
 export interface TokenReqBody {
@@ -163,6 +167,24 @@ export interface VideoThumbnail {
 
 export type PlaylistsDetailsList = ReturnType<typeof filterPlaylistsData>
 export type PlaylistDetails = PlaylistsDetailsList[number]
-export type PlaylistItems = ReturnType<typeof filterPlaylistItemsData>
+export type PlaylistItems = ReturnType<typeof filterPlaylistItemsDataToShow>
+export type SongsForAi = ReturnType<typeof filterPlaylistItemsDataForAi>
 export type Song = PlaylistItems[number]
 export type Token = ReturnType<typeof useToken>
+
+export type AIAction = keyof typeof AI_ACTIONS
+
+export interface AiPlaylistParams {
+  prompt: string
+  action: AIAction
+  token: Token
+  currentPlaylistId: string | undefined
+}
+export interface FromSelected {
+  token: Token
+  tracksEndpoint: string
+}
+export interface CreateFromSelected extends FromSelected {
+  prompt: string
+  createdPlaylistId: string
+}

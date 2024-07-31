@@ -27,7 +27,6 @@ export function Dashboard({ tokenReqBody }: Props) {
             <PromptForm
               token={token}
               currentPlaylistId={currentPlaylistDetails?.id}
-              fetchSongs={fetchSongs}
             />
           </section>
           <section className="flex-1 rounded-lg border border-input bg-background p-4 overflow-auto">
