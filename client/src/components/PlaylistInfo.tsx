@@ -6,10 +6,10 @@ interface Props {
 }
 export function PlaylistInfo({ currentPlaylistDetails }: Props) {
   return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>
+    // TODO: render something when user has no playlists
+    <header className="flex items-start gap-4 rounded-lg border border-input bg-background p-4">
       {currentPlaylistDetails && (
-        <header className="flex items-start gap-4 rounded-lg border border-input bg-background p-4">
+        <div>
           <img
             src={currentPlaylistDetails.imageUrl}
             alt="Playlist Thumbnail"
@@ -35,8 +35,8 @@ export function PlaylistInfo({ currentPlaylistDetails }: Props) {
               </Button>
             </div>
           </div>
-        </header>
+        </div>
       )}
-    </>
+    </header>
   )
 }

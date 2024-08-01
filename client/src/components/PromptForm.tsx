@@ -1,4 +1,4 @@
-import type { AIAction, Token } from '@/types'
+import type { AIAction, AiPlaylistParams, Token } from '@/types'
 import { Button } from './ui/button'
 import { Textarea } from './ui/textarea'
 import {
@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { AI_ACTIONS } from '@/constants'
+import { ACTIONS, AI_ACTIONS } from '@/constants'
 import { aiPlaylist } from '@/services/aiPlaylist'
 
 interface Props {
@@ -21,13 +21,16 @@ export function PromptForm({ token, currentPlaylistId }: Props) {
     const fields = new window.FormData(event.target as HTMLFormElement)
     const prompt = fields.get('prompt') as string
     const action = fields.get('action') as AIAction
+    if (!prompt || !action) return
     aiPlaylist({
       prompt,
       action,
       token,
       currentPlaylistId,
-    })
+    } as AiPlaylistParams)
   }
+  // TODO: change styles of the textarea and select if any of their values is undefined
+  // or currentPlaylistId is undefined
   return (
     <form
       className="flex flex-col gap-4"
@@ -45,6 +48,8 @@ export function PromptForm({ token, currentPlaylistId }: Props) {
           </SelectTrigger>
           <SelectContent>
             {Object.entries(AI_ACTIONS).map(([action, description]) => {
+              if (!currentPlaylistId && action !== ACTIONS.createFromScratch)
+                return null
               return (
                 <SelectItem
                   key={action}

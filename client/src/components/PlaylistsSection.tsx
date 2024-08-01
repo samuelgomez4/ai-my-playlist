@@ -15,7 +15,7 @@ export function PlaylistsSection({
   currentPlaylistDetails,
   updateCurrentPlaylistDetails,
 }: Props) {
-  // TODO display error, loading, etc. lazyload more playlists.
+  // TODO display error, loading, etc. lazyloading playlists. Render something when user has no playlists
   const { playlists, error, isLoading, hasNext } = usePlaylists(token)
   useInitialPlaylistDetails(playlists, updateCurrentPlaylistDetails)
   return (

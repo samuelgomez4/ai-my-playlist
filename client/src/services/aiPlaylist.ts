@@ -3,22 +3,24 @@ import type { AxiosError, AxiosResponse } from 'axios'
 import axios from 'axios'
 import { ACTIONS, BACKEND_API_URL } from '@/constants'
 import type {
-  CreateFromSelected,
-  FromSelected,
+  CreateFromSelectedParams,
+  FromSelectedParams,
   GetPlaylistRes,
   AiPlaylistParams,
   SongsForAi,
+  ListOfEncryptedIds,
+  SongsUrisToAdd,
+  SongId,
 } from '@/types'
-import { fetchSongs } from './songs'
+import { addSongs, fetchSongs, getTracksEndpoint } from './spotifyAPI'
 import { filterPlaylistItemsDataForAi } from './filterPlaylistItemsData'
 
 // function getTracksUrls = ({ })
-async function fromSelected({ token, tracksEndpoint }: FromSelected) {
-  const response: AxiosResponse = await fetchSongs({
+async function fromSelected({ token, tracksEndpoint }: FromSelectedParams) {
+  const playlistRes: GetPlaylistRes = await fetchSongs({
     tracksEndpoint,
     userToken: token,
   })
-  const playlistRes: GetPlaylistRes = response.data
   const { next } = playlistRes
   const playlistsItems = filterPlaylistItemsDataForAi(playlistRes)
   const songsIds: string[] = []
@@ -31,23 +33,28 @@ async function fromSelected({ token, tracksEndpoint }: FromSelected) {
   return { next, songsIds, encryptedSongs }
 }
 
-// async function createFromSelected({
-//   prompt,
-//   token,
-//   tracksEndpoint,
-//   createdPlaylistId,
-// }: CreateFromSelected) {
-//   const { songsIds, encryptedSongs } = await fromSelected({
-//     token,
-//     tracksEndpoint,
-//   })
+async function createFromSelected({
+  prompt,
+  token,
+  tracksEndpoint,
+  playlistId,
+}: CreateFromSelectedParams) {
+  const { songsIds, encryptedSongs } = await fromSelected({
+    token,
+    tracksEndpoint,
+  })
+  const response = await axios.post(`${BACKEND_API_URL}/create-from-selected`, {
+    prompt,
+    encryptedSongs,
+  })
+  const listOfEncryptedIds = response.data as ListOfEncryptedIds
+  const songsUrisToAdd = listOfEncryptedIds.map((encryptedId) => {
+    const songId = songsIds[encryptedId]
+    return `spotify:track:${songId}`
+  }) as SongsUrisToAdd
+  await addSongs({ token, playlistId, songsUrisToAdd })
+}
 
-//   const response = await axios.post(`${BACKEND_API_URL}/create-from-selected`, {
-//     prompt,
-//     encryptedSongs,
-//   })
-//   const listOfEncryptedIds: string[] = response.data
-// }
 export function aiPlaylist({
   prompt,
   action,
@@ -56,17 +63,15 @@ export function aiPlaylist({
 }: AiPlaylistParams) {
   // eslint-disable-next-line default-case
   switch (action) {
-    case ACTIONS.createFromSelected:
-      {
-        const tracksEndpoint = `https://api.spotify.com/v1/playlists/${currentPlaylistId}/tracks?offset=0&limit=50`
-        fromSelected({ token, tracksEndpoint }).then(
-          ({ songsIds, encryptedSongs }) => {
-            console.log(songsIds)
-            console.log(encryptedSongs)
-          }
-        )
-      }
-
+    case ACTIONS.createFromSelected: {
+      const tracksEndpoint = getTracksEndpoint({
+        playlistId: currentPlaylistId,
+        limit: '20',
+      })
+      fromSelected({ token, tracksEndpoint }).then(({ encryptedSongs }) =>
+        console.log(encryptedSongs)
+      )
       break
+    }
   }
 }

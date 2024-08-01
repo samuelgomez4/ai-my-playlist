@@ -7,6 +7,7 @@ interface Props {
   currentPlaylistSongs: PlaylistItems | null
 }
 export function Songs({ currentPlaylistSongs }: Props) {
+  // TODO: render something when user has no playlists
   return (
     <div className="flex-1 rounded-lg border border-input bg-background">
       <ScrollArea className="h-96">

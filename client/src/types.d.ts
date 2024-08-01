@@ -1,4 +1,4 @@
-import type { AI_ACTIONS } from './constants'
+import type { ACTIONS, AI_ACTIONS } from './constants'
 import type { useToken } from './hooks/useToken'
 import type {
   filterPlaylistItemsDataForAi,
@@ -24,10 +24,10 @@ export interface PlayListsRes {
   offset: number
   previous: string | null
   total: number
-  items: Item[]
+  items: Playlist[]
 }
 
-export interface Item {
+export interface Playlist {
   collaborative: boolean
   description: string
   external_urls: ExternalUrls
@@ -43,6 +43,8 @@ export interface Item {
   type: 'playlist'
   uri: string
 }
+
+export type PlaylistId = Playlist['id']
 
 export interface ExternalUrls {
   spotify: string
@@ -72,7 +74,8 @@ export interface PlayListsItemsError {
   error: Error
 }
 
-export type NextEndpoint = Pick<PlayListsRes, 'next'>
+export type NextEndpoint = PlayListsRes['next']
+
 export interface GetPlaylistRes {
   href: string
   items: PlaylistItem[]
@@ -128,6 +131,8 @@ export interface Track {
   is_local: boolean
 }
 
+export type SongId = Track['id']
+
 export interface Album {
   available_markets: string[]
   type: AlbumTypeEnum
@@ -172,19 +177,38 @@ export type SongsForAi = ReturnType<typeof filterPlaylistItemsDataForAi>
 export type Song = PlaylistItems[number]
 export type Token = ReturnType<typeof useToken>
 
-export type AIAction = keyof typeof AI_ACTIONS
+export type FromSratchAction = typeof ACTIONS.createFromScratch
+export type FromSelectedAction = keyof Omit<typeof AI_ACTIONS, FromSratchAction>
+export type AIAction = FromSratchAction | FromSelectedAction
 
-export interface AiPlaylistParams {
+export interface AiPlaylistFromScratch {
   prompt: string
-  action: AIAction
+  action: FromSratchAction
   token: Token
-  currentPlaylistId: string | undefined
+  currentPlaylistId: PlaylistId | undefined
 }
-export interface FromSelected {
+export interface AiPlaylistFromSelected {
+  prompt: string
+  action: FromSelectedAction
+  token: Token
+  currentPlaylistId: PlaylistId
+}
+export type AiPlaylistParams = AiPlaylistFromScratch | AiPlaylistFromSelected
+
+export interface FromSelectedParams {
   token: Token
   tracksEndpoint: string
 }
-export interface CreateFromSelected extends FromSelected {
+export interface CreateFromSelectedParams extends FromSelectedParams {
   prompt: string
-  createdPlaylistId: string
+  playlistId: PlaylistId
+}
+
+export type ListOfEncryptedIds = `${number}`[]
+
+export type SongsUrisToAdd = `spotify:track:${SongId}`[]
+export interface AddSongsParams {
+  token: Token
+  playlistId: PlaylistId
+  songsUrisToAdd: SongsUrisToAdd
 }

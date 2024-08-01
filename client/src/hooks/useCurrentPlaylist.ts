@@ -9,7 +9,7 @@ import type {
   Token,
 } from '@/types'
 import { filterPlaylistItemsDataToShow } from '@/services/filterPlaylistItemsData'
-import { fetchSongs, getTracksEndpoint } from '@/services/songs'
+import { fetchSongs, getTracksEndpoint } from '@/services/spotifyAPI'
 
 export function useCurrentPlaylist(token: Token) {
   const [currentPlaylistDetails, setCurrentPlaylistDetails] =
