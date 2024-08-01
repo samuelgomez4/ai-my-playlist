@@ -14,3 +14,17 @@ export type TokenBody = {
 export type RefreshBody = {
   refreshToken: string
 }
+
+type SongsForAi = {
+  id: string
+  name: string
+  artists: {
+    name: string | undefined
+  }[]
+  album: {
+    name: string
+  }
+  duration: string
+  releaseDate: string
+  addedByUserAt: string
+}[]

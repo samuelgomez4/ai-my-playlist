@@ -1,0 +1,401 @@
+[
+    {
+        "id": "0",
+        "name": "En Cero",
+        "artists": [
+            {
+                "name": "Yandel"
+            },
+            {
+                "name": "Sebastian Yatra"
+            },
+            {
+                "name": "Manuel Turizo"
+            }
+        ],
+        "album": {
+            "name": "En Cero"
+        },
+        "duration": "3:43",
+        "releaseDate": "May 23, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "1",
+        "name": "Callaita",
+        "artists": [
+            {
+                "name": "Bad Bunny"
+            },
+            {
+                "name": "Tainy"
+            }
+        ],
+        "album": {
+            "name": "Callaita"
+        },
+        "duration": "4:10",
+        "releaseDate": "May 30, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "2",
+        "name": "Latina (feat. Maluma)",
+        "artists": [
+            {
+                "name": "Reykon"
+            },
+            {
+                "name": "Maluma"
+            }
+        ],
+        "album": {
+            "name": "Latina (feat. Maluma)"
+        },
+        "duration": "3:46",
+        "releaseDate": "May 30, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "3",
+        "name": "Amor Genuino",
+        "artists": [
+            {
+                "name": "Ozuna"
+            }
+        ],
+        "album": {
+            "name": "Amor Genuino"
+        },
+        "duration": "2:59",
+        "releaseDate": "Jun 3, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "4",
+        "name": "Te Soñé De Nuevo",
+        "artists": [
+            {
+                "name": "Ozuna"
+            }
+        ],
+        "album": {
+            "name": "Te Soñé De Nuevo"
+        },
+        "duration": "3:19",
+        "releaseDate": "Jun 5, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "5",
+        "name": "Cúrame (feat. Manuel Turizo)",
+        "artists": [
+            {
+                "name": "Prince Royce"
+            },
+            {
+                "name": "Manuel Turizo"
+            }
+        ],
+        "album": {
+            "name": "Cúrame (feat. Manuel Turizo)"
+        },
+        "duration": "3:23",
+        "releaseDate": "Jun 6, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "6",
+        "name": "Loco Contigo (with J. Balvin & Tyga)",
+        "artists": [
+            {
+                "name": "DJ Snake"
+            },
+            {
+                "name": "J Balvin"
+            },
+            {
+                "name": "Tyga"
+            }
+        ],
+        "album": {
+            "name": "Loco Contigo (with J. Balvin & Tyga)"
+        },
+        "duration": "3:05",
+        "releaseDate": "Jun 12, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "7",
+        "name": "Dile la Verdad - Remix",
+        "artists": [
+            {
+                "name": "Jowell & Randy"
+            },
+            {
+                "name": "Manuel Turizo"
+            },
+            {
+                "name": "Lyanno"
+            },
+            {
+                "name": "Mau y Ricky"
+            },
+            {
+                "name": "The Rudeboys"
+            }
+        ],
+        "album": {
+            "name": "Dile la Verdad Remix"
+        },
+        "duration": "4:35",
+        "releaseDate": "Jun 13, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "8",
+        "name": "Runaway",
+        "artists": [
+            {
+                "name": "Sebastian Yatra"
+            },
+            {
+                "name": "Daddy Yankee"
+            },
+            {
+                "name": "NATTI NATASHA"
+            },
+            {
+                "name": "Jonas Brothers"
+            }
+        ],
+        "album": {
+            "name": "Runaway"
+        },
+        "duration": "3:20",
+        "releaseDate": "Jun 20, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "9",
+        "name": "Si Supieras",
+        "artists": [
+            {
+                "name": "Daddy Yankee"
+            },
+            {
+                "name": "Wisin & Yandel"
+            }
+        ],
+        "album": {
+            "name": "Si Supieras"
+        },
+        "duration": "4:01",
+        "releaseDate": "Jun 27, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "10",
+        "name": "Una Vida Para Recordar",
+        "artists": [
+            {
+                "name": "Piso 21"
+            },
+            {
+                "name": "Myke Towers"
+            }
+        ],
+        "album": {
+            "name": "Una Vida Para Recordar"
+        },
+        "duration": "3:35",
+        "releaseDate": "Jul 4, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "11",
+        "name": "China",
+        "artists": [
+            {
+                "name": "Anuel AA"
+            },
+            {
+                "name": "Daddy Yankee"
+            },
+            {
+                "name": "KAROL G"
+            },
+            {
+                "name": "J Balvin"
+            },
+            {
+                "name": "Ozuna"
+            }
+        ],
+        "album": {
+            "name": "China"
+        },
+        "duration": "5:01",
+        "releaseDate": "Jul 18, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "12",
+        "name": "Loco",
+        "artists": [
+            {
+                "name": "Beéle"
+            }
+        ],
+        "album": {
+            "name": "Loco"
+        },
+        "duration": "3:24",
+        "releaseDate": "Aug 7, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "13",
+        "name": "Tutu",
+        "artists": [
+            {
+                "name": "Camilo"
+            },
+            {
+                "name": "Pedro Capó"
+            }
+        ],
+        "album": {
+            "name": "Tutu"
+        },
+        "duration": "2:58",
+        "releaseDate": "Aug 8, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "14",
+        "name": "Mami",
+        "artists": [
+            {
+                "name": "Piso 21"
+            },
+            {
+                "name": "Black Eyed Peas"
+            }
+        ],
+        "album": {
+            "name": "Mami"
+        },
+        "duration": "3:49",
+        "releaseDate": "Aug 8, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "15",
+        "name": "Adicto (with Anuel AA & Ozuna)",
+        "artists": [
+            {
+                "name": "Tainy"
+            },
+            {
+                "name": "Anuel AA"
+            },
+            {
+                "name": "Ozuna"
+            }
+        ],
+        "album": {
+            "name": "Adicto (with Anuel AA & Ozuna)"
+        },
+        "duration": "4:30",
+        "releaseDate": "Aug 21, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "16",
+        "name": "Indeciso",
+        "artists": [
+            {
+                "name": "Reik"
+            },
+            {
+                "name": "J Balvin"
+            },
+            {
+                "name": "Lalo Ebratt"
+            }
+        ],
+        "album": {
+            "name": "Indeciso"
+        },
+        "duration": "3:37",
+        "releaseDate": "Aug 22, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "17",
+        "name": "Te Quemaste",
+        "artists": [
+            {
+                "name": "Manuel Turizo"
+            },
+            {
+                "name": "Anuel AA"
+            }
+        ],
+        "album": {
+            "name": "ADN"
+        },
+        "duration": "3:19",
+        "releaseDate": "Aug 22, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "18",
+        "name": "El Favor (with Nicky Jam & Sech, feat. Farruko, Zion & Lunay)",
+        "artists": [
+            {
+                "name": "Dímelo Flow"
+            },
+            {
+                "name": "Nicky Jam"
+            },
+            {
+                "name": "Sech"
+            },
+            {
+                "name": "Farruko"
+            },
+            {
+                "name": "Zion"
+            },
+            {
+                "name": "Lunay"
+            }
+        ],
+        "album": {
+            "name": "El Favor (with Nicky Jam & Sech, feat. Farruko, Zion & Lunay)"
+        },
+        "duration": "3:53",
+        "releaseDate": "Aug 29, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    },
+    {
+        "id": "19",
+        "name": "Bota Fuego - con Nicky Jam",
+        "artists": [
+            {
+                "name": "Mau y Ricky"
+            },
+            {
+                "name": "Nicky Jam"
+            }
+        ],
+        "album": {
+            "name": "Bota Fuego (con Nicky Jam)"
+        },
+        "duration": "3:43",
+        "releaseDate": "Oct 10, 2019",
+        "addedByUserAt": "Sep 20, 2023"
+    }
+]

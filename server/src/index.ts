@@ -35,6 +35,10 @@ app.get('/login', (_, res) => {
 
 app.post('/token', (req, res) => {
   const { authCode, authState } = <TokenBody>req.body
+  if (!authCode || !authState) {
+    res.status(400).send('code and state are required')
+    return
+  }
   // TODO: validate state
   const spotifyApi = new SpotifyWebApi({
     redirectUri: REDIRECT_URI,
@@ -60,6 +64,10 @@ app.post('/token', (req, res) => {
 
 app.post('/refresh', (req, res) => {
   const { refreshToken } = <RefreshBody>req.body
+  if (!refreshToken) {
+    res.status(400).send('token is required')
+    return
+  }
   const spotifyApi = new SpotifyWebApi({
     redirectUri: REDIRECT_URI,
     clientId: CLIENT_ID,
