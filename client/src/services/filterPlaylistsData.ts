@@ -9,7 +9,7 @@ export function filterPlaylistsData(playlistsRes: PlayListsRes) {
       public: playlist.public,
       owner: playlist.owner.display_name,
       numberTracks: playlist.tracks.total,
-      imageUrl: playlist.images[0].url,
+      imageUrl: playlist.images ? playlist.images[0].url : '',
     }
   })
 }

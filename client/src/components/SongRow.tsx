@@ -14,7 +14,6 @@ export function SongRow({ song }: Props) {
           alt="Song Album Thumbnail"
           width={48}
           height={48}
-          className="rounded-lg"
         />
         <div className="overflow-hidden flex flex-col justify-center">
           <p

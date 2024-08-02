@@ -3,6 +3,7 @@ import type {
   GetProfileRes,
   Playlist,
   PlaylistId,
+  SearchRes,
   SongId,
   Token,
   UserId,
@@ -39,6 +40,17 @@ export function getUserProfileEndpoint() {
 
 export function getCreatePlaylistEndpoint(id: UserId) {
   return `https://api.spotify.com/v1/users/${id}/playlists`
+}
+
+export function getSearchEndpoint({ query }: { query: string }) {
+  const queryParams = {
+    q: query,
+    type: 'track',
+    limit: '1',
+  }
+  const searchParams = new URLSearchParams(queryParams)
+  const queryParamsString = searchParams.toString()
+  return `https://api.spotify.com/v1/search?${queryParamsString}`
 }
 
 export function getSongUri({ songId }: { songId: SongId }) {
@@ -97,14 +109,15 @@ export async function getUserId({ token }: { token: Token }) {
 
 export async function createPlaylist({
   token,
+  userId,
   name,
   description,
 }: {
   token: Token
+  userId: UserId
   name: string
   description: string
 }) {
-  const userId = await getUserId({ token })
   const createPlaylistEndpoint = getCreatePlaylistEndpoint(userId)
   const createPlaylistBody = {
     name,
@@ -122,6 +135,24 @@ export async function createPlaylist({
       createPlaylistHeaders
     )) as Playlist
     return createPlaylistRes.id
+  } catch {
+    handleError()
+  }
+}
+
+export async function searchSong({
+  query,
+  token,
+}: {
+  query: string
+  token: Token
+}) {
+  const searchEndpoint = getSearchEndpoint({ query })
+  try {
+    const searchRes = (await makeGetRequest(searchEndpoint, {
+      Authorization: `Bearer ${token}`,
+    })) as SearchRes
+    return searchRes
   } catch {
     handleError()
   }

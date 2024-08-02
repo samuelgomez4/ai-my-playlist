@@ -19,10 +19,12 @@ import type {
   GetNameAndDescriptionReq,
   NameAndDescription,
   ListOfEncryptedIds,
+  GetQueriesReq,
 } from './types'
 import { respondWithIdsToAddFromSelected } from './vercel-ai-sdk/idsToAddFromSelected'
 import { respondWithNameAndDescription } from './vercel-ai-sdk/createNameAndDescription'
 import { parseStringOrJson, verifyAIResponse } from './utils/verifyResponse'
+import { respondWithQueriesToAdd } from './vercel-ai-sdk/songsQueriesToAdd'
 
 const app = express()
 // avoid cors error
@@ -67,10 +69,10 @@ app.post('/token', (req, res) => {
         expiresIn: data.body.expires_in,
       })
     })
-    .catch((e) => {
-      res.status(400).json({
-        message: `An error occurred while processing your request: ${e}`,
-      })
+    .catch(() => {
+      res
+        .status(400)
+        .json({ message: 'There was a problem with the authentication' })
     })
 })
 
@@ -94,10 +96,10 @@ app.post('/refresh', (req, res) => {
         expiresIn: data.body.expires_in,
       })
     })
-    .catch((e) => {
-      res.status(400).json({
-        message: `An error occurred while processing your request: ${e}`,
-      })
+    .catch(() => {
+      res
+        .status(400)
+        .json({ message: 'There was a problem with reauthentication' })
     })
 })
 
@@ -122,9 +124,7 @@ app.post('/name-and-description', (req, res) => {
       res.json(nameAndDescription)
     })
     .catch((e: Error) => {
-      res.status(400).json({
-        message: e.message,
-      })
+      res.status(400).json(e)
     })
 })
 
@@ -150,10 +150,35 @@ app.post('/get-songs-from-selected', (req, res) => {
       res.json(listOfEncryptedIdsToAdd)
     })
     .catch((e: Error) => {
-      res.status(400).json({
-        message: `An error occurred while processing your request: ${e.message}`,
-      })
+      res.status(400).json(e)
     })
 })
 
+app.post('/get-songs-queries', (req, res) => {
+  const { prompt, encryptedSongs } = <GetQueriesReq>req.body
+  if (!prompt) {
+    res.status(400).send('prompt and encryptedSongs are required')
+    return
+  }
+  if (prompt.length > MAX_LENGTH_PROMPT) {
+    res.status(400).send('prompt is too long')
+    return
+  }
+  respondWithQueriesToAdd({
+    prompt,
+    encryptedSongs: JSON.stringify(encryptedSongs),
+  })
+    .then((response) => {
+      const parsedResponse = parseStringOrJson(response) as string[] | string
+      const listOfQueriesToAdd = verifyAIResponse(parsedResponse)
+      if (listOfQueriesToAdd.length > 50) {
+        res.json(listOfQueriesToAdd.slice(0, 50))
+        return
+      }
+      res.json(listOfQueriesToAdd)
+    })
+    .catch((e: Error) => {
+      res.status(400).json(e)
+    })
+})
 app.listen(3000)

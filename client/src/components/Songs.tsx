@@ -23,10 +23,11 @@ export function Songs({ currentPlaylistSongs }: Props) {
           </TableHeader>
           <TableBody>
             {currentPlaylistSongs &&
-              currentPlaylistSongs.map((song) => {
+              currentPlaylistSongs.map((song, index) => {
                 return (
                   <SongRow
-                    key={song.id}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={`${song.id}-${index}`}
                     song={song}
                   />
                 )

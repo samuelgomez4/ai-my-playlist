@@ -39,6 +39,10 @@ export interface GetSongsFromSelectedReq extends GetNameAndDescriptionReq {
   encryptedSongs: SongsForAiString
 }
 
+export interface GetQueriesReq extends GetNameAndDescriptionReq {
+  encryptedSongs: SongsForAiString | ''
+}
+
 export type NameAndDescription = {
   name: string
   description: string

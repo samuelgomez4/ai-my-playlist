@@ -20,6 +20,23 @@ export async function createPlaylistNameAndDescription({
   return nameResponse
 }
 
+export async function getSongsQueriesToAdd({
+  prompt,
+  encryptedSongs = '',
+}: {
+  prompt: string
+  encryptedSongs?: SongsForAi | ''
+}) {
+  const songsQueries = (await makePostRequest(
+    `${BACKEND_API_URL}/get-songs-queries`,
+    {
+      prompt,
+      encryptedSongs,
+    }
+  )) as string[]
+  return songsQueries
+}
+
 export async function getSongsToAddFromSelected({
   prompt,
   encryptedSongs,

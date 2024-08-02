@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BACKEND_API_URL } from '../constants'
+import { Button } from './ui/button'
 
 interface Props {
   authError: string | null
@@ -23,17 +24,18 @@ export function Login({ authError }: Props) {
   }, [authError])
 
   return (
-    <>
-      <button
+    <div className="flex flex-col items-center justify-center h-screen">
+      <Button
         type="button"
-        onClick={handleClick}>
+        onClick={handleClick}
+        className="mb-4">
         Connect to Spotify
-      </button>
+      </Button>
       {error && (
-        <p className="error">
+        <p className="text-red-500">
           Couldn&apos;t connect to Spotify: {error}. Try again later
         </p>
       )}
-    </>
+    </div>
   )
 }

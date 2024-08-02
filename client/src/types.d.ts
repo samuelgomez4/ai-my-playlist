@@ -33,7 +33,7 @@ export interface Playlist {
   external_urls: ExternalUrls
   href: string
   id: string
-  images: Image[]
+  images: Image[] | null
   name: string
   owner: Owner
   primary_color: null | string
@@ -203,6 +203,11 @@ export interface CreateFromSelectedParams extends FromSelectedParams {
   prompt: string
 }
 
+export type CreateFromScratchParams = Omit<
+  CreateFromSelectedParams,
+  'tracksEndpoint'
+>
+
 export type ListOfIds = `${SongId}`[]
 export type ListOfEncryptedIds = `${number}`[]
 
@@ -247,4 +252,18 @@ export type UserId = GetProfileRes['id']
 
 export interface AIResponse {
   text: string
+}
+
+export interface SearchRes {
+  tracks: Songs
+}
+
+export interface Songs {
+  href: string
+  items: Track[]
+  limit: number
+  next: string
+  offset: number
+  previous: null
+  total: number
 }

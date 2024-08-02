@@ -22,7 +22,9 @@ export function usePlaylists(token: string | undefined) {
       })
       .then((res: AxiosResponse) => {
         const playlistsRes: PlayListsRes = res.data
+        console.log(playlistsRes)
         const playlistsItems = filterPlaylistsData(playlistsRes)
+        console.log(playlistsItems)
         setPlaylists(playlistsItems)
       })
       .catch((e: AxiosError) => {

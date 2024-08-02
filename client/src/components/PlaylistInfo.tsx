@@ -7,16 +7,19 @@ interface Props {
 export function PlaylistInfo({ currentPlaylistDetails }: Props) {
   return (
     // TODO: render something when user has no playlists
-    <header className="flex items-start gap-4 rounded-lg border border-input bg-background p-4">
+    <header className="flex items-start gap-4 border border-input bg-background p-4">
       {currentPlaylistDetails && (
         <div>
-          <img
-            src={currentPlaylistDetails.imageUrl}
-            alt="Playlist Thumbnail"
-            width={120}
-            height={120}
-            className="rounded-lg"
-          />
+          {currentPlaylistDetails.imageUrl ? (
+            <img
+              src={currentPlaylistDetails.imageUrl}
+              alt="Playlist Thumbnail"
+              width={120}
+              height={120}
+            />
+          ) : (
+            <div className="w-32 h-32 bg-zinc-900" />
+          )}
           <div className="flex-1">
             <h1 className="font-medium">{currentPlaylistDetails.name}</h1>
             <p className="text-xs text-muted-foreground">
