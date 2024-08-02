@@ -28,3 +28,20 @@ type SongsForAi = {
   releaseDate: string
   addedByUserAt: string
 }[]
+
+export type SongsForAiString = `${SongsForAi}`
+
+export interface GetNameAndDescriptionReq {
+  prompt: string
+}
+
+export interface GetSongsFromSelectedReq extends GetNameAndDescriptionReq {
+  encryptedSongs: SongsForAiString
+}
+
+export type NameAndDescription = {
+  name: string
+  description: string
+}
+
+export type ListOfEncryptedIds = `${number}`[]

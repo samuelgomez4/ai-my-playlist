@@ -10,7 +10,18 @@ import {
   REDIRECT_URI,
   SCOPE,
 } from './constants'
-import type { TokenBody, QueryParams, RefreshBody } from './types'
+import type {
+  TokenBody,
+  QueryParams,
+  RefreshBody,
+  GetSongsFromSelectedReq,
+  GetNameAndDescriptionReq,
+  NameAndDescription,
+  ListOfEncryptedIds,
+} from './types'
+import { respondWithIdsToAddFromSelected } from './vercel-ai-sdk/idsToAddFromSelected'
+import { respondWithNameAndDescription } from './vercel-ai-sdk/createNameAndDescription'
+import { parseStringOrJson, verifyAIResponse } from './utils/verifyResponse'
 
 const app = express()
 // avoid cors error
@@ -89,4 +100,51 @@ app.post('/refresh', (req, res) => {
     })
 })
 
-app.listen(8888)
+app.post('/name-and-description', (req, res) => {
+  const { prompt } = <GetNameAndDescriptionReq>req.body
+  if (!prompt) {
+    res.status(400).send('prompt is required')
+    return
+  }
+  respondWithNameAndDescription({
+    prompt,
+  })
+    .then((AIResponse) => {
+      const parsedResponse = parseStringOrJson(AIResponse) as
+        | NameAndDescription
+        | string
+      const nameAndDescription = verifyAIResponse(parsedResponse)
+      res.json(nameAndDescription)
+    })
+    .catch((e: Error) => {
+      res.status(400).json({
+        message: e.message,
+      })
+    })
+})
+
+app.post('/get-songs-from-selected', (req, res) => {
+  const { prompt, encryptedSongs } = <GetSongsFromSelectedReq>req.body
+  if (!prompt || !encryptedSongs) {
+    res.status(400).send('prompt and encryptedSongs are required')
+    return
+  }
+  respondWithIdsToAddFromSelected({
+    prompt,
+    encryptedSongs: JSON.stringify(encryptedSongs),
+  })
+    .then((response) => {
+      const parsedResponse = parseStringOrJson(response) as
+        | ListOfEncryptedIds
+        | string
+      const listOfEncryptedIdsToAdd = verifyAIResponse(parsedResponse)
+      res.json(listOfEncryptedIdsToAdd)
+    })
+    .catch((e: Error) => {
+      res.status(400).json({
+        message: `An error occurred while processing your request: ${e.message}`,
+      })
+    })
+})
+
+app.listen(3000)
