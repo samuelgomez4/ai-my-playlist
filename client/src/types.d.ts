@@ -201,9 +201,9 @@ export interface FromSelectedParams {
 }
 export interface CreateFromSelectedParams extends FromSelectedParams {
   prompt: string
-  playlistId: PlaylistId
 }
 
+export type ListOfIds = `${SongId}`[]
 export type ListOfEncryptedIds = `${number}`[]
 
 export type SongsUrisToAdd = `spotify:track:${SongId}`[]
@@ -211,4 +211,40 @@ export interface AddSongsParams {
   token: Token
   playlistId: PlaylistId
   songsUrisToAdd: SongsUrisToAdd
+}
+
+export type NameAndDescription = {
+  name: string
+  description: string
+}
+
+export interface GetProfileRes {
+  display_name: string
+  external_urls: ExternalUrls
+  href: string
+  id: string
+  images: Image[]
+  type: string
+  uri: string
+  followers: Followers
+  country: string
+  product: string
+  explicit_content: ExplicitContent
+  email: string
+}
+
+export interface ExplicitContent {
+  filter_enabled: boolean
+  filter_locked: boolean
+}
+
+export interface Followers {
+  href: null
+  total: number
+}
+
+export type UserId = GetProfileRes['id']
+
+export interface AIResponse {
+  text: string
 }

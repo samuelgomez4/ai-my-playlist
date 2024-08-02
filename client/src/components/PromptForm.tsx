@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { AIAction, AiPlaylistParams, Token } from '@/types'
 import { Button } from './ui/button'
 import { Textarea } from './ui/textarea'
@@ -16,18 +17,28 @@ interface Props {
   currentPlaylistId: string | undefined
 }
 export function PromptForm({ token, currentPlaylistId }: Props) {
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const fields = new window.FormData(event.target as HTMLFormElement)
     const prompt = fields.get('prompt') as string
     const action = fields.get('action') as AIAction
     if (!prompt || !action) return
+    setError('')
+    setIsLoading(true)
     aiPlaylist({
       prompt,
       action,
       token,
       currentPlaylistId,
     } as AiPlaylistParams)
+      ?.catch((e: Error) => {
+        setError(e.message)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
   // TODO: change styles of the textarea and select if any of their values is undefined
   // or currentPlaylistId is undefined
@@ -62,6 +73,8 @@ export function PromptForm({ token, currentPlaylistId }: Props) {
         </Select>
         <Button type="submit">AI My Playlist</Button>
       </div>
+      {error && <p className="text-red-500">{error}</p>}
+      {isLoading && <p>Loading...</p>}
     </form>
   )
 }

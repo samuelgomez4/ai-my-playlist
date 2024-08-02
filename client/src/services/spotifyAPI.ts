@@ -1,12 +1,17 @@
-import type { AxiosError } from 'axios'
-import axios from 'axios'
 import type {
   AddSongsParams,
-  GetPlaylistRes,
+  GetProfileRes,
+  Playlist,
   PlaylistId,
-  PlayListsItemsError,
+  SongId,
   Token,
+  UserId,
 } from '@/types'
+import { makeGetRequest, makePostRequest } from './axiosRequests'
+
+function handleError(): never {
+  throw new Error('An error occurred while fetching data from Spotify')
+}
 
 export function getTracksEndpoint({
   playlistId,
@@ -28,6 +33,18 @@ export function getAddSongsEndpoint({
   return `https://api.spotify.com/v1/playlists/${playlistId}/tracks`
 }
 
+export function getUserProfileEndpoint() {
+  return 'https://api.spotify.com/v1/me'
+}
+
+export function getCreatePlaylistEndpoint(id: UserId) {
+  return `https://api.spotify.com/v1/users/${id}/playlists`
+}
+
+export function getSongUri({ songId }: { songId: SongId }) {
+  return `spotify:track:${songId}`
+}
+
 export async function fetchSongs({
   tracksEndpoint,
   userToken,
@@ -36,15 +53,12 @@ export async function fetchSongs({
   userToken: Token
 }) {
   try {
-    const res = await axios.get(tracksEndpoint, {
-      headers: { Authorization: `Bearer ${userToken}` },
+    const playlistRes = await makeGetRequest(tracksEndpoint, {
+      Authorization: `Bearer ${userToken}`,
     })
-    const playlistRes: GetPlaylistRes = res.data
     return playlistRes
-  } catch (error) {
-    const axiosError = error as AxiosError
-    const playlistsItemsError = axiosError.response?.data as PlayListsItemsError
-    throw playlistsItemsError.error
+  } catch {
+    handleError()
   }
 }
 
@@ -63,10 +77,52 @@ export async function addSongs({
     'Content-Type': 'application/json',
   }
   try {
-    await axios.post(addSongsEndpoint, addSongBody, { headers: addSongHeaders })
-  } catch (error) {
-    const axiosError = error as AxiosError
-    const playlistsItemsError = axiosError.response?.data as PlayListsItemsError
-    throw playlistsItemsError.error
+    await makePostRequest(addSongsEndpoint, addSongBody, addSongHeaders)
+  } catch {
+    handleError()
+  }
+}
+
+export async function getUserId({ token }: { token: Token }) {
+  try {
+    const userProfileEndpoint = getUserProfileEndpoint()
+    const userProfileRes = (await makeGetRequest(userProfileEndpoint, {
+      Authorization: `Bearer ${token}`,
+    })) as GetProfileRes
+    return userProfileRes.id
+  } catch {
+    handleError()
+  }
+}
+
+export async function createPlaylist({
+  token,
+  name,
+  description,
+}: {
+  token: Token
+  name: string
+  description: string
+}) {
+  const userId = await getUserId({ token })
+  const createPlaylistEndpoint = getCreatePlaylistEndpoint(userId)
+  const createPlaylistBody = {
+    name,
+    description,
+    public: false,
+  }
+  const createPlaylistHeaders = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  }
+  try {
+    const createPlaylistRes = (await makePostRequest(
+      createPlaylistEndpoint,
+      createPlaylistBody,
+      createPlaylistHeaders
+    )) as Playlist
+    return createPlaylistRes.id
+  } catch {
+    handleError()
   }
 }

@@ -16,7 +16,7 @@ export function PlaylistsSection({
   updateCurrentPlaylistDetails,
 }: Props) {
   // TODO display error, loading, etc. lazyloading playlists. Render something when user has no playlists
-  const { playlists, error, isLoading, hasNext } = usePlaylists(token)
+  const { playlists, error, isLoading } = usePlaylists(token)
   useInitialPlaylistDetails(playlists, updateCurrentPlaylistDetails)
   return (
     <ScrollArea className="h-72">
