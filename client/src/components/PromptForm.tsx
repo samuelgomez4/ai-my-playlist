@@ -47,6 +47,7 @@ export function PromptForm({ token, currentPlaylistId }: Props) {
       className="flex flex-col gap-4"
       onSubmit={handleSubmit}>
       <Textarea
+        maxLength={400}
         name="prompt"
         placeholder="Enter a prompt to generate a playlist..."
         className="resize-none rounded-lg border border-input bg-background p-4 text-sm"

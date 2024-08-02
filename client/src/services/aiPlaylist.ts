@@ -22,7 +22,6 @@ import {
   getSongsToAddFromSelected,
 } from './backendAPI'
 
-// function getTracksUrls = ({ })
 async function fromSelected({ token, tracksEndpoint }: FromSelectedParams) {
   const playlistRes: GetPlaylistRes = await fetchSongs({
     tracksEndpoint,
@@ -33,8 +32,10 @@ async function fromSelected({ token, tracksEndpoint }: FromSelectedParams) {
   const encryptedSongs: SongsForAi = []
   // encrypt ids to avoid sending spotify ids to AI model
   playlistsItems.forEach((song, index) => {
-    songsIds.push(song.id)
-    encryptedSongs.push({ ...song, id: String(index) })
+    songsIds.push(song[0] as string)
+    // eslint-disable-next-line no-param-reassign
+    song[0] = String(index)
+    encryptedSongs.push(song)
   })
   return { songsIds, encryptedSongs }
 }

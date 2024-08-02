@@ -49,24 +49,20 @@ export function filterPlaylistItemsDataToShow(getPlaylistRes: GetPlaylistRes) {
 export function filterPlaylistItemsDataForAi(getPlaylistRes: GetPlaylistRes) {
   const playlistItems = getPlaylistRes.items.map((item) => {
     const artists = item.track.artists.map((artist) => {
-      return {
-        name: artist.name,
-      }
+      return artist.name
     })
     const releaseDate = formatDate(item.track.album.release_date)
     const addedByUserAt = formatDate(item.added_at)
     const duration = formatDuration(item.track.duration_ms)
-    return {
-      id: item.track.id,
-      name: item.track.name,
+    return [
+      item.track.id,
+      item.track.name,
       artists,
-      album: {
-        name: item.track.album.name,
-      },
+      item.track.album.name,
       duration,
       releaseDate,
       addedByUserAt,
-    }
+    ]
   })
   return playlistItems
 }

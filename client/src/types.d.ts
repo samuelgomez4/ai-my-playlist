@@ -88,23 +88,23 @@ export interface GetPlaylistRes {
 
 export interface PlaylistItem {
   added_at: string
-  added_by: AddedBy
+  added_by: Person
   is_local: boolean
   primary_color: null
   track: Track
   video_thumbnail: VideoThumbnail
 }
 
-export interface AddedBy {
+export interface Person {
   external_urls: ExternalUrls
   href: string
   id: string
-  type: AddedByType
+  type: PersonType
   uri: string
-  name?: string
+  name: string
 }
 
-export enum AddedByType {
+export enum PersonType {
   Artist = 'artist',
   User = 'user',
 }
@@ -117,7 +117,7 @@ export interface Track {
   episode: boolean
   track: boolean
   album: Album
-  artists: AddedBy[]
+  artists: Person[]
   disc_number: number
   track_number: number
   duration_ms: number
@@ -144,7 +144,7 @@ export interface Album {
   release_date: string
   release_date_precision: ReleaseDatePrecision
   uri: string
-  artists: AddedBy[]
+  artists: Person[]
   external_urls: ExternalUrls
   total_tracks: number
 }
