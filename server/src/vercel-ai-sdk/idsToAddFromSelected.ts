@@ -11,8 +11,9 @@ export async function respondWithIdsToAddFromSelected({
 }: GetSongsFromSelectedReq) {
   const { text } = await generateText({
     model: google('models/gemini-1.5-pro-latest'),
-    system: `You are an assistant who recieves a list of objects that represent tracks of a playlist 
-    in spotify. The user would like to create a new playlist based on the current playlist or simply edit the 
+    system: `You are an assistant who recieves a list of lists that represent tracks of a playlist. The shape
+    of each one of the internal list is the following: [id, name, artists[], album, duration, releaseDate, addedByUserAt].
+    The user would like to create a new playlist based on the current playlist or simply edit the 
     current playlist. Your task as an assistant is filter the list and simply return a list with ONLY the ids 
     of the tracks using the prompt and the list of the current message from the user. You CANNOT reply with 
     something that is not a list of ids of the tracks. That is, you don't reply with words, only the list of 
@@ -34,22 +35,6 @@ export async function respondWithIdsToAddFromSelected({
       {
         role: 'user',
         content: `What's the capital of France ${encryptedSongsString}`,
-      },
-      {
-        role: 'assistant',
-        content: `I'm sorry I can't help you with that. Try again with another prompt.`,
-      },
-      {
-        role: 'user',
-        content: `Incluye canciones que duren mas de 4 min ${encryptedSongsString}`,
-      },
-      {
-        role: 'assistant',
-        content: '[1, 7, 9, 11, 15]',
-      },
-      {
-        role: 'user',
-        content: `Que pesa mas, un kilo de plumas o un kilo de hierro? ${encryptedSongsString}`,
       },
       {
         role: 'assistant',

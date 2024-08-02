@@ -20,3 +20,5 @@ export const AI_ERROR_MESSAGES = {
   noMatch: 'It seems like none of your current songs meets the criteria',
   refuseHelp: `I'm sorry I can't help you with that. Try again with another prompt.`,
 }
+
+export const MAX_LENGTH_PROMPT = 400

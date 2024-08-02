@@ -6,7 +6,7 @@ export async function respondWithNameAndDescription({
   prompt,
 }: GetNameAndDescriptionReq) {
   const { text } = await generateText({
-    model: google('models/gemini-1.5-pro-latest'),
+    model: google('models/gemini-1.5-flash-latest'),
     maxTokens: 100,
     system: `You are an assistant who recieves an instruction to create a new playlist either from scratch or having
     another playlist as context. Your task is to respond with an javascript object in JSON that has two propeties: name, 

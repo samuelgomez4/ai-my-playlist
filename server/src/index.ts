@@ -7,6 +7,7 @@ import {
   AUTHORIZE_ENDPOINT,
   CLIENT_ID,
   CLIENT_SECRET,
+  MAX_LENGTH_PROMPT,
   REDIRECT_URI,
   SCOPE,
 } from './constants'
@@ -106,6 +107,10 @@ app.post('/name-and-description', (req, res) => {
     res.status(400).send('prompt is required')
     return
   }
+  if (prompt.length > MAX_LENGTH_PROMPT) {
+    res.status(400).send('prompt is too long')
+    return
+  }
   respondWithNameAndDescription({
     prompt,
   })
@@ -127,6 +132,10 @@ app.post('/get-songs-from-selected', (req, res) => {
   const { prompt, encryptedSongs } = <GetSongsFromSelectedReq>req.body
   if (!prompt || !encryptedSongs) {
     res.status(400).send('prompt and encryptedSongs are required')
+    return
+  }
+  if (prompt.length > MAX_LENGTH_PROMPT) {
+    res.status(400).send('prompt is too long')
     return
   }
   respondWithIdsToAddFromSelected({
