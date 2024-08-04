@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "node api/index.ts",
-    "dev": "tsx watch --env-file=.env src/api/index.ts",
+    "start": "node dist/index.js",
+    "dev": "tsx watch --env-file=.env src/index.ts",
     "ai": "tsx --env-file=.env src/vercel-ai-sdk/songsQueriesToAdd.ts",
     "vercel-build": "echo vercel-build"
   },
