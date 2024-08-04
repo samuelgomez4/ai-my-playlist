@@ -2,34 +2,38 @@ import express from 'express'
 import cors from 'cors'
 import { URLSearchParams } from 'url'
 import SpotifyWebApi from 'spotify-web-api-node'
-import { generateRandomString } from './utils/generateRandomString'
 import {
-  AUTHORIZE_ENDPOINT,
   CLIENT_ID,
+  SCOPE,
+  REDIRECT_URI,
+  AUTHORIZE_ENDPOINT,
   CLIENT_SECRET,
   MAX_LENGTH_PROMPT,
-  REDIRECT_URI,
-  SCOPE,
 } from './constants'
 import type {
-  TokenBody,
   QueryParams,
+  TokenBody,
   RefreshBody,
-  GetSongsFromSelectedReq,
   GetNameAndDescriptionReq,
   NameAndDescription,
+  GetSongsFromSelectedReq,
   ListOfEncryptedIds,
   GetQueriesReq,
 } from './types'
-import { respondWithIdsToAddFromSelected } from './vercel-ai-sdk/idsToAddFromSelected'
-import { respondWithNameAndDescription } from './vercel-ai-sdk/createNameAndDescription'
+import { generateRandomString } from './utils/generateRandomString'
 import { parseStringOrJson, verifyAIResponse } from './utils/verifyResponse'
+import { respondWithNameAndDescription } from './vercel-ai-sdk/createNameAndDescription'
+import { respondWithIdsToAddFromSelected } from './vercel-ai-sdk/idsToAddFromSelected'
 import { respondWithQueriesToAdd } from './vercel-ai-sdk/songsQueriesToAdd'
 
 const app = express()
 // avoid cors error
 app.use(cors())
 app.use(express.json())
+
+app.get('/', (_, res) => {
+  res.send('AI My Playlist API')
+})
 
 app.get('/login', (_, res) => {
   // Spotify suggests using state to avoid attacks such as cross-site request forgery
@@ -181,4 +185,5 @@ app.post('/get-songs-queries', (req, res) => {
       res.status(400).json(e)
     })
 })
-app.listen(3000)
+
+export default app
