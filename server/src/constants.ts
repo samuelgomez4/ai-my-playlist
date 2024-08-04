@@ -1,11 +1,8 @@
-import { getEnv } from './utils/getEnv'
-
 // spotify implements OAuth 2.0 framework for authorization
 export const CLIENT_ID = '6cc9fabbc6b348dcaf1a7bf2628056a0'
 export const REDIRECT_URI = 'http://localhost:5173'
 export const AUTHORIZE_ENDPOINT = 'https://accounts.spotify.com/authorize?'
-// getEnv method ensures that a string is returned
-export const CLIENT_SECRET = getEnv('CLIENT_SECRET')
+export const { CLIENT_SECRET } = process.env
 
 // scope is used to specify the access level which the user has to authorize
 export const SCOPE = `
