@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import type { AxiosError, AxiosResponse } from 'axios'
 import type {
   PlaylistItems,
   NextEndpoint,
-  PlayListsItemsError,
   GetPlaylistRes,
   PlaylistDetails,
   Token,
@@ -19,7 +17,7 @@ export function useCurrentPlaylist(token: Token) {
   // TODO display error and loading
   const [error, setError] = useState<Error | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [nextEndpoint, setnextEndpoint] = useState<NextEndpoint>({ next: null })
+  const [nextEndpoint, setnextEndpoint] = useState<NextEndpoint>(null)
   const updateCurrentPlaylistDetails = useCallback(
     (details: PlaylistDetails) => {
       setCurrentPlaylistDetails(details)
@@ -37,12 +35,11 @@ export function useCurrentPlaylist(token: Token) {
     fetchSongs({ tracksEndpoint, userToken: token })
       .then((playlistRes: GetPlaylistRes) => {
         const playlistsItems = filterPlaylistItemsDataToShow(playlistRes)
-        setnextEndpoint({ next: playlistRes.next })
+        setnextEndpoint(playlistRes.next)
         setCurrentPlaylistSongs(playlistsItems)
       })
       .catch((e: Error) => {
         setError(e)
-        console.log(e.message)
       })
       .finally(() => {
         setIsLoading(false)
@@ -52,5 +49,8 @@ export function useCurrentPlaylist(token: Token) {
     currentPlaylistDetails,
     currentPlaylistSongs,
     updateCurrentPlaylistDetails,
+    error,
+    isLoading,
+    nextEndpoint,
   }
 }
