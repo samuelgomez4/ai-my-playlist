@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import type { AxiosError, AxiosResponse } from 'axios'
+import axios from 'axios'
 import { BACKEND_API_URL } from '../constants'
 import { Button } from './ui/button'
 
@@ -7,15 +9,14 @@ interface Props {
 }
 export function Login({ authError }: Props) {
   const [error, setError] = useState<string | null>(null)
+
   const handleClick = () => {
-    fetch(`${BACKEND_API_URL}/login`)
-      .then((response) => {
-        return response.text()
+    axios
+      .get(`${BACKEND_API_URL}/login`)
+      .then((response: AxiosResponse) => {
+        window.location.replace(response.data)
       })
-      .then((authUrl) => {
-        window.location.replace(authUrl)
-      })
-      .catch((e: Error) => {
+      .catch((e: AxiosError) => {
         setError(e.message)
       })
   }
