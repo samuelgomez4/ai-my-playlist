@@ -11,7 +11,6 @@ import {
   MAX_LENGTH_PROMPT,
 } from './constants'
 import type {
-  QueryParams,
   TokenBody,
   RefreshBody,
   GetNameAndDescriptionReq,
@@ -38,7 +37,7 @@ app.get('/', (_, res) => {
 app.get('/login', (_, res) => {
   // Spotify suggests using state to avoid attacks such as cross-site request forgery
   const state = generateRandomString(16)
-  const queryParams: QueryParams = {
+  const queryParams = {
     response_type: 'code',
     client_id: CLIENT_ID,
     scope: SCOPE,
@@ -186,5 +185,5 @@ app.post('/get-songs-queries', (req, res) => {
     })
 })
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
 export default app

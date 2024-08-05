@@ -1,4 +1,6 @@
-export const BACKEND_API_URL = 'https://b-psi-sooty.vercel.app'
+export const BACKEND_API_URL = import.meta.env.PROD
+  ? 'https://b-psi-sooty.vercel.app'
+  : 'http://localhost:3000'
 
 export const ACTIONS = {
   createFromScratch: 'createFromScratch',
