@@ -141,7 +141,7 @@ export interface Album {
   album_type: AlbumTypeEnum
   href: string
   id: string
-  images: Image[]
+  images: (Image | undefined)[]
   name: string
   release_date: string
   release_date_precision: ReleaseDatePrecision
@@ -188,21 +188,21 @@ export interface AiPlaylistFromScratch {
   prompt: string
   action: FromSratchAction
   token: Token
-  currentPlaylistId: PlaylistId | undefined
+  currentPlaylistDetails: PlaylistDetails | null
   apiKey: string
 }
 export interface AiPlaylistFromSelected {
   prompt: string
   action: FromSelectedAction
   token: Token
-  currentPlaylistId: PlaylistId
+  currentPlaylistDetails: PlaylistDetails
   apiKey: string
 }
 export type AiPlaylistParams = AiPlaylistFromScratch | AiPlaylistFromSelected
 
 export interface FromSelectedParams {
   token: Token
-  tracksEndpoint: string
+  tracksEndpoints: string[]
 }
 export interface CreateFromSelectedParams extends FromSelectedParams {
   prompt: string

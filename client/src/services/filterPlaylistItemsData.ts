@@ -36,7 +36,9 @@ export function filterPlaylistItemsDataToShow(getPlaylistRes: GetPlaylistRes) {
       artists,
       album: {
         name: item.track.album.name,
-        imageUrl: item.track.album.images[0].url,
+        imageUrl: item.track.album.images[0]
+          ? item.track.album.images[0].url
+          : '',
       },
       duration,
       releaseDate,

@@ -1,4 +1,5 @@
 import type { PlaylistDetails } from '@/types'
+import { Music2Icon } from './icons/icons'
 
 interface Props {
   playlist: PlaylistDetails
@@ -19,7 +20,9 @@ export function PlaylistCard({ playlist, isActive }: Props) {
           height={64}
         />
       ) : (
-        <div className="w-16 h-16 bg-zinc-900" />
+        <div className="w-16 h-16 bg-zinc-900 flex justify-center items-center">
+          <Music2Icon className="w-8 h-8" />
+        </div>
       )}
 
       <div className="flex-1 text-left">

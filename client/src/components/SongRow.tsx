@@ -1,5 +1,6 @@
 import type { Song } from '@/types'
 import { TableRow, TableCell } from './ui/table'
+import { Music2Icon } from './icons/icons'
 
 interface Props {
   song: Song
@@ -9,12 +10,18 @@ export function SongRow({ song }: Props) {
   return (
     <TableRow>
       <TableCell className="flex gap-4">
-        <img
-          src={song.album.imageUrl}
-          alt="Song Album Thumbnail"
-          width={48}
-          height={48}
-        />
+        {song.album.imageUrl ? (
+          <img
+            src={song.album.imageUrl}
+            alt="Song Album Thumbnail"
+            width={48}
+            height={48}
+          />
+        ) : (
+          <div className="w-12 h-12 bg-zinc-900 flex justify-center items-center">
+            <Music2Icon className="w-6 h-6" />
+          </div>
+        )}
         <div className="overflow-hidden flex flex-col justify-center">
           <p
             title={song.name}

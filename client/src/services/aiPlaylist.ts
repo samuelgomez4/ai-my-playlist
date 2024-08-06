@@ -18,8 +18,8 @@ import {
   addSongs,
   createPlaylist,
   fetchSongs,
+  getAllTracksEndpoints,
   getSongUri,
-  getTracksEndpoint,
   getUserId,
   removeSongs,
   searchSong,
@@ -70,12 +70,17 @@ async function createFromScratch({
   await addSongs({ token, playlistId, songsUrisToAdd })
 }
 
-async function fromSelected({ token, tracksEndpoint }: FromSelectedParams) {
-  const playlistRes: GetPlaylistRes = await fetchSongs({
-    tracksEndpoint,
-    userToken: token,
-  })
-  const playlistsItems = filterPlaylistItemsDataForAi(playlistRes)
+async function fromSelected({ token, tracksEndpoints }: FromSelectedParams) {
+  const playlistResPromises = tracksEndpoints.map((tracksEndpoint) =>
+    limit(() => fetchSongs({ tracksEndpoint, userToken: token }))
+  )
+  const playlistResponses = (await Promise.all(
+    playlistResPromises
+  )) as GetPlaylistRes[]
+
+  const playlistsItems = playlistResponses.flatMap((playlistRes) =>
+    filterPlaylistItemsDataForAi(playlistRes)
+  )
   const songsIds: ListOfIds = []
   const encryptedSongs: SongsForAi = []
   // encrypt ids to avoid sending spotify ids to AI model
@@ -91,12 +96,12 @@ async function fromSelected({ token, tracksEndpoint }: FromSelectedParams) {
 async function createPlaylistFromSelection({
   prompt,
   token,
-  tracksEndpoint,
+  tracksEndpoints,
   apiKey,
 }: CreateFromSelectedParams) {
   const [playlistId, { songsIds, encryptedSongs }] = await Promise.all([
     createPlaylistWithAI({ prompt, token, apiKey }),
-    fromSelected({ token, tracksEndpoint }),
+    fromSelected({ token, tracksEndpoints }),
   ])
   const listOfEncryptedIdsToAdd = await respondWithIdsToAdd({
     prompt,
@@ -112,12 +117,12 @@ async function createPlaylistFromSelection({
 async function createPlaylistWithNewSongs({
   prompt,
   token,
-  tracksEndpoint,
+  tracksEndpoints,
   apiKey,
 }: CreateFromSelectedParams) {
   const [playlistId, { encryptedSongs }] = await Promise.all([
     createPlaylistWithAI({ prompt, token, apiKey }),
-    fromSelected({ token, tracksEndpoint }),
+    fromSelected({ token, tracksEndpoints }),
   ])
   const songsQueries = await respondWithQueriesToAdd({
     prompt,
@@ -135,13 +140,13 @@ async function createPlaylistWithNewSongs({
 }
 
 async function addNewSongsToSelected({
-  currentPlaylistId,
+  currentPlaylistDetails,
   prompt,
   token,
-  tracksEndpoint,
+  tracksEndpoints,
   apiKey,
 }: AddSongsToSelectedParams) {
-  const { encryptedSongs } = await fromSelected({ token, tracksEndpoint })
+  const { encryptedSongs } = await fromSelected({ token, tracksEndpoints })
   const songsQueries = await respondWithQueriesToAdd({
     prompt,
     apiKey,
@@ -154,19 +159,23 @@ async function addNewSongsToSelected({
   const songsUrisToAdd = songsToAdd.map(
     (song) => song.tracks.items[0].uri
   ) as SongsUrisToAdd
-  await addSongs({ token, playlistId: currentPlaylistId, songsUrisToAdd })
+  await addSongs({
+    token,
+    playlistId: currentPlaylistDetails.id,
+    songsUrisToAdd,
+  })
 }
 
 async function removeSongsFromSelected({
-  currentPlaylistId,
+  currentPlaylistDetails,
   prompt,
   token,
-  tracksEndpoint,
+  tracksEndpoints,
   apiKey,
 }: RemoveSongsParams) {
   const { songsIds, encryptedSongs } = await fromSelected({
     token,
-    tracksEndpoint,
+    tracksEndpoints,
   })
   const listOfEncryptedIdsToRemove = await respondWithIdsToRemove({
     prompt,
@@ -177,29 +186,33 @@ async function removeSongsFromSelected({
     const songId = songsIds[encryptedId]
     return { uri: getSongUri({ songId }) }
   }) as SongsUrisToRemove
-  await removeSongs({ token, playlistId: currentPlaylistId, songsUrisToRemove })
+  await removeSongs({
+    token,
+    playlistId: currentPlaylistDetails.id,
+    songsUrisToRemove,
+  })
 }
 
 export function aiPlaylist({
   prompt,
   action,
   token,
-  currentPlaylistId,
+  currentPlaylistDetails,
   apiKey,
 }: AiPlaylistParams) {
   if (ACTIONS.createFromScratch === action) {
     return createFromScratch({ prompt, token, apiKey })
   }
-  if (!currentPlaylistId) return
-  const tracksEndpoint = getTracksEndpoint({
-    playlistId: currentPlaylistId,
-    limit: '100',
+  if (!currentPlaylistDetails) return
+  const tracksEndpoints = getAllTracksEndpoints({
+    playlistId: currentPlaylistDetails.id,
+    numberOfTracks: currentPlaylistDetails.numberTracks,
   })
   if (ACTIONS.createFromSelected === action) {
     return createPlaylistFromSelection({
       prompt,
       token,
-      tracksEndpoint,
+      tracksEndpoints,
       apiKey,
     })
   }
@@ -207,25 +220,25 @@ export function aiPlaylist({
     return createPlaylistWithNewSongs({
       prompt,
       token,
-      tracksEndpoint,
+      tracksEndpoints,
       apiKey,
     })
   }
   if (ACTIONS.addToSelected === action) {
     return addNewSongsToSelected({
-      currentPlaylistId,
+      currentPlaylistDetails,
       prompt,
       token,
-      tracksEndpoint,
+      tracksEndpoints,
       apiKey,
     })
   }
   if (ACTIONS.removeFromSelected === action) {
     return removeSongsFromSelected({
-      currentPlaylistId,
+      currentPlaylistDetails,
       prompt,
       token,
-      tracksEndpoint,
+      tracksEndpoints,
       apiKey,
     })
   }

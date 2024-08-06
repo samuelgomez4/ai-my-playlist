@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { AIAction, AiPlaylistParams, PlayListsRes, Token } from '@/types'
+import type { AIAction, AiPlaylistParams, PlaylistDetails, PlayListsRes, Token } from '@/types'
 
 import { aiPlaylist } from '@/services/aiPlaylist'
 import { PromptForm } from './PromptFrom'
@@ -8,12 +8,12 @@ import { fetchPlaylists } from '@/services/spotifyAPI'
 
 interface Props {
   token: Token
-  currentPlaylistId: string | undefined
+  currentPlaylistDetails: PlaylistDetails | null
   updatePlaylists: (newPlaylists: PlayListsRes) => void
 }
 export function AISection({
   token,
-  currentPlaylistId,
+  currentPlaylistDetails,
   updatePlaylists,
 }: Props) {
   const [apiKey, setApiKey] = useState(() => {
@@ -38,7 +38,7 @@ export function AISection({
       prompt,
       action,
       token,
-      currentPlaylistId,
+      currentPlaylistDetails,
       apiKey,
     } as AiPlaylistParams)
       ?.then(() => {
@@ -60,7 +60,7 @@ export function AISection({
     <div>
       {apiKey ? (
         <PromptForm
-          currentPlaylistId={currentPlaylistId}
+          currentPlaylistId={currentPlaylistDetails?.id}
           handleSubmit={handleSubmit}
           error={error}
           isLoading={isLoading}

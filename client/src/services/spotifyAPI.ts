@@ -42,6 +42,26 @@ export function getTracksEndpoint({
   return `https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=${offset}&limit=${limit}`
 }
 
+export function getAllTracksEndpoints({
+  playlistId,
+  numberOfTracks,
+}: {
+  playlistId: PlaylistId
+  numberOfTracks: number
+}) {
+  const tracksEndpoints = []
+  for (let i = 0; i < numberOfTracks; i += 100) {
+    tracksEndpoints.push(
+      getTracksEndpoint({
+        playlistId,
+        offset: i.toString(),
+        limit: '100',
+      })
+    )
+  }
+  return tracksEndpoints
+}
+
 export function getAddSongsEndpoint({
   playlistId,
 }: {

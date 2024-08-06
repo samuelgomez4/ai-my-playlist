@@ -25,7 +25,7 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
           <section>
             <AISection
               token={token}
-              currentPlaylistId={currentPlaylistDetails?.id}
+              currentPlaylistDetails={currentPlaylistDetails}
               updatePlaylists={updatePlaylists}
             />
           </section>
