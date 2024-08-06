@@ -1,22 +1,19 @@
 import { useEffect, useState } from 'react'
-import type { AxiosError, AxiosResponse } from 'axios'
-import axios from 'axios'
 import { BACKEND_API_URL } from '../constants'
 import { Button } from './ui/button'
+import { makeGetRequest } from '@/services/axiosRequests'
 
 interface Props {
   authError: string | null
 }
 export function Login({ authError }: Props) {
   const [error, setError] = useState<string | null>(null)
-
   const handleClick = () => {
-    axios
-      .get(`${BACKEND_API_URL}/login`)
-      .then((response: AxiosResponse) => {
-        window.location.replace(response.data)
+    makeGetRequest(`${BACKEND_API_URL}/login`)
+      .then((response) => {
+        window.location.replace(response)
       })
-      .catch((e: AxiosError) => {
+      .catch((e) => {
         setError(e.message)
       })
   }
