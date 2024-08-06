@@ -42,7 +42,6 @@ export function useToken(tokenReqBody: TokenReqBody) {
   // 60 seconds so it's not very close to expire. For this we use the refershToken and the
   // response will be very similar to the one we got with the initial accessToken
   const refresh = useCallback(async () => {
-    console.log('refreshing token')
     try {
       const res = await makePostRequest(`${BACKEND_API_URL}/refresh`, {
         refreshToken,

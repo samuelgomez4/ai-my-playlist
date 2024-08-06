@@ -15,9 +15,10 @@ export async function respondWithQueriesToAdd({
   const google = createGoogleGenerativeAI({
     apiKey,
   })
-  const { text } = await generateText({
-    model: google('models/gemini-1.5-pro-latest'),
-    system: `You are an assistant who recieves a prompt to create/edit a playlist or suggest 
+  try {
+    const { text } = await generateText({
+      model: google('models/gemini-1.5-pro-latest'),
+      system: `You are an assistant who recieves a prompt to create/edit a playlist or suggest 
     new songs to add to a playlist. The user will send you an instruction for songs to add and 
     you will have to respond with a list (in a JSON format) of maximum 50 names of songs to add 
     including first the name of only the main artist and then immediately after without extra 
@@ -35,53 +36,59 @@ export async function respondWithQueriesToAdd({
     to the playlist. In that case you have to answer 'I'm sorry I can't help you with that. Try again 
     with another prompt.' 
     You can accept other languages other than english.`,
-    messages: [
-      {
-        role: 'user',
-        content: `create a playlist with songs played in Tomorrowland 2023`,
-      },
-      {
-        role: 'assistant',
-        content: `${JSON.stringify([
-          'David Guetta Titanium',
-          'Avicii Wake Me Up',
-          'Martin Garrix Animals',
-          'Sebastian Ingrosso Reload',
-          "Swedish House Mafia Don't You Worry Child",
-          'Don Diablo Starlight (Could You Be Mine)',
-          'DVBBS Tsunami',
-          'Martin Solveig Intoxicated',
-          'Major Lazer Lean On',
-          'Meduza Lose Control',
-          'Armin van Buuren This Is What It Feels Like',
-          'FISHER Losing It',
-          'Showtek Get Loose',
-          'Nelly Furtado Promiscuous',
-          'Afrojack Take Over Control',
-          'The Prodigy Firestarter',
-          'Dimitri Vegas & Like Mike The Hum',
-          'David Guetta Bad',
-          'Black Eyed Peas Boom Boom Pow',
-          'R3HAB On The Run',
-        ])}`,
-      },
-      {
-        role: 'user',
-        content: `What's the capital of France ${encryptedSongsString}`,
-      },
-      {
-        role: 'assistant',
-        content: `I'm sorry I can't help you with that. Try again with another prompt.`,
-      },
-      {
-        role: 'user',
-        content: `${prompt} ${encryptedSongs}`,
-      },
-    ],
-  })
-  const verifiedText = verifyAIResponse(text) as string[]
-  if (verifiedText.length > 50) {
-    verifiedText.slice(0, 50)
+      messages: [
+        {
+          role: 'user',
+          content: `create a playlist with songs played in Tomorrowland 2023`,
+        },
+        {
+          role: 'assistant',
+          content: `${JSON.stringify([
+            'David Guetta Titanium',
+            'Avicii Wake Me Up',
+            'Martin Garrix Animals',
+            'Sebastian Ingrosso Reload',
+            "Swedish House Mafia Don't You Worry Child",
+            'Don Diablo Starlight (Could You Be Mine)',
+            'DVBBS Tsunami',
+            'Martin Solveig Intoxicated',
+            'Major Lazer Lean On',
+            'Meduza Lose Control',
+            'Armin van Buuren This Is What It Feels Like',
+            'FISHER Losing It',
+            'Showtek Get Loose',
+            'Nelly Furtado Promiscuous',
+            'Afrojack Take Over Control',
+            'The Prodigy Firestarter',
+            'Dimitri Vegas & Like Mike The Hum',
+            'David Guetta Bad',
+            'Black Eyed Peas Boom Boom Pow',
+            'R3HAB On The Run',
+          ])}`,
+        },
+        {
+          role: 'user',
+          content: `What's the capital of France ${encryptedSongsString}`,
+        },
+        {
+          role: 'assistant',
+          content: `I'm sorry I can't help you with that. Try again with another prompt.`,
+        },
+        {
+          role: 'user',
+          content: `${prompt} ${encryptedSongs}`,
+        },
+      ],
+    })
+    const verifiedText = verifyAIResponse(text) as string[]
+    if (verifiedText.length > 50) {
+      verifiedText.slice(0, 50)
+    }
+    return verifiedText
+  } catch (e) {
+    const error = e as Error
+    throw new Error(
+      `There was a problem with the Gemini API: ${error.message}. If the problem persists, you might have reached the limit of requests in a minute or for the day.`
+    )
   }
-  return verifiedText
 }

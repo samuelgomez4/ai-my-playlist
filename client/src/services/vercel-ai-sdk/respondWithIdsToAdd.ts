@@ -15,9 +15,10 @@ export async function respondWithIdsToAdd({
   const google = createGoogleGenerativeAI({
     apiKey,
   })
-  const { text } = await generateText({
-    model: google('models/gemini-1.5-pro-latest'),
-    system: `You are an assistant who recieves a list of lists that represent tracks of a 
+  try {
+    const { text } = await generateText({
+      model: google('models/gemini-1.5-pro-latest'),
+      system: `You are an assistant who recieves a list of lists that represent tracks of a 
     playlist. The shapeof each one of the internal list is the following: [id, name, artists[], 
     album, duration, releaseDate, addedByUserAt]. The user would like to create a new playlist 
     based on the current playlist or simply edit the current playlist. Your task as an assistant 
@@ -31,29 +32,35 @@ export async function respondWithIdsToAdd({
     if none of the conditions are met by any of the songs and then you have to reply. 'It seems like 
     none of your current songs meets the criteria'. 
     You can accept other languages other than english.`,
-    messages: [
-      {
-        role: 'user',
-        content: `Create a playlist that contains songs of Manuel Turizo only ${encryptedSongsString}`,
-      },
-      {
-        role: 'assistant',
-        content: '[0, 5, 7, 17]',
-      },
-      {
-        role: 'user',
-        content: `What's the capital of France ${encryptedSongsString}`,
-      },
-      {
-        role: 'assistant',
-        content: `I'm sorry I can't help you with that. Try again with another prompt.`,
-      },
-      {
-        role: 'user',
-        content: `${prompt} ${encryptedSongs}`,
-      },
-    ],
-  })
-  const verifiedText = verifyAIResponse(text)
-  return verifiedText as ListOfEncryptedIds
+      messages: [
+        {
+          role: 'user',
+          content: `Create a playlist that contains songs of Manuel Turizo only ${encryptedSongsString}`,
+        },
+        {
+          role: 'assistant',
+          content: '[0, 5, 7, 17]',
+        },
+        {
+          role: 'user',
+          content: `What's the capital of France ${encryptedSongsString}`,
+        },
+        {
+          role: 'assistant',
+          content: `I'm sorry I can't help you with that. Try again with another prompt.`,
+        },
+        {
+          role: 'user',
+          content: `${prompt} ${encryptedSongs}`,
+        },
+      ],
+    })
+    const verifiedText = verifyAIResponse(text)
+    return verifiedText as ListOfEncryptedIds
+  } catch (e) {
+    const error = e as Error
+    throw new Error(
+      `There was a problem with the Gemini API: ${error.message}. If the problem persists, you might have reached the limit of requests in a minute or for the day.`
+    )
+  }
 }
