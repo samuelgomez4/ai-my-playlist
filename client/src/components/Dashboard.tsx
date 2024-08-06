@@ -6,6 +6,7 @@ import { SideBar } from './SideBar'
 import { useCurrentPlaylist } from '@/hooks/useCurrentPlaylist'
 import { useToken } from '@/hooks/useToken'
 import { usePlaylists } from '@/hooks/usePlaylists'
+import { ScrollArea } from './ui/scroll-area'
 
 export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
   const token = useToken({ authCode, authState, refreshToken })
@@ -29,11 +30,13 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
             />
           </section>
           <section className="flex-1 rounded-lg border border-input bg-background p-4 overflow-auto">
-            <PlaylistsSection
-              playlists={playlists}
-              currentPlaylistDetails={currentPlaylistDetails}
-              updateCurrentPlaylistDetails={updateCurrentPlaylistDetails}
-            />
+            <ScrollArea className="h-80">
+              <PlaylistsSection
+                playlists={playlists}
+                currentPlaylistDetails={currentPlaylistDetails}
+                updateCurrentPlaylistDetails={updateCurrentPlaylistDetails}
+              />
+            </ScrollArea>
           </section>
         </div>
         <section className="pb-4">

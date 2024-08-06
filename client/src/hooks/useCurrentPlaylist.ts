@@ -30,7 +30,7 @@ export function useCurrentPlaylist(token: Token) {
     setIsLoading(true)
     const tracksEndpoint = getTracksEndpoint({
       playlistId: currentPlaylistDetails.id,
-      limit: '20',
+      limit: '100',
     })
     fetchSongs({ tracksEndpoint, userToken: token })
       .then((playlistRes: GetPlaylistRes) => {
