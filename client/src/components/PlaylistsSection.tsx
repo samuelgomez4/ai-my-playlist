@@ -1,22 +1,20 @@
 import { ScrollArea } from '@radix-ui/react-scroll-area'
-import { usePlaylists } from '@/hooks/usePlaylists'
 import { PlaylistCard } from './PlaylistCard'
 import { useInitialPlaylistDetails } from '@/hooks/useInitialPlaylistId'
-import type { PlaylistDetails, Token } from '@/types'
+import type { PlaylistDetails, PlaylistsDetailsList } from '@/types'
 
 interface Props {
-  token: Token
+  playlists: PlaylistsDetailsList | null
   currentPlaylistDetails: PlaylistDetails | null
   updateCurrentPlaylistDetails: (details: PlaylistDetails) => void
 }
 
 export function PlaylistsSection({
-  token,
+  playlists,
   currentPlaylistDetails,
   updateCurrentPlaylistDetails,
 }: Props) {
   // TODO display error, loading, etc. lazyloading playlists. Render something when user has no playlists
-  const { playlists } = usePlaylists(token)
   useInitialPlaylistDetails(playlists, updateCurrentPlaylistDetails)
   return (
     <ScrollArea className="h-72">

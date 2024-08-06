@@ -79,6 +79,9 @@ export async function respondWithQueriesToAdd({
       },
     ],
   })
-  const verifiedText = verifyAIResponse(text)
-  return verifiedText as string[]
+  const verifiedText = verifyAIResponse(text) as string[]
+  if (verifiedText.length > 50) {
+    verifiedText.slice(0, 50)
+  }
+  return verifiedText
 }

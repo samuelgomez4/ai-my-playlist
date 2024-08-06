@@ -5,12 +5,15 @@ export const BACKEND_API_URL = import.meta.env.PROD
 export const ACTIONS = {
   createFromScratch: 'createFromScratch',
   createFromSelected: 'createFromSelected',
+  createNewSongsFromSelected: 'createNewSongs',
   // addToSelected: 'addToSelected',
   // removeFromSelected: 'removeFromSelected',
 } as const
 export const AI_ACTIONS = {
-  [ACTIONS.createFromScratch]: 'Create new playlist from scratch',
+  [ACTIONS.createFromScratch]: 'Create playlist from scratch',
   [ACTIONS.createFromSelected]: 'Create playlist from selected playlist',
+  [ACTIONS.createNewSongsFromSelected]:
+    'Create playlist with new songs from selected',
   // [ACTIONS.addToSelected]: 'Add songs to selected playlist',
   // [ACTIONS.removeFromSelected]: 'Remove songs from selected playlist',
 } as const

@@ -104,6 +104,30 @@ async function createPlaylistFromSelection({
   }) as SongsUrisToAdd
   await addSongs({ token, playlistId, songsUrisToAdd })
 }
+async function createPlaylistWithNewSongs({
+  prompt,
+  token,
+  tracksEndpoint,
+  apiKey,
+}: CreateFromSelectedParams) {
+  const [playlistId, { encryptedSongs }] = await Promise.all([
+    createPlaylistWithAI({ prompt, token, apiKey }),
+    fromSelected({ token, tracksEndpoint }),
+  ])
+  const songsQueries = await respondWithQueriesToAdd({
+    prompt,
+    apiKey,
+    encryptedSongs: JSON.stringify(encryptedSongs),
+  })
+  const songsToaddPromises = songsQueries.map((query) =>
+    limit(() => searchSong({ query, token }))
+  )
+  const songsToAdd = await Promise.all(songsToaddPromises)
+  const songsUrisToAdd = songsToAdd.map(
+    (song) => song.tracks.items[0].uri
+  ) as SongsUrisToAdd
+  await addSongs({ token, playlistId, songsUrisToAdd })
+}
 
 export function aiPlaylist({
   prompt,
@@ -112,22 +136,28 @@ export function aiPlaylist({
   currentPlaylistId,
   apiKey,
 }: AiPlaylistParams) {
-  // eslint-disable-next-line default-case
-  switch (action) {
-    case ACTIONS.createFromScratch: {
-      return createFromScratch({ prompt, token, apiKey })
-    }
-    case ACTIONS.createFromSelected: {
-      const tracksEndpoint = getTracksEndpoint({
-        playlistId: currentPlaylistId,
-        limit: '100',
-      })
-      return createPlaylistFromSelection({
-        prompt,
-        token,
-        tracksEndpoint,
-        apiKey,
-      })
-    }
+  if (ACTIONS.createFromScratch === action) {
+    return createFromScratch({ prompt, token, apiKey })
+  }
+  if (!currentPlaylistId) return
+  const tracksEndpoint = getTracksEndpoint({
+    playlistId: currentPlaylistId,
+    limit: '100',
+  })
+  if (ACTIONS.createFromSelected === action) {
+    return createPlaylistFromSelection({
+      prompt,
+      token,
+      tracksEndpoint,
+      apiKey,
+    })
+  }
+  if (ACTIONS.createNewSongsFromSelected === action) {
+    return createPlaylistWithNewSongs({
+      prompt,
+      token,
+      tracksEndpoint,
+      apiKey,
+    })
   }
 }

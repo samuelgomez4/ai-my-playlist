@@ -3,6 +3,7 @@ import type {
   GetProfileRes,
   Playlist,
   PlaylistId,
+  PlayListsRes,
   SearchRes,
   SongId,
   Token,
@@ -12,6 +13,16 @@ import { makeGetRequest, makePostRequest } from './axiosRequests'
 
 function handleError(): never {
   throw new Error('An error occurred while fetching data from Spotify')
+}
+
+export function getPlaylistEndpoint({
+  offset = '0',
+  limit = '10',
+}: {
+  offset?: string
+  limit?: string
+}) {
+  return `https://api.spotify.com/v1/me/playlists?offset=${offset}&limit=${limit}`
 }
 
 export function getTracksEndpoint({
@@ -153,6 +164,26 @@ export async function searchSong({
       Authorization: `Bearer ${token}`,
     })) as SearchRes
     return searchRes
+  } catch {
+    handleError()
+  }
+}
+
+export async function fetchPlaylists({
+  token,
+  offset = '0',
+  limit = '10',
+}: {
+  token: Token
+  offset?: string
+  limit?: string
+}) {
+  const playlistsUrl = getPlaylistEndpoint({ offset, limit })
+  try {
+    const playlistsRes = (await makeGetRequest(playlistsUrl, {
+      Authorization: `Bearer ${token}`,
+    })) as PlayListsRes
+    return playlistsRes
   } catch {
     handleError()
   }

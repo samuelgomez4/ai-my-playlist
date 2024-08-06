@@ -1,4 +1,5 @@
 import type { ACTIONS, AI_ACTIONS } from './constants'
+import type { usePlaylists } from './hooks/usePlaylists'
 import type { useToken } from './hooks/useToken'
 import type {
   filterPlaylistItemsDataForAi,
@@ -177,6 +178,7 @@ export type PlaylistItems = ReturnType<typeof filterPlaylistItemsDataToShow>
 export type SongsForAi = ReturnType<typeof filterPlaylistItemsDataForAi>
 export type Song = PlaylistItems[number]
 export type Token = ReturnType<typeof useToken>
+export type Playlists = ReturnType<typeof usePlaylists>
 
 export type FromSratchAction = typeof ACTIONS.createFromScratch
 export type FromSelectedAction = keyof Omit<typeof AI_ACTIONS, FromSratchAction>
@@ -206,11 +208,6 @@ export interface CreateFromSelectedParams extends FromSelectedParams {
   prompt: string
   apiKey: string
 }
-
-export type CreateFromScratchParams = Omit<
-  CreateFromSelectedParams,
-  'tracksEndpoint'
->
 
 export type ListOfIds = `${SongId}`[]
 export type ListOfEncryptedIds = `${number}`[]

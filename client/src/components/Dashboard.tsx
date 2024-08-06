@@ -5,9 +5,11 @@ import { AISection } from './AISection'
 import { SideBar } from './SideBar'
 import { useCurrentPlaylist } from '@/hooks/useCurrentPlaylist'
 import { useToken } from '@/hooks/useToken'
+import { usePlaylists } from '@/hooks/usePlaylists'
 
 export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
   const token = useToken({ authCode, authState, refreshToken })
+  const { playlists, updatePlaylists } = usePlaylists(token)
   const {
     currentPlaylistDetails,
     currentPlaylistSongs,
@@ -23,11 +25,12 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
             <AISection
               token={token}
               currentPlaylistId={currentPlaylistDetails?.id}
+              updatePlaylists={updatePlaylists}
             />
           </section>
           <section className="flex-1 rounded-lg border border-input bg-background p-4 overflow-auto">
             <PlaylistsSection
-              token={token}
+              playlists={playlists}
               currentPlaylistDetails={currentPlaylistDetails}
               updateCurrentPlaylistDetails={updateCurrentPlaylistDetails}
             />
