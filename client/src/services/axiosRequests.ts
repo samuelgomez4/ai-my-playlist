@@ -7,8 +7,8 @@ export async function makeGetRequest(url: string, headers?: object) {
     return res.data
   } catch (error) {
     const axiosError = error as AxiosError
-    const playlistsItemsError = axiosError.response?.data
-    throw playlistsItemsError
+    const requestError = axiosError.response?.data
+    throw requestError
   }
 }
 export async function makePostRequest(
@@ -21,7 +21,7 @@ export async function makePostRequest(
     return res.data
   } catch (error) {
     const axiosError = error as AxiosError
-    const playlistsItemsError = axiosError.response?.data
-    throw playlistsItemsError
+    const requestError = axiosError.response?.data
+    throw requestError
   }
 }

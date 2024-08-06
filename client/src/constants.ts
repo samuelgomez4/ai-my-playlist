@@ -14,3 +14,12 @@ export const AI_ACTIONS = {
   // [ACTIONS.addToSelected]: 'Add songs to selected playlist',
   // [ACTIONS.removeFromSelected]: 'Remove songs from selected playlist',
 } as const
+
+export const AI_ERROR_MESSAGES = {
+  noMatch: 'It seems like none of your current songs meets the criteria',
+  refuseHelp: `I'm sorry I can't help you with that. Try again with another prompt.`,
+}
+
+export const MAX_LENGTH_PROMPT = 400
+
+export const INITIAL_EXPIRATION_TIME = 3600

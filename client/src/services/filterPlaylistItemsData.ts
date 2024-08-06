@@ -46,6 +46,7 @@ export function filterPlaylistItemsDataToShow(getPlaylistRes: GetPlaylistRes) {
   return playlistItems
 }
 
+// TODO: decide what other data to include
 export function filterPlaylistItemsDataForAi(getPlaylistRes: GetPlaylistRes) {
   const playlistItems = getPlaylistRes.items.map((item) => {
     const artists = item.track.artists.map((artist) => {

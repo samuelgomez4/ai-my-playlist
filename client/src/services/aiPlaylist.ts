@@ -21,11 +21,9 @@ import {
   searchSong,
 } from './spotifyAPI'
 import { filterPlaylistItemsDataForAi } from './filterPlaylistItemsData'
-import {
-  createPlaylistNameAndDescription,
-  getSongsQueriesToAdd,
-  getSongsToAddFromSelected,
-} from './backendAPI'
+import { createNameAndDescription } from './vercel-ai-sdk/createNameAndDescription'
+import { respondWithQueriesToAdd } from './vercel-ai-sdk/respondWithQueriesToAdd'
+import { respondWithIdsToAdd } from './vercel-ai-sdk/respondWithIdsToAdd'
 
 const concurrencyLimit = 5
 const limit = plimit(concurrencyLimit)
@@ -33,9 +31,10 @@ const limit = plimit(concurrencyLimit)
 async function createPlaylistWithAI({
   prompt,
   token,
+  apiKey,
 }: CreateFromScratchParams) {
   const [{ name, description }, userId] = await Promise.all([
-    createPlaylistNameAndDescription({ prompt }),
+    createNameAndDescription({ prompt, apiKey }),
     getUserId({ token }),
   ])
   const createdPlaylistId = await createPlaylist({
@@ -47,10 +46,14 @@ async function createPlaylistWithAI({
   return createdPlaylistId
 }
 
-async function createFromScratch({ prompt, token }: CreateFromScratchParams) {
+async function createFromScratch({
+  prompt,
+  token,
+  apiKey,
+}: CreateFromScratchParams) {
   const [playlistId, songsQueries] = await Promise.all([
-    createPlaylistWithAI({ prompt, token }),
-    getSongsQueriesToAdd({ prompt }),
+    createPlaylistWithAI({ prompt, token, apiKey }),
+    respondWithQueriesToAdd({ prompt, apiKey }),
   ])
   const songsToaddPromises = songsQueries.map((query) =>
     limit(() => searchSong({ query, token }))
@@ -84,14 +87,16 @@ async function createPlaylistFromSelection({
   prompt,
   token,
   tracksEndpoint,
+  apiKey,
 }: CreateFromSelectedParams) {
   const [playlistId, { songsIds, encryptedSongs }] = await Promise.all([
-    createPlaylistWithAI({ prompt, token }),
+    createPlaylistWithAI({ prompt, token, apiKey }),
     fromSelected({ token, tracksEndpoint }),
   ])
-  const listOfEncryptedIdsToAdd = await getSongsToAddFromSelected({
+  const listOfEncryptedIdsToAdd = await respondWithIdsToAdd({
     prompt,
-    encryptedSongs,
+    encryptedSongs: JSON.stringify(encryptedSongs),
+    apiKey,
   })
   const songsUrisToAdd = listOfEncryptedIdsToAdd.map((encryptedId) => {
     const songId = songsIds[encryptedId]
@@ -105,18 +110,24 @@ export function aiPlaylist({
   action,
   token,
   currentPlaylistId,
+  apiKey,
 }: AiPlaylistParams) {
   // eslint-disable-next-line default-case
   switch (action) {
     case ACTIONS.createFromScratch: {
-      return createFromScratch({ prompt, token })
+      return createFromScratch({ prompt, token, apiKey })
     }
     case ACTIONS.createFromSelected: {
       const tracksEndpoint = getTracksEndpoint({
         playlistId: currentPlaylistId,
         limit: '100',
       })
-      return createPlaylistFromSelection({ prompt, token, tracksEndpoint })
+      return createPlaylistFromSelection({
+        prompt,
+        token,
+        tracksEndpoint,
+        apiKey,
+      })
     }
   }
 }

@@ -1,16 +1,13 @@
-import { useToken } from '../hooks/useToken'
 import type { TokenReqBody } from '../types'
 import { PlaylistContent } from './PlaylistContent'
 import { PlaylistsSection } from './PlaylistsSection'
-import { PromptForm } from './PromptForm'
+import { AISection } from './AISection'
 import { SideBar } from './SideBar'
 import { useCurrentPlaylist } from '@/hooks/useCurrentPlaylist'
+import { useToken } from '@/hooks/useToken'
 
-interface Props {
-  tokenReqBody: TokenReqBody
-}
-export function Dashboard({ tokenReqBody }: Props) {
-  const token = useToken(tokenReqBody)
+export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
+  const token = useToken({ authCode, authState, refreshToken })
   const {
     currentPlaylistDetails,
     currentPlaylistSongs,
@@ -23,7 +20,7 @@ export function Dashboard({ tokenReqBody }: Props) {
       <main className="flex-1 grid grid-cols-[1fr_2fr] gap-6 p-6 max-h-dvh">
         <div className="flex flex-col gap-6 pb-4">
           <section>
-            <PromptForm
+            <AISection
               token={token}
               currentPlaylistId={currentPlaylistDetails?.id}
             />

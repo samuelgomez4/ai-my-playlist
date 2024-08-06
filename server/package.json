@@ -2,10 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.ts",
-  "type": "module",
   "scripts": {
-    "dev": "tsx watch --env-file=.env api/index.ts",
-    "ai": "tsx --env-file=.env api/vercel-ai-sdk/songsQueriesToAdd.ts",
+    "dev": "tsx watch --env-file=.env src/index.ts",
+    "ai": "tsx --env-file=.env src/vercel-ai-sdk/songsQueriesToAdd.ts",
     "npm run vercel build": "echo 'vercel build'"
   },
   "keywords": [],

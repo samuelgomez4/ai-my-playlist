@@ -9,8 +9,10 @@ function App() {
     window.history.pushState({}, '', '/')
   }, [])
   const { authCode, authState, authError } = useCode()
-  return authCode ? (
-    <Dashboard tokenReqBody={{ authCode, authState }} />
+  const refreshToken = window.localStorage.getItem('refreshToken')
+  const reqToken = { authCode, authState, refreshToken }
+  return authCode || refreshToken ? (
+    <Dashboard {...reqToken} />
   ) : (
     <Login authError={authError} />
   )

@@ -7,8 +7,9 @@ import type {
 import type { filterPlaylistsData } from './services/filterPlaylistsData'
 
 export interface TokenReqBody {
-  authCode: string
+  authCode: string | null
   authState: string | null
+  refreshToken: string | defined
 }
 
 export interface TokenRes {
@@ -186,12 +187,14 @@ export interface AiPlaylistFromScratch {
   action: FromSratchAction
   token: Token
   currentPlaylistId: PlaylistId | undefined
+  apiKey: string
 }
 export interface AiPlaylistFromSelected {
   prompt: string
   action: FromSelectedAction
   token: Token
   currentPlaylistId: PlaylistId
+  apiKey: string
 }
 export type AiPlaylistParams = AiPlaylistFromScratch | AiPlaylistFromSelected
 
@@ -201,6 +204,7 @@ export interface FromSelectedParams {
 }
 export interface CreateFromSelectedParams extends FromSelectedParams {
   prompt: string
+  apiKey: string
 }
 
 export type CreateFromScratchParams = Omit<
@@ -266,4 +270,19 @@ export interface Songs {
   offset: number
   previous: null
   total: number
+}
+
+export interface AIParams {
+  prompt: string
+  apiKey: string
+}
+
+export type SongsForAiString = `${SongsForAi}`
+
+export interface EncryptedIdsReq extends AIParams {
+  encryptedSongs: SongsForAiString
+}
+
+export interface QueriesReq extends AIParams {
+  encryptedSongs?: SongsForAiString
 }

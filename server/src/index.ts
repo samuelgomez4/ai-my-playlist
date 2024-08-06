@@ -8,22 +8,9 @@ import {
   REDIRECT_URI,
   AUTHORIZE_ENDPOINT,
   CLIENT_SECRET,
-  MAX_LENGTH_PROMPT,
 } from './constants'
-import type {
-  TokenBody,
-  RefreshBody,
-  GetNameAndDescriptionReq,
-  NameAndDescription,
-  GetSongsFromSelectedReq,
-  ListOfEncryptedIds,
-  GetQueriesReq,
-} from './types'
+import type { TokenBody, RefreshBody } from './types'
 import { generateRandomString } from './utils/generateRandomString'
-import { parseStringOrJson, verifyAIResponse } from './utils/verifyResponse'
-import { respondWithNameAndDescription } from './vercel-ai-sdk/createNameAndDescription'
-import { respondWithIdsToAddFromSelected } from './vercel-ai-sdk/idsToAddFromSelected'
-import { respondWithQueriesToAdd } from './vercel-ai-sdk/songsQueriesToAdd'
 
 const app = express()
 // avoid cors error
@@ -102,86 +89,7 @@ app.post('/refresh', (req, res) => {
     .catch(() => {
       res
         .status(400)
-        .json({ message: 'There was a problem with reauthentication' })
-    })
-})
-
-app.post('/name-and-description', (req, res) => {
-  const { prompt } = <GetNameAndDescriptionReq>req.body
-  if (!prompt) {
-    res.status(400).send('prompt is required')
-    return
-  }
-  if (prompt.length > MAX_LENGTH_PROMPT) {
-    res.status(400).send('prompt is too long')
-    return
-  }
-  respondWithNameAndDescription({
-    prompt,
-  })
-    .then((AIResponse) => {
-      const parsedResponse = parseStringOrJson(AIResponse) as
-        | NameAndDescription
-        | string
-      const nameAndDescription = verifyAIResponse(parsedResponse)
-      res.json(nameAndDescription)
-    })
-    .catch((e: Error) => {
-      res.status(400).json(e)
-    })
-})
-
-app.post('/get-songs-from-selected', (req, res) => {
-  const { prompt, encryptedSongs } = <GetSongsFromSelectedReq>req.body
-  if (!prompt || !encryptedSongs) {
-    res.status(400).send('prompt and encryptedSongs are required')
-    return
-  }
-  if (prompt.length > MAX_LENGTH_PROMPT) {
-    res.status(400).send('prompt is too long')
-    return
-  }
-  respondWithIdsToAddFromSelected({
-    prompt,
-    encryptedSongs: JSON.stringify(encryptedSongs),
-  })
-    .then((response) => {
-      const parsedResponse = parseStringOrJson(response) as
-        | ListOfEncryptedIds
-        | string
-      const listOfEncryptedIdsToAdd = verifyAIResponse(parsedResponse)
-      res.json(listOfEncryptedIdsToAdd)
-    })
-    .catch((e: Error) => {
-      res.status(400).json(e)
-    })
-})
-
-app.post('/get-songs-queries', (req, res) => {
-  const { prompt, encryptedSongs } = <GetQueriesReq>req.body
-  if (!prompt) {
-    res.status(400).send('prompt and encryptedSongs are required')
-    return
-  }
-  if (prompt.length > MAX_LENGTH_PROMPT) {
-    res.status(400).send('prompt is too long')
-    return
-  }
-  respondWithQueriesToAdd({
-    prompt,
-    encryptedSongs: JSON.stringify(encryptedSongs),
-  })
-    .then((response) => {
-      const parsedResponse = parseStringOrJson(response) as string[] | string
-      const listOfQueriesToAdd = verifyAIResponse(parsedResponse)
-      if (listOfQueriesToAdd.length > 50) {
-        res.json(listOfQueriesToAdd.slice(0, 50))
-        return
-      }
-      res.json(listOfQueriesToAdd)
-    })
-    .catch((e: Error) => {
-      res.status(400).json(e)
+        .json({ message: 'There was a problem keeping the user logged in' })
     })
 })
 
