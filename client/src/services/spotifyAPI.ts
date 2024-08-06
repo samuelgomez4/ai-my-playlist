@@ -4,12 +4,17 @@ import type {
   Playlist,
   PlaylistId,
   PlayListsRes,
+  RemoveParams,
   SearchRes,
   SongId,
   Token,
   UserId,
 } from '@/types'
-import { makeGetRequest, makePostRequest } from './axiosRequests'
+import {
+  makeDeleteRequest,
+  makeGetRequest,
+  makePostRequest,
+} from './axiosRequests'
 
 function handleError(): never {
   throw new Error('An error occurred while fetching data from Spotify')
@@ -44,6 +49,8 @@ export function getAddSongsEndpoint({
 }) {
   return `https://api.spotify.com/v1/playlists/${playlistId}/tracks`
 }
+
+export const getRemoveSongsEndpoint = getAddSongsEndpoint
 
 export function getUserProfileEndpoint() {
   return 'https://api.spotify.com/v1/me'
@@ -102,6 +109,30 @@ export async function addSongs({
   try {
     await makePostRequest(addSongsEndpoint, addSongBody, addSongHeaders)
   } catch {
+    handleError()
+  }
+}
+
+export async function removeSongs({
+  token,
+  playlistId,
+  songsUrisToRemove,
+}: RemoveParams) {
+  const removeSongsEndpoint = getRemoveSongsEndpoint({ playlistId })
+  const removeSongBody = {
+    tracks: songsUrisToRemove,
+  }
+  const removeSongHeaders = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  }
+  try {
+    await makeDeleteRequest(
+      removeSongsEndpoint,
+      removeSongBody,
+      removeSongHeaders
+    )
+  } catch (error) {
     handleError()
   }
 }

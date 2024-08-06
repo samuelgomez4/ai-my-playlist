@@ -28,7 +28,7 @@ export async function respondWithQueriesToAdd({
     [id, name, artists[], album, duration, releaseDate, addedByUserAt]. In case the user includes 
     the list is for you to have context but you have to suggest songs that are different from the 
     ones the user already have. Your task as an assistant is simply return the list with ONLY the 
-    names and artists of new songs. You CANNOT reply with something that is not a list of ids of 
+    names and artists of new songs. You CANNOT reply with something that is not a list of 
     the tracks. That is, you don't reply with words, only the list of songs. The only reason you 
     reply with something else that is not a list is if the user prompt contains or asks for 
     something that is not related with creating a new playlist or edit the playlist or add new songs 

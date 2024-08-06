@@ -9,7 +9,10 @@ import type {
   SongsForAi,
   SongsUrisToAdd,
   ListOfIds,
+  AddSongsToSelectedParams,
   CreateFromScratchParams,
+  RemoveSongsParams,
+  SongsUrisToRemove,
 } from '@/types'
 import {
   addSongs,
@@ -18,12 +21,14 @@ import {
   getSongUri,
   getTracksEndpoint,
   getUserId,
+  removeSongs,
   searchSong,
 } from './spotifyAPI'
 import { filterPlaylistItemsDataForAi } from './filterPlaylistItemsData'
 import { createNameAndDescription } from './vercel-ai-sdk/createNameAndDescription'
 import { respondWithQueriesToAdd } from './vercel-ai-sdk/respondWithQueriesToAdd'
 import { respondWithIdsToAdd } from './vercel-ai-sdk/respondWithIdsToAdd'
+import { respondWithIdsToRemove } from './vercel-ai-sdk/respondWithIdsToRemove'
 
 const concurrencyLimit = 5
 const limit = plimit(concurrencyLimit)
@@ -129,6 +134,52 @@ async function createPlaylistWithNewSongs({
   await addSongs({ token, playlistId, songsUrisToAdd })
 }
 
+async function addNewSongsToSelected({
+  currentPlaylistId,
+  prompt,
+  token,
+  tracksEndpoint,
+  apiKey,
+}: AddSongsToSelectedParams) {
+  const { encryptedSongs } = await fromSelected({ token, tracksEndpoint })
+  const songsQueries = await respondWithQueriesToAdd({
+    prompt,
+    apiKey,
+    encryptedSongs: JSON.stringify(encryptedSongs),
+  })
+  const songsToaddPromises = songsQueries.map((query) =>
+    limit(() => searchSong({ query, token }))
+  )
+  const songsToAdd = await Promise.all(songsToaddPromises)
+  const songsUrisToAdd = songsToAdd.map(
+    (song) => song.tracks.items[0].uri
+  ) as SongsUrisToAdd
+  await addSongs({ token, playlistId: currentPlaylistId, songsUrisToAdd })
+}
+
+async function removeSongsFromSelected({
+  currentPlaylistId,
+  prompt,
+  token,
+  tracksEndpoint,
+  apiKey,
+}: RemoveSongsParams) {
+  const { songsIds, encryptedSongs } = await fromSelected({
+    token,
+    tracksEndpoint,
+  })
+  const listOfEncryptedIdsToRemove = await respondWithIdsToRemove({
+    prompt,
+    encryptedSongs: JSON.stringify(encryptedSongs),
+    apiKey,
+  })
+  const songsUrisToRemove = listOfEncryptedIdsToRemove.map((encryptedId) => {
+    const songId = songsIds[encryptedId]
+    return { uri: getSongUri({ songId }) }
+  }) as SongsUrisToRemove
+  await removeSongs({ token, playlistId: currentPlaylistId, songsUrisToRemove })
+}
+
 export function aiPlaylist({
   prompt,
   action,
@@ -154,6 +205,24 @@ export function aiPlaylist({
   }
   if (ACTIONS.createNewSongsFromSelected === action) {
     return createPlaylistWithNewSongs({
+      prompt,
+      token,
+      tracksEndpoint,
+      apiKey,
+    })
+  }
+  if (ACTIONS.addToSelected === action) {
+    return addNewSongsToSelected({
+      currentPlaylistId,
+      prompt,
+      token,
+      tracksEndpoint,
+      apiKey,
+    })
+  }
+  if (ACTIONS.removeFromSelected === action) {
+    return removeSongsFromSelected({
+      currentPlaylistId,
       prompt,
       token,
       tracksEndpoint,

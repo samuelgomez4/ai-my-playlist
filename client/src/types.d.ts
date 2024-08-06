@@ -209,14 +209,33 @@ export interface CreateFromSelectedParams extends FromSelectedParams {
   apiKey: string
 }
 
+export interface CreateFromScratchParams {
+  prompt: string
+  token: Token
+  apiKey: string
+}
+export type AddSongsToSelectedParams = Omit<AiPlaylistFromSelected, 'action'> &
+  CreateFromSelectedParams
+
+export type RemoveSongsParams = AddSongsToSelectedParams
+
 export type ListOfIds = `${SongId}`[]
 export type ListOfEncryptedIds = `${number}`[]
 
 export type SongsUrisToAdd = `spotify:track:${SongId}`[]
+
+export type SongsUrisToRemove = { uri: `spotify:track:${SongId}` }[]
+
 export interface AddSongsParams {
   token: Token
   playlistId: PlaylistId
   songsUrisToAdd: SongsUrisToAdd
+}
+
+export interface RemoveParams {
+  token: Token
+  playlistId: PlaylistId
+  songsUrisToRemove: SongsUrisToRemove
 }
 
 export type NameAndDescription = {

@@ -25,3 +25,18 @@ export async function makePostRequest(
     throw requestError
   }
 }
+
+export async function makeDeleteRequest(
+  url: string,
+  body: object,
+  headers?: object
+) {
+  try {
+    const res = await axios.delete(url, { headers, data: body })
+    return res.data
+  } catch (error) {
+    const axiosError = error as AxiosError
+    const requestError = axiosError.response?.data
+    throw requestError
+  }
+}
