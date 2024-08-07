@@ -36,7 +36,7 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
               updatePlaylists={updatePlaylists}
             />
           </section>
-          <section className="rounded-lg h-full border border-input bg-background  overflow-auto">
+          <section className="rounded-lg h-full border border-input bg-background overflow-auto p-4">
             <ScrollArea className="h-full">
               <PlaylistsSection
                 playlists={playlists}
