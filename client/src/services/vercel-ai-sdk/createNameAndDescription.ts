@@ -66,10 +66,9 @@ export async function createNameAndDescription({ prompt, apiKey }: AIParams) {
     })
     const verifiedText = verifyAIResponse(text)
     return verifiedText as NameAndDescription
-  } catch (e) {
-    const error = e as Error
+  } catch {
     throw new Error(
-      `There was a problem with the Gemini API: ${error.message}. If the problem persists, you might have reached the limit of requests in a minute or for the day.`
+      'Try again with another prompt. If the problem persists, you might have reached the limit of requests in a minute or for the day.'
     )
   }
 }

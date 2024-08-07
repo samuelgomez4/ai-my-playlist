@@ -85,10 +85,9 @@ export async function respondWithQueriesToAdd({
       verifiedText.slice(0, 50)
     }
     return verifiedText
-  } catch (e) {
-    const error = e as Error
+  } catch {
     throw new Error(
-      `There was a problem with the Gemini API: ${error.message}. If the problem persists, you might have reached the limit of requests in a minute or for the day.`
+      'Try again with another prompt. If the problem persists, you might have reached the limit of requests in a minute or for the day.'
     )
   }
 }
