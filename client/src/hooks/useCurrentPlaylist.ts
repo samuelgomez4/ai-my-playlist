@@ -13,7 +13,7 @@ export function useCurrentPlaylist(token: Token) {
   const [currentPlaylistDetails, setCurrentPlaylistDetails] =
     useState<PlaylistDetails | null>(null)
   const [currentPlaylistSongs, setCurrentPlaylistSongs] =
-    useState<PlaylistItems | null>(null)
+    useState<PlaylistItems>([])
   // TODO display error and loading
   const [error, setError] = useState<Error | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -26,6 +26,7 @@ export function useCurrentPlaylist(token: Token) {
       })
       setCurrentPlaylistDetails(details)
       setnextEndpoint(tracksEndpoint)
+      setCurrentPlaylistSongs([])
     },
     []
   )
@@ -40,7 +41,7 @@ export function useCurrentPlaylist(token: Token) {
       })
       const playlistsItems = filterPlaylistItemsDataToShow(playlistRes)
       setnextEndpoint(playlistRes.next)
-      setCurrentPlaylistSongs(playlistsItems)
+      setCurrentPlaylistSongs((prev) => [...prev, ...playlistsItems])
     } catch (e) {
       const fetchSongsError = e as Error
       setError(fetchSongsError)
