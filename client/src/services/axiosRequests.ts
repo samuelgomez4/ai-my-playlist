@@ -6,9 +6,9 @@ export async function makeGetRequest(url: string, headers?: object) {
     const res = await axios.get(url, { headers })
     return res.data
   } catch (error) {
+    console.log(error)
     const axiosError = error as AxiosError
-    const requestError = axiosError.response?.data
-    throw requestError
+    throw axiosError
   }
 }
 export async function makePostRequest(

@@ -1,4 +1,4 @@
-# Como funciona?
+# ¿Cómo funciona?
 Spotify tiene una nueva funcionalidad en la que se pueden crear playlists a partir de un prompt. Basicamente se genera una playlist desde cero y el usuario puede decidir hacer mas modificaciones a partir de esta playlist que se creó. Sin embargo, no existe una funcionalidad en la que el usuaio pueda modificar una playlist de su perfil ya existente con AI o crear una nueva playlist que además del prompt pueda tener una playlist que yo quiera como contexto. Además la funcionalidad de AI de Spotify está limitada a solo usuarios premium y no está disponible en todas las regiones por ahora. Por eso AI My Playlist ofrece 4 funcionalidades para crear una playlist o modificar una ya existente:
 
 - Create playlist from scratch: Esta funcionalidad es parecida a la de spotify en la que el usuario escribe un prompt y la aplicación crea una playlist nueva y le adiciona canciones basado en el prompt.

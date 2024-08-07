@@ -1,3 +1,4 @@
+import InfiniteScroll from 'react-infinite-scroll-component'
 import type { TokenReqBody } from '../types'
 import { PlaylistContent } from './PlaylistContent'
 import { PlaylistsSection } from './PlaylistsSection'
@@ -15,6 +16,8 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
     currentPlaylistDetails,
     currentPlaylistSongs,
     updateCurrentPlaylistDetails,
+    nextEndpoint,
+    fetchSongsForCurrentPlaylist,
   } = useCurrentPlaylist(token)
   // TODO fix scrolls
   return (
@@ -31,11 +34,17 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
           </section>
           <section className="flex-1 rounded-lg border border-input bg-background p-4 overflow-auto">
             <ScrollArea className="h-80">
+              {/* <InfiniteScroll
+                dataLength={currentPlaylistSongs?.length ?? 0}
+                next={fetchSongsForCurrentPlaylist}
+                hasMore={Boolean(nextEndpoint)}
+                loader={<h4>Loading...</h4>}> */}
               <PlaylistsSection
                 playlists={playlists}
                 currentPlaylistDetails={currentPlaylistDetails}
                 updateCurrentPlaylistDetails={updateCurrentPlaylistDetails}
               />
+              {/* </InfiniteScroll> */}
             </ScrollArea>
           </section>
         </div>

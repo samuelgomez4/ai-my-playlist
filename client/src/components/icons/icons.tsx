@@ -1,7 +1,7 @@
 interface Props {
-  className?: string
+  className: string
 }
-export function Music2Icon({ className = '' }: Props) {
+export function Music2Icon({ className }: Props) {
   return (
     <svg
       className={className}
@@ -24,7 +24,7 @@ export function Music2Icon({ className = '' }: Props) {
   )
 }
 
-export function SettingsIcon({ className = '' }: Props) {
+export function SettingsIcon({ className }: Props) {
   return (
     <svg
       className={className}
@@ -47,7 +47,7 @@ export function SettingsIcon({ className = '' }: Props) {
   )
 }
 
-export function XIcon({ className = '' }: Props) {
+export function XIcon({ className }: Props) {
   return (
     <svg
       className={className}

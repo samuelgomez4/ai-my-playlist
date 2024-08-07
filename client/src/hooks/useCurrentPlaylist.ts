@@ -20,33 +20,40 @@ export function useCurrentPlaylist(token: Token) {
   const [nextEndpoint, setnextEndpoint] = useState<NextEndpoint>(null)
   const updateCurrentPlaylistDetails = useCallback(
     (details: PlaylistDetails) => {
+      const tracksEndpoint = getTracksEndpoint({
+        playlistId: details.id,
+        limit: '10',
+      })
       setCurrentPlaylistDetails(details)
+      setnextEndpoint(tracksEndpoint)
     },
     []
   )
+  const fetchSongsForCurrentPlaylist = useCallback(async () => {
+    if (!token || !currentPlaylistDetails?.id || !nextEndpoint) return
+    setIsLoading(true)
+    setError(null)
+    try {
+      const playlistRes: GetPlaylistRes = await fetchSongs({
+        tracksEndpoint: nextEndpoint,
+        userToken: token,
+      })
+      const playlistsItems = filterPlaylistItemsDataToShow(playlistRes)
+      setnextEndpoint(playlistRes.next)
+      setCurrentPlaylistSongs(playlistsItems)
+    } catch (e) {
+      const fetchSongsError = e as Error
+      setError(fetchSongsError)
+    } finally {
+      setIsLoading(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token, currentPlaylistDetails])
 
   useEffect(() => {
-    if (!token || !currentPlaylistDetails?.id) return
-    setIsLoading(true)
-    const tracksEndpoint = getTracksEndpoint({
-      playlistId: currentPlaylistDetails.id,
-      limit: '20',
-    })
-    fetchSongs({ tracksEndpoint, userToken: token })
-      .then((playlistRes: GetPlaylistRes) => {
-        const playlistsItems = filterPlaylistItemsDataToShow(playlistRes)
-        console.log(playlistRes)
-        setnextEndpoint(playlistRes.next)
-        setCurrentPlaylistSongs(playlistsItems)
-      })
-      .catch((e: Error) => {
-        console.log(e)
-        setError(e)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }, [token, currentPlaylistDetails])
+    fetchSongsForCurrentPlaylist()
+  }, [fetchSongsForCurrentPlaylist, currentPlaylistDetails])
+
   return {
     currentPlaylistDetails,
     currentPlaylistSongs,
@@ -54,5 +61,6 @@ export function useCurrentPlaylist(token: Token) {
     error,
     isLoading,
     nextEndpoint,
+    fetchSongsForCurrentPlaylist,
   }
 }
