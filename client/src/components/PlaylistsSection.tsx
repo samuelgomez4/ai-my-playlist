@@ -3,7 +3,7 @@ import { useInitialPlaylistDetails } from '@/hooks/useInitialPlaylistId'
 import type { PlaylistDetails, PlaylistsDetailsList } from '@/types'
 
 interface Props {
-  playlists: PlaylistsDetailsList | null
+  playlists: PlaylistsDetailsList
   currentPlaylistDetails: PlaylistDetails | null
   updateCurrentPlaylistDetails: (details: PlaylistDetails) => void
 }

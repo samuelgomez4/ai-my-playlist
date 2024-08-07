@@ -3,6 +3,8 @@ import axios from 'axios'
 
 export async function makeGetRequest(url: string, headers?: object) {
   try {
+    console.log('url', url)
+    console.log('headers', headers)
     const res = await axios.get(url, { headers })
     return res.data
   } catch (error) {

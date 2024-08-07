@@ -22,7 +22,7 @@ export function useCurrentPlaylist(token: Token) {
     (details: PlaylistDetails) => {
       const tracksEndpoint = getTracksEndpoint({
         playlistId: details.id,
-        limit: '10',
+        limit: '50',
       })
       setCurrentPlaylistDetails(details)
       setnextEndpoint(tracksEndpoint)
@@ -30,7 +30,7 @@ export function useCurrentPlaylist(token: Token) {
     },
     []
   )
-  const fetchSongsForCurrentPlaylist = useCallback(async () => {
+  const fetchSongsForCurrentPlaylist = async () => {
     if (!token || !currentPlaylistDetails?.id || !nextEndpoint) return
     setIsLoading(true)
     setError(null)
@@ -48,12 +48,12 @@ export function useCurrentPlaylist(token: Token) {
     } finally {
       setIsLoading(false)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, currentPlaylistDetails])
+  }
 
   useEffect(() => {
     fetchSongsForCurrentPlaylist()
-  }, [fetchSongsForCurrentPlaylist, currentPlaylistDetails])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPlaylistDetails])
 
   return {
     currentPlaylistDetails,

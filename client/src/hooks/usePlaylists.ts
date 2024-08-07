@@ -1,31 +1,56 @@
-import { useEffect, useState } from 'react'
-import type { PlaylistsDetailsList, PlayListsRes } from '../types'
+import { useEffect, useRef, useState } from 'react'
+import type { NextEndpoint, PlaylistsDetailsList, PlayListsRes } from '../types'
 import { filterPlaylistsData } from '@/services/filterPlaylistsData'
-import { fetchPlaylists } from '@/services/spotifyAPI'
+import { fetchPlaylists, getPlaylistsEndpoint } from '@/services/spotifyAPI'
 
 export function usePlaylists(token: string | undefined) {
-  const [playlists, setPlaylists] = useState<PlaylistsDetailsList | null>(null)
+  const isFirstRender = useRef(true)
+  const [playlists, setPlaylists] = useState<PlaylistsDetailsList>([])
+  const [nextEndpoint, setNextEndpoint] = useState<NextEndpoint | null>(() =>
+    getPlaylistsEndpoint({ limit: '10' })
+  )
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const updatePlaylists = (newPlaylists: PlayListsRes) => {
+  const updatePlaylists = (newPlaylists: PlayListsRes, reset = false) => {
     const playlistsItems = filterPlaylistsData(newPlaylists)
-    setPlaylists(playlistsItems)
+    if (reset) {
+      setPlaylists(playlistsItems)
+    } else {
+      setPlaylists((prevPlaylists) => [...prevPlaylists, ...playlistsItems])
+    }
   }
-  // indicates whether there are more playlists to fetch or not
+  const fetchPlaylistsForUser = async () => {
+    if (!nextEndpoint) return
+    setIsLoading(true)
+    setError(null)
+    try {
+      const playlistsRes = await fetchPlaylists({
+        token,
+        playlistsUrl: nextEndpoint,
+      })
+      updatePlaylists(playlistsRes)
+      setNextEndpoint(playlistsRes.next)
+    } catch (e) {
+      const playlistsError = e as Error
+      setError(playlistsError.message)
+    } finally {
+      setIsLoading(false)
+    }
+  }
   useEffect(() => {
-    if (!token) return
-    // return only 10 playlists initially
-    fetchPlaylists({ token })
-      .then((playlistsRes) => {
-        updatePlaylists(playlistsRes)
-      })
-      .catch((e) => {
-        const playlistsItemsError = e as Error
-        setError(playlistsItemsError.message)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
+    if (!token || !nextEndpoint) return
+    if (!isFirstRender.current) return
+    fetchPlaylistsForUser().then(() => {
+      isFirstRender.current = false
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
-  return { playlists, error, isLoading, updatePlaylists }
+  return {
+    playlists,
+    error,
+    isLoading,
+    updatePlaylists,
+    nextEndpoint,
+    fetchPlaylistsForUser,
+  }
 }

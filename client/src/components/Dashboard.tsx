@@ -1,4 +1,3 @@
-import InfiniteScroll from 'react-infinite-scroll-component'
 import type { TokenReqBody } from '../types'
 import { PlaylistContent } from './PlaylistContent'
 import { PlaylistsSection } from './PlaylistsSection'
@@ -8,10 +7,16 @@ import { useCurrentPlaylist } from '@/hooks/useCurrentPlaylist'
 import { useToken } from '@/hooks/useToken'
 import { usePlaylists } from '@/hooks/usePlaylists'
 import { ScrollArea } from './ui/scroll-area'
+import { Button } from './ui/button'
 
 export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
   const token = useToken({ authCode, authState, refreshToken })
-  const { playlists, updatePlaylists } = usePlaylists(token)
+  const {
+    playlists,
+    nextEndpoint: nextEndpointPlaylist,
+    updatePlaylists,
+    fetchPlaylistsForUser,
+  } = usePlaylists(token)
   const {
     currentPlaylistDetails,
     currentPlaylistSongs,
@@ -34,17 +39,18 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
           </section>
           <section className="flex-1 rounded-lg border border-input bg-background p-4 overflow-auto">
             <ScrollArea className="h-80">
-              {/* <InfiniteScroll
-                dataLength={currentPlaylistSongs?.length ?? 0}
-                next={fetchSongsForCurrentPlaylist}
-                hasMore={Boolean(nextEndpoint)}
-                loader={<h4>Loading...</h4>}> */}
               <PlaylistsSection
                 playlists={playlists}
                 currentPlaylistDetails={currentPlaylistDetails}
                 updateCurrentPlaylistDetails={updateCurrentPlaylistDetails}
               />
-              {/* </InfiniteScroll> */}
+              {nextEndpointPlaylist && (
+                <div className="flex justify-center mt-4 mb-4">
+                  <Button onClick={() => fetchPlaylistsForUser()}>
+                    Load More Playlists
+                  </Button>
+                </div>
+              )}
             </ScrollArea>
           </section>
         </div>
@@ -52,6 +58,8 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
           <PlaylistContent
             currentPlaylistDetails={currentPlaylistDetails}
             currentPlaylistSongs={currentPlaylistSongs}
+            nextEndpoint={nextEndpoint}
+            fetchSongsForCurrentPlaylist={fetchSongsForCurrentPlaylist}
           />
         </section>
       </main>

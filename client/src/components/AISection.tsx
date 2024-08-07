@@ -1,15 +1,21 @@
 import { useState } from 'react'
-import type { AIAction, AiPlaylistParams, PlaylistDetails, PlayListsRes, Token } from '@/types'
+import type {
+  AIAction,
+  AiPlaylistParams,
+  PlaylistDetails,
+  PlayListsRes,
+  Token,
+} from '@/types'
 
 import { aiPlaylist } from '@/services/aiPlaylist'
 import { PromptForm } from './PromptFrom'
 import { KeyInput } from './KeyInput'
-import { fetchPlaylists } from '@/services/spotifyAPI'
+import { fetchPlaylists, getPlaylistsEndpoint } from '@/services/spotifyAPI'
 
 interface Props {
   token: Token
   currentPlaylistDetails: PlaylistDetails | null
-  updatePlaylists: (newPlaylists: PlayListsRes) => void
+  updatePlaylists: (newPlaylists: PlayListsRes, reset?: boolean) => void
 }
 export function AISection({
   token,
@@ -42,10 +48,11 @@ export function AISection({
       apiKey,
     } as AiPlaylistParams)
       ?.then(() => {
-        return fetchPlaylists({ token })
+        const playlistsUrl = getPlaylistsEndpoint({ limit: '10' })
+        return fetchPlaylists({ token, playlistsUrl })
       })
       .then((playlistsRes) => {
-        updatePlaylists(playlistsRes)
+        updatePlaylists(playlistsRes, true)
       })
       .catch((e: Error) => {
         setError(e.message)

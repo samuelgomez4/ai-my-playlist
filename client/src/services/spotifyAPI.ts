@@ -16,11 +16,11 @@ import {
   makePostRequest,
 } from './axiosRequests'
 
-function handleError(): never {
-  throw new Error('An error occurred while fetching data from Spotify')
+function handleError(message: string): never {
+  throw new Error(message)
 }
 
-export function getPlaylistEndpoint({
+export function getPlaylistsEndpoint({
   offset = '0',
   limit = '10',
 }: {
@@ -108,7 +108,7 @@ export async function fetchSongs({
     })
     return playlistRes
   } catch {
-    handleError()
+    handleError('An error occurred while fetching songs')
   }
 }
 
@@ -129,7 +129,7 @@ export async function addSongs({
   try {
     await makePostRequest(addSongsEndpoint, addSongBody, addSongHeaders)
   } catch {
-    handleError()
+    handleError('An error occurred while adding songs to the playlist')
   }
 }
 
@@ -153,7 +153,7 @@ export async function removeSongs({
       removeSongHeaders
     )
   } catch (error) {
-    handleError()
+    handleError('An error occurred while removing songs from the playlist')
   }
 }
 
@@ -165,7 +165,7 @@ export async function getUserId({ token }: { token: Token }) {
     })) as GetProfileRes
     return userProfileRes.id
   } catch {
-    handleError()
+    handleError('An error occurred while fetching user profile')
   }
 }
 
@@ -198,7 +198,7 @@ export async function createPlaylist({
     )) as Playlist
     return createPlaylistRes.id
   } catch {
-    handleError()
+    handleError('An error occurred while creating the playlist')
   }
 }
 
@@ -216,26 +216,23 @@ export async function searchSong({
     })) as SearchRes
     return searchRes
   } catch {
-    handleError()
+    handleError('An error occurred while searching for the songs')
   }
 }
 
 export async function fetchPlaylists({
   token,
-  offset = '0',
-  limit = '10',
+  playlistsUrl,
 }: {
   token: Token
-  offset?: string
-  limit?: string
+  playlistsUrl: string
 }) {
-  const playlistsUrl = getPlaylistEndpoint({ offset, limit })
   try {
     const playlistsRes = (await makeGetRequest(playlistsUrl, {
       Authorization: `Bearer ${token}`,
     })) as PlayListsRes
     return playlistsRes
   } catch {
-    handleError()
+    handleError('An error occurred while fetching playlists')
   }
 }

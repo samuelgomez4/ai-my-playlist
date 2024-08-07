@@ -27,15 +27,18 @@ export function PromptForm({
         rows={4}
         spellCheck="false"
       />
-      <div className="flex gap-4">
-        <AIActionSelect
-          name="action"
-          currentPlaylistId={currentPlaylistId}
-        />
-        <Button type="submit">AI My Playlist</Button>
-      </div>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="flex gap-4">
+          <AIActionSelect
+            name="action"
+            currentPlaylistId={currentPlaylistId}
+          />
+          <Button type="submit">AI My Playlist</Button>
+        </div>
+      )}
       {error && <p className="text-red-500">{error}</p>}
-      {isLoading && <p>Loading...</p>}
     </form>
   )
 }
