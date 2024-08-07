@@ -10,7 +10,14 @@ export async function createNameAndDescription({ prompt, apiKey }: AIParams) {
   })
   try {
     const { text } = await generateText({
-      model: google('models/gemini-1.5-flash-latest'),
+      model: google('models/gemini-1.5-flash-latest', {
+        safetySettings: [
+          {
+            category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+            threshold: 'BLOCK_ONLY_HIGH',
+          },
+        ],
+      }),
       maxTokens: 100,
       system: `You are an assistant who recieves an instruction to create a new playlist 
     either from scratch or having another playlist as context. Your task is to respond 

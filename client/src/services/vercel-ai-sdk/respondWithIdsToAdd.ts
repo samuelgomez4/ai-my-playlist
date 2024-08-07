@@ -17,7 +17,14 @@ export async function respondWithIdsToAdd({
   })
   try {
     const { text } = await generateText({
-      model: google('models/gemini-1.5-pro-latest'),
+      model: google('models/gemini-1.5-pro-latest', {
+        safetySettings: [
+          {
+            category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+            threshold: 'BLOCK_ONLY_HIGH',
+          },
+        ],
+      }),
       system: `You are an assistant who recieves a list of lists that represent tracks of a 
     playlist. The shapeof each one of the internal list is the following: [id, name, artists[], 
     album, duration, releaseDate, addedByUserAt]. The user would like to create a new playlist 

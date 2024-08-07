@@ -17,7 +17,14 @@ export async function respondWithQueriesToAdd({
   })
   try {
     const { text } = await generateText({
-      model: google('models/gemini-1.5-pro-latest'),
+      model: google('models/gemini-1.5-pro-latest', {
+        safetySettings: [
+          {
+            category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+            threshold: 'BLOCK_ONLY_HIGH',
+          },
+        ],
+      }),
       system: `You are an assistant who recieves a prompt to create/edit a playlist or suggest 
     new songs to add to a playlist. The user will send you an instruction for songs to add and 
     you will have to respond with a list (in a JSON format) of maximum 50 names of songs to add 
