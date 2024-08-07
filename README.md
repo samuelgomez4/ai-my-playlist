@@ -1,3 +1,10 @@
+# ¿Cómo probarlo?
+Si solamente quieres probar cómo funciona con una cuenta genérica, he creado esta cuenta en spotify:
+
+correo: aimyplaylist@gmail.com
+contraseña: testaimyplaylist1
+
+Por otro lado, para usarlo con tu propia cuenta tendrás que seguir las intrucciones que he dejado más adelante.
 # ¿Cómo funciona?
 Spotify tiene una nueva funcionalidad en la que se pueden crear playlists a partir de un prompt. Basicamente se genera una playlist desde cero y el usuario puede decidir hacer mas modificaciones a partir de esta playlist que se creó. Sin embargo, no existe una funcionalidad en la que el usuaio pueda modificar una playlist de su perfil ya existente con AI o crear una nueva playlist que además del prompt pueda tener una playlist que yo quiera como contexto. Además la funcionalidad de AI de Spotify está limitada a solo usuarios premium y no está disponible en todas las regiones por ahora. Por eso AI My Playlist ofrece 4 funcionalidades para crear una playlist o modificar una ya existente:
 
