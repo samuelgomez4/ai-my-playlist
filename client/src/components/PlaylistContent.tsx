@@ -15,7 +15,7 @@ export function PlaylistContent({
   fetchSongsForCurrentPlaylist,
 }: Props) {
   return (
-    <div className="flex flex-col gap-5 h-screen">
+    <div className="flex flex-col gap-5 h-screen py-6">
       <PlaylistInfo currentPlaylistDetails={currentPlaylistDetails} />
       <Songs
         currentPlaylistSongs={currentPlaylistSongs}
