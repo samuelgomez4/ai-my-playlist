@@ -20,8 +20,7 @@ export async function makePostRequest(
     return res.data
   } catch (error) {
     const axiosError = error as AxiosError
-    const requestError = axiosError.response?.data
-    throw requestError
+    throw axiosError
   }
 }
 
