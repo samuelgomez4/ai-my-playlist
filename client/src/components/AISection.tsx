@@ -64,7 +64,7 @@ export function AISection({
   // TODO: change styles of the textarea and select if any of their values is undefined or currentPlaylistId is undefined
   // TODO: add a loading component when playlist is being generated
   return (
-    <div>
+    <div className="w-full flex justify-center">
       {apiKey ? (
         <PromptForm
           currentPlaylistId={currentPlaylistDetails?.id}

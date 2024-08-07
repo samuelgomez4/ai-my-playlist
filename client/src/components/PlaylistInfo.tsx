@@ -7,7 +7,7 @@ interface Props {
 export function PlaylistInfo({ currentPlaylistDetails }: Props) {
   return (
     // TODO: render something when user has no playlists
-    <header className="flex items-start gap-4 border border-input bg-background p-4">
+    <header className="h-1/4 flex items-start gap-4 border border-input bg-background p-4 rounded-lg">
       {currentPlaylistDetails && (
         <div className="flex gap-8">
           {currentPlaylistDetails.imageUrl ? (
@@ -22,7 +22,7 @@ export function PlaylistInfo({ currentPlaylistDetails }: Props) {
               <Music2Icon className="w-16 h-16" />
             </div>
           )}
-          <div className="flex-1">
+          <div className="flex flex-col gap-2">
             <h1 className="font-bold text-4xl">
               {currentPlaylistDetails.name}
             </h1>

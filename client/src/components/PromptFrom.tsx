@@ -17,14 +17,14 @@ export function PromptForm({
 }: Props) {
   return (
     <form
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-4 w-full h-full"
       onSubmit={handleSubmit}>
       <Textarea
         maxLength={MAX_LENGTH_PROMPT}
         name="prompt"
         placeholder="Enter a prompt to generate a playlist..."
-        className="resize-none rounded-lg border border-input bg-background p-4 text-sm"
-        rows={4}
+        className="resize-none rounded-lg border border-input bg-background p-4 text-sm h-full"
+        rows={5}
         spellCheck="false"
       />
       {isLoading ? (

@@ -26,19 +26,19 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
   } = useCurrentPlaylist(token)
   // TODO fix scrolls
   return (
-    <div className="flex w-full">
+    <div className="flex w-full h-dvh">
       <SideBar />
-      <main className="flex-1 grid grid-cols-[1fr_2fr] gap-6 p-6 max-h-dvh">
-        <div className="flex flex-col gap-6 pb-4">
-          <section>
+      <main className="flex-1 grid grid-cols-[1fr_2fr] gap-6 p-6">
+        <div className="flex flex-col gap-6 h-dvh">
+          <section className="h-1/3 flex items-center justify-center">
             <AISection
               token={token}
               currentPlaylistDetails={currentPlaylistDetails}
               updatePlaylists={updatePlaylists}
             />
           </section>
-          <section className="flex-1 rounded-lg border border-input bg-background p-4 overflow-auto">
-            <ScrollArea className="h-80">
+          <section className="rounded-lg h-full border border-input bg-background p-4 overflow-auto">
+            <ScrollArea className="h-full">
               <PlaylistsSection
                 playlists={playlists}
                 currentPlaylistDetails={currentPlaylistDetails}
@@ -54,14 +54,12 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
             </ScrollArea>
           </section>
         </div>
-        <section className="pb-4">
-          <PlaylistContent
-            currentPlaylistDetails={currentPlaylistDetails}
-            currentPlaylistSongs={currentPlaylistSongs}
-            nextEndpoint={nextEndpoint}
-            fetchSongsForCurrentPlaylist={fetchSongsForCurrentPlaylist}
-          />
-        </section>
+        <PlaylistContent
+          currentPlaylistDetails={currentPlaylistDetails}
+          currentPlaylistSongs={currentPlaylistSongs}
+          nextEndpoint={nextEndpoint}
+          fetchSongsForCurrentPlaylist={fetchSongsForCurrentPlaylist}
+        />
       </main>
     </div>
   )

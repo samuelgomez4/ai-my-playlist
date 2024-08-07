@@ -12,9 +12,10 @@ export function KeyInput({ updateKey }: { updateKey: (key: string) => void }) {
   }
   return (
     <form
-      className="flex w-full max-w-sm items-center space-x-2"
+      className="flex w-full max-w-md items-center space-x-2"
       onSubmit={onSubmit}>
       <Input
+        className="w-full"
         ref={keyInput}
         type="text"
         placeholder="Your Google API Key"

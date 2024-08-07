@@ -16,8 +16,8 @@ export function Songs({
 }: Props) {
   // TODO: render something when user has no playlists
   return (
-    <div className="flex-1 rounded-lg border border-input bg-background flex flex-col gap-8 align-middle">
-      <ScrollArea className="h-96">
+    <div className="flex-1 rounded-lg border border-input bg-background flex flex-col gap-8 align-middle h-dvh overflow-auto">
+      <ScrollArea className="h-full">
         <Table className="table-fixed">
           <TableHeader>
             <TableRow>
