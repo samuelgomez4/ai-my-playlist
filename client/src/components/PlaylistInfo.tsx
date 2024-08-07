@@ -9,16 +9,14 @@ export function PlaylistInfo({ currentPlaylistDetails }: Props) {
     // TODO: render something when user has no playlists
     <header className="h-1/4 flex items-start gap-4 border border-input bg-background p-4 rounded-lg">
       {currentPlaylistDetails && (
-        <div className="flex gap-8">
+        <div className="flex gap-8 h-full">
           {currentPlaylistDetails.imageUrl ? (
             <img
               src={currentPlaylistDetails.imageUrl}
               alt="Playlist Thumbnail"
-              width={120}
-              height={120}
             />
           ) : (
-            <div className="w-32 h-32 bg-zinc-900 flex justify-center items-center">
+            <div className="h-full aspect-square bg-zinc-900 flex justify-center items-center">
               <Music2Icon className="w-16 h-16" />
             </div>
           )}
