@@ -15,6 +15,7 @@ export function usePlaylists(token: string | undefined) {
     const playlistsItems = filterPlaylistsData(newPlaylists)
     if (reset) {
       setPlaylists(playlistsItems)
+      setNextEndpoint(newPlaylists.next)
     } else {
       setPlaylists((prevPlaylists) => [...prevPlaylists, ...playlistsItems])
     }
