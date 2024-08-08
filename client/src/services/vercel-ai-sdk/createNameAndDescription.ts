@@ -75,7 +75,7 @@ export async function createNameAndDescription({ prompt, apiKey }: AIParams) {
     return verifiedText as NameAndDescription
   } catch {
     throw new Error(
-      'Try again with another prompt. If the problem persists, you might have reached the limit of requests in a minute or for the day.'
+      'Try again with another prompt. If the problem persists, you might have reached the limit of requests in a minute or for the day with your Gemini API Key.'
     )
   }
 }

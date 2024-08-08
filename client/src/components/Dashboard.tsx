@@ -29,7 +29,7 @@ export function Dashboard({ authCode, authState, refreshToken }: TokenReqBody) {
       <SideBar />
       <main className="flex-1 grid grid-cols-[1fr_2fr] gap-6 px-6">
         <div className="flex flex-col gap-6 h-dvh  py-6">
-          <section className="h-1/3 flex items-center justify-center">
+          <section className=" flex items-center justify-center">
             <AISection
               token={token}
               currentPlaylistDetails={currentPlaylistDetails}
