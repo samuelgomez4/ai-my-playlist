@@ -83,7 +83,7 @@ export async function respondWithIdsToRemove({
     return verifiedText as ListOfEncryptedIds
   } catch {
     throw new Error(
-      'Try again with another prompt. If the problem persists, you might have reached the limit of requests in a minute or for the day with your Gemini API Key.'
+      'Try again with another prompt. If the problem persists, you might have reached the limit of requests or your Gemini API Key is invalid.'
     )
   }
 }

@@ -37,7 +37,15 @@ export function AISection({
     const fields = new window.FormData(event.target as HTMLFormElement)
     const prompt = fields.get('prompt') as string
     const action = fields.get('action') as AIAction
-    if (!prompt || !action || !apiKey) return
+    if (!prompt) {
+      setError('Please enter a prompt.')
+      return
+    }
+    if (!action) {
+      setError('Please select what you want to do.')
+      return
+    }
+    if (!apiKey) return
     setError('')
     setIsLoading(true)
     aiPlaylist({
