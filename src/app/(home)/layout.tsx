@@ -5,7 +5,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <NavBar />
-      <main>{children}</main>
+      <main className="max-w-4xl mx-auto p-6">{children}</main>
       <Footer />
     </>
   );
