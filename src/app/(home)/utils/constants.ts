@@ -1,29 +1,35 @@
-export const ACTIONS_CARDS = [
+import { FaPlayCircle, FaPlusCircle, FaSync, FaTrash, FaMusic } from 'react-icons/fa';
+
+export const features = [
   {
-    action: 'Create Playlist from Scratch',
+    Icon: FaPlayCircle,
+    title: 'Create Playlist from Scratch',
     description:
-      'The easiest way to start playing with AIMyPlaylist is by creating a new playlist from scratch. Just release your imagination and type a prompt to see the magic',
-    videoSrc: 'istockphoto-2106242658-640_adpp_is.mp4',
+      'Start fresh and let AI generate a completely new playlist based on your preferences',
+    videoUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745',
   },
   {
-    action: 'Create Playlist from selected Playlist',
-    description:
-      'Create a new playlist based on an existing playlist. Just select a playlist and let AIMyPlaylist do the rest',
-    videoSrc: 'istockphoto-2106242658-640_adpp_is.mp4',
+    Icon: FaMusic,
+    title: 'Create Playlist from Selected Playlist',
+    description: 'Use an existing playlist as inspiration for a new curated collection',
+    videoUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
   },
   {
-    action: 'Create a new laylist based on an existing playlist',
-    description: 'Create a new playlist based on an existing playlist but with new songs',
-    videoSrc: 'istockphoto-2106242658-640_adpp_is.mp4',
+    Icon: FaSync,
+    title: 'Create New Playlist Based on Existing',
+    description: 'Transform your favorite playlist with fresh, AI-recommended songs',
+    videoUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
   },
   {
-    action: 'Add new songs to an existing playlist',
-    description: 'Add new songs to an existing playlist.',
-    videoSrc: 'istockphoto-2106242658-640_adpp_is.mp4',
+    Icon: FaPlusCircle,
+    title: 'Add New Songs to Existing Playlist',
+    description: 'Enhance your playlist with AI-suggested tracks that match your style',
+    videoUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
   },
   {
-    action: 'Delete songs from an existing playlist',
-    description: 'Delete songs from an existing playlist.',
-    videoSrc: 'istockphoto-2106242658-640_adpp_is.mp4',
+    Icon: FaTrash,
+    title: 'Delete Songs from Existing Playlist',
+    description: "Refine your playlist by removing songs that don't fit your taste",
+    videoUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
   },
 ];
