@@ -1,4 +1,4 @@
-import { FaPlayCircle, FaPlusCircle, FaArrowRight, FaArrowLeft, FaMagic } from 'react-icons/fa';
+import { FaPlayCircle, FaPlusCircle, FaMagic } from 'react-icons/fa';
 
 export default function DashboardPage() {
   const actions = [

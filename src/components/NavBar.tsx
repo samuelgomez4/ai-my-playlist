@@ -1,5 +1,6 @@
 import { FaUserCircle } from 'react-icons/fa';
 import { AIMPLogo } from './AIMPLogo';
+import Link from 'next/link';
 
 export function NavBar() {
   return (
@@ -29,10 +30,12 @@ export function NavBar() {
                 />
               </div>
             ) : ( */}
-          <button className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-gray-700 rounded-full hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900">
+          <Link
+            href="/login"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-gray-700 rounded-full hover:bg-gray-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900">
             <FaUserCircle className="text-lg" />
             <span>Sign In</span>
-          </button>
+          </Link>
           {/* )} */}
         </div>
       </div>

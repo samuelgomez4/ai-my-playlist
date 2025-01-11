@@ -1,12 +1,12 @@
-import { AboutSection } from './components/about-section/AboutSection';
-import { Footer } from './components/Footer';
-import { NavBar } from './components/NavBar';
+import { AboutSection } from '../../components/about-section/AboutSection';
+import { Footer } from '../../components/Footer';
+import { NavBar } from '../../components/NavBar';
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <NavBar />
-      <main className="bg-gradient-to-b from-gray-900 to-gray-800 py-12 px-4">
+      <main className="bg-gradient-to-b from-gray-900 to-gray-800 pt-12 pb-12 px-4">
         <div className="max-w-6xl mx-auto">
           {children}
           <section
