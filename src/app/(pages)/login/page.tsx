@@ -5,8 +5,8 @@ export default function LoginPage() {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       <div className="flex flex-col gap-8 items-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 animate-fade-in text-center">
-          Transform Your Music Experience with AI
+        <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 animate-fade-in text-center text-balance md:text-wrap">
+          <span className="text-white">Transform Your Music </span>Experience with AI
         </h1>
         <p className="text-lg md:text-xl text-gray-300 text-center text-pretty">
           Let AI curate the perfect soundtrack for any occasion. Sign in to start your personalized

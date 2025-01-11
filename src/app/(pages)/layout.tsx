@@ -9,9 +9,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
       <main className="bg-gradient-to-b from-gray-900 to-gray-800 pt-12 pb-12 px-4">
         <div className="max-w-6xl mx-auto">
           {children}
-          <section
-            className="pt-20"
-            id="info">
+          <section className="pt-20">
             <AboutSection />
           </section>
         </div>
