@@ -11,7 +11,7 @@ interface Props {
 export function FeatureCard({ feature }: Props) {
   const { Icon, title, description, videoUrl } = feature;
   return (
-    <article className="bg-white/10  rounded-xl p-6 transform hover:scale-105 transition-all duration-300 shadow-xl border border-gray-400/30">
+    <article className="bg-gray-800  rounded-xl p-6 transform hover:scale-105 transition-all duration-300 shadow-xl border border-gray-700">
       <div className="flex flex-col items-center">
         <Icon className="text-4xl text-purple-500" />
         <h3 className="text-xl font-semibold text-white mt-4 mb-2 text-balance text-center">
