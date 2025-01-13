@@ -1,6 +1,6 @@
-import { AboutSection } from '../../components/about-section/AboutSection';
-import { Footer } from '../../components/Footer';
-import { NavBar } from '../../components/NavBar';
+import { NavBar } from '@/components/NavBar';
+import { Footer } from '@/components/Footer';
+import { AboutSection } from '@/components/about-section/AboutSection';
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
   return (
