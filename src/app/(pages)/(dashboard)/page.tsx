@@ -31,18 +31,20 @@ export default function DashboardPage() {
   ];
 
   return (
-    <section className="pt-24 px-4 md:px-8 max-w-7xl mx-auto">
+    <section className="md:px-8 max-w-7xl mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-          Be creative and AI your playlist
+        <h1 className=" text-4xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-4 text-balance">
+          <span className="text-white">Be creative and</span> AI your playlist
         </h1>
-        <p className="text-gray-300 mt-2">Type a prompt and select the action you want to do</p>
+        <p className="text-gray-300 mt-2 text-lg sm:text-xl text-pretty">
+          Type a prompt and select the action you want to do
+        </p>
       </div>
 
       <div className="relative mb-6">
         <textarea
           className="w-full h-32 bg-gray-800 text-white rounded-lg p-4 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
-          placeholder="Describe your playlist or what you want to do with it..."
+          placeholder="Describe your perfect playlist or click the magic wand to let the AI do that for you..."
         />
         <button className="absolute bottom-4 right-4 text-purple-300 hover:text-purple-400">
           <FaMagic className="text-2xl transition-colors duration-300" />
