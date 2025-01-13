@@ -1,4 +1,4 @@
-import { FaPlayCircle, FaPlusCircle, FaMagic } from 'react-icons/fa';
+import { FaPlusCircle, FaMagic, FaTrash } from 'react-icons/fa';
 
 export default function DashboardPage() {
   const actions = [
@@ -81,44 +81,48 @@ export default function DashboardPage() {
 
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-white mb-6">Your Playlists</h2>
-        <div className="relative">
-          <div
-            className="flex gap-6 overflow-x-hidden scroll-smooth pb-4 px-8"
-            style={{
-              transition: 'transform 0.5s ease-in-out',
-              width: `${(playlists.length + 1) * (266 + 24)}px`,
-            }}>
-            {playlists.map((playlist) => (
-              <div
-                key={playlist.id}
-                className="flex-shrink-0 w-[250px] bg-gray-900 rounded-xl overflow-hidden shadow-lg border border-gray-700 hover:border-purple-500 transition-all duration-300">
-                <div className="relative group">
-                  <img
-                    src={playlist.image}
-                    alt={playlist.name}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <FaPlayCircle className="text-white text-4xl" />
-                  </div>
-                </div>
-                <div className="p-4 bg-gradient-to-b from-gray-900 to-gray-800">
+        <div className="flex gap-8 p-4">
+          {playlists.map((playlist) => (
+            <div
+              key={playlist.id}
+              className="flex-shrink-0 w-56 relative group z-0">
+              <div className="absolute inset-0 -z-10 rounded-xl scale-x-90">
+                <img
+                  src={playlist.image}
+                  alt="card background image"
+                  className="w-full h-full object-cover blur-xl"
+                />
+              </div>
+              <div className=" h-full rounded-xl overflow-hidden backdrop-blur-md bg-black/30 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300">
+                <img
+                  src={playlist.image}
+                  alt={playlist.name}
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="px-4 pt-4 pb-6">
                   <h3 className="text-white font-semibold mb-1 text-lg">{playlist.name}</h3>
                   <p className="text-gray-300 text-sm mb-4">{playlist.songCount} songs</p>
-                  <div className="flex gap-2">
-                    <button className="flex-1 px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-purple-500/30">
-                      Select
+                  <div className="flex flex-col gap-2">
+                    <button className="w-full px-3 py-2 bg-purple-600/80 text-white rounded-lg hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-purple-500/30">
+                      Select to Modify
                     </button>
-                    <button className="flex-1 px-3 py-2 bg-gray-800 text-purple-400 rounded-lg hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg hover:shadow-purple-500/30">
-                      View
-                    </button>
+                    <div className="flex items-center gap-2">
+                      <button className="flex-1 px-3 py-2 bg-gray-700/80 text-white rounded-lg hover:bg-gray-600 transition-all duration-300 shadow-lg hover:shadow-gray-500/30">
+                        View Songs
+                      </button>
+                      <button
+                        title="delete"
+                        className="p-3 bg-red-600/80 text-white rounded-lg hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-red-500/30">
+                        <FaTrash className="text-sm" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
-            <div className="flex-shrink-0 w-[250px] bg-gray-900 rounded-xl overflow-hidden flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-all duration-300 border-2 border-dashed border-gray-700 hover:border-purple-500 h-[350px]">
-              <FaPlusCircle className="text-4xl text-purple-500 hover:text-purple-400 transition-colors duration-300" />
             </div>
+          ))}
+          <div className="flex-shrink-0 w-56 bg-gray-900 rounded-xl overflow-hidden flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-all duration-300 border-2 border-dashed border-gray-700 hover:border-purple-500">
+            <FaPlusCircle className="text-4xl text-purple-500 hover:text-purple-400 transition-colors duration-300" />
           </div>
         </div>
       </div>
