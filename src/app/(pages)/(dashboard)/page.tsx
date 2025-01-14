@@ -86,14 +86,14 @@ export default function DashboardPage() {
             <div
               key={playlist.id}
               className="flex-shrink-0 w-56 relative group z-0">
-              <div className="absolute inset-0 -z-10 rounded-xl scale-x-90">
+              <div className="absolute inset-0 -z-10 rounded-xl scale-x-90 scale-y-95">
                 <img
                   src={playlist.image}
                   alt="card background image"
                   className="w-full h-full object-cover blur-xl"
                 />
               </div>
-              <div className=" h-full rounded-xl overflow-hidden backdrop-blur-md bg-black/30 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300">
+              <div className=" h-full rounded-xl overflow-hidden backdrop-blur-xl bg-black/30 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300">
                 <img
                   src={playlist.image}
                   alt={playlist.name}
