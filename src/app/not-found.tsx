@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { FaHome } from 'react-icons/fa';
 
-const NotFoundPage = () => {
+export default function NotFoundPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-dvh bg-gradient-to-b from-gray-900 to-gray-800 pt-12 pb-12 px-4">
       <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 mb-4">
@@ -19,6 +19,4 @@ const NotFoundPage = () => {
       </Link>
     </div>
   );
-};
-
-export default NotFoundPage;
+}

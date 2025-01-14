@@ -1,35 +1,34 @@
 import { FaPlusCircle, FaMagic, FaTrash } from 'react-icons/fa';
 
+const actions = [
+  'Create Playlist from Scratch',
+  'Create Playlist from Selected Playlist',
+  'Create New Playlist Based on Existing',
+  'Add New Songs to Existing Playlist',
+  'Delete Songs from Existing Playlist',
+];
+
+const playlists = [
+  {
+    id: 1,
+    name: 'Summer Vibes',
+    songCount: 25,
+    image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745',
+  },
+  {
+    id: 2,
+    name: 'Workout Mix',
+    songCount: 30,
+    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
+  },
+  {
+    id: 3,
+    name: 'Chill Beats',
+    songCount: 40,
+    image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
+  },
+];
 export default function DashboardPage() {
-  const actions = [
-    'Create Playlist from Scratch',
-    'Create Playlist from Selected Playlist',
-    'Create New Playlist Based on Existing',
-    'Add New Songs to Existing Playlist',
-    'Delete Songs from Existing Playlist',
-  ];
-
-  const playlists = [
-    {
-      id: 1,
-      name: 'Summer Vibes',
-      songCount: 25,
-      image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745',
-    },
-    {
-      id: 2,
-      name: 'Workout Mix',
-      songCount: 30,
-      image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
-    },
-    {
-      id: 3,
-      name: 'Chill Beats',
-      songCount: 40,
-      image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
-    },
-  ];
-
   return (
     <section className="md:px-8 max-w-7xl mx-auto">
       <div className="text-center mb-8">
