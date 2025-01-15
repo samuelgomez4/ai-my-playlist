@@ -20,3 +20,13 @@
 .swiper-button-next {
     color: white; 
 }
+
+@media (width < 968px) {
+  .swiper-button-prev {
+    display: none;
+}
+
+.swiper-button-next {
+  display: none;
+}
+}
