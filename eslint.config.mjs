@@ -16,6 +16,7 @@ const eslintConfig = [
       '@typescript-eslint/consistent-type-imports': 'error',
       'react/self-closing-comp': 'error',
       '@next/next/no-img-element': 'off',
+      'react/no-unescaped-entities': 'off',
     },
   },
 ];
