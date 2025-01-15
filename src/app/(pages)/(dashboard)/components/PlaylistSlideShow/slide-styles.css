@@ -1,11 +1,13 @@
 .swiper {
   width: 100%;
   height: 100%;
-  padding:48px;
+  padding:48px 32px;
+  position: static;
 }
 
 .swiper-slide {
   text-align: center;
+  max-width: fit-content;
   height: 100%;
   /* Center slide text vertically */
   display: flex;
@@ -15,10 +17,15 @@
 
 .swiper-button-prev {
     color: white; 
+    position: absolute;
+    left: -32px;
+    z-index: 1;
 }
 
 .swiper-button-next {
     color: white; 
+    position: absolute;
+    right: -32px;
 }
 
 @media (width < 968px) {
