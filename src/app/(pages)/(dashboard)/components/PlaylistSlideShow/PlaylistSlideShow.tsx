@@ -14,7 +14,7 @@ import './slide-styles.css';
 import { FreeMode, Navigation } from 'swiper/modules';
 import type { PlaylistsInfo } from '../../interfaces/playlist-info-response';
 import { PlaylistCard } from '../PlaylistCard';
-import { FaChevronLeft, FaChevronRight, FaPlusCircle } from 'react-icons/fa';
+import { FaPlusCircle } from 'react-icons/fa';
 
 interface Props {
   playlists: PlaylistsInfo;
@@ -22,7 +22,7 @@ interface Props {
 
 export function PlaylistSlideShow({ playlists }: Props) {
   return (
-    <div className="relative">
+    <div className="relative swiper-container">
       <Swiper
         slidesPerView={'auto'}
         spaceBetween={40}
