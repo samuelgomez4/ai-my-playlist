@@ -6,7 +6,7 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <NavBar />
-      <main className="bg-gradient-to-b from-gray-900 to-gray-800 pt-12 pb-12 px-4 border-b border-gray-700/25 shadow-xl mb-4">
+      <main className="bg-gradient-to-b from-gray-900 to-gray-800 pt-12 pb-12 border-b border-gray-700/25 shadow-lg mb-4">
         <div className="max-w-6xl mx-auto">
           {children}
           <section className="pt-20">
