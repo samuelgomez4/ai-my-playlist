@@ -57,7 +57,7 @@
   z-index: 10;
 }
 
-@media (width < 768px) {
+@media (width <= 1024px) {
   .swiper-button-prev {
     display: none;
 }

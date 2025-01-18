@@ -5,7 +5,7 @@ import { playlists } from './interfaces/playlist-info-response';
 
 export default function DashboardPage() {
   return (
-    <div className="max-w-7xl mx-auto md:px-8">
+    <div className="max-w-7xl mx-auto lg:px-8">
       <section className="px-4">
         <div className="text-center mb-8">
           <h1 className=" text-4xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-4 text-balance">
@@ -52,10 +52,10 @@ export default function DashboardPage() {
           </button>
         </div>
       </section>
-      <div className="mb-8">
-        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3 px-4">Your Playlists</h2>
+      <section className="mb-8">
+        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 px-4">Your Playlists</h2>
         <PlaylistSlideShow playlists={playlists} />
-      </div>
+      </section>
     </div>
   );
 }
