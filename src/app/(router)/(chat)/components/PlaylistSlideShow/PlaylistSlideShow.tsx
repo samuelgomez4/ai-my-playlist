@@ -12,9 +12,9 @@ import './slide-styles.css';
 
 // import required modules
 import { FreeMode, Navigation } from 'swiper/modules';
-import type { PlaylistsInfo } from '../../interfaces/playlist-info-response';
-import { PlaylistCard } from '../PlaylistCard';
+import { PlaylistCard } from './PlaylistCard';
 import { FaPlusCircle } from 'react-icons/fa';
+import type { PlaylistsInfo } from '@/interfaces/playlist-info-response';
 
 interface Props {
   playlists: PlaylistsInfo;
@@ -25,7 +25,6 @@ export function PlaylistSlideShow({ playlists }: Props) {
     <div className="relative swiper-container">
       <Swiper
         slidesPerView={'auto'}
-        spaceBetween={40}
         navigation={true}
         freeMode={true}
         modules={[Navigation, FreeMode]}
@@ -36,7 +35,7 @@ export function PlaylistSlideShow({ playlists }: Props) {
           </SwiperSlide>
         ))}
         <SwiperSlide className="!h-auto">
-          <div className="flex-shrink-0 w-56 bg-gray-900 rounded-xl overflow-hidden flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-all duration-300 border-2 border-dashed border-gray-700 hover:border-purple-500 h-full">
+          <div className="w-56 bg-gray-900 rounded-xl overflow-hidden flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-all duration-300 border-2 border-dashed border-gray-700 hover:border-purple-500 h-full">
             <FaPlusCircle className="text-4xl text-purple-500 hover:text-purple-400 transition-colors duration-300" />
           </div>
         </SwiperSlide>

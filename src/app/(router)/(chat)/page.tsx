@@ -1,7 +1,8 @@
 import { features } from '@/utils/constants';
 import { FaMagic } from 'react-icons/fa';
 import { PlaylistSlideShow } from './components/PlaylistSlideShow/PlaylistSlideShow';
-import { playlists } from './interfaces/playlist-info-response';
+import { playlists } from '../../../interfaces/playlist-info-response';
+import { Link } from 'next-view-transitions';
 
 export default function DashboardPage() {
   return (
@@ -53,7 +54,14 @@ export default function DashboardPage() {
         </div>
       </section>
       <section className="mb-8">
-        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 px-4">Your Playlists</h2>
+        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 px-4 [view-transition-name:title]">
+          Your Playlists
+        </h2>
+        <Link
+          href={'./playlists'}
+          className="text-white">
+          See all playlists
+        </Link>
         <PlaylistSlideShow playlists={playlists} />
       </section>
     </div>

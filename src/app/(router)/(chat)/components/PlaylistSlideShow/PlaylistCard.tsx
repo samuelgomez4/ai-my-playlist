@@ -1,5 +1,5 @@
 import { FaTrash } from 'react-icons/fa';
-import type { PlaylistInfo } from '../interfaces/playlist-info-response';
+import type { PlaylistInfo } from '../../../../../interfaces/playlist-info-response';
 
 interface Props {
   playlist: PlaylistInfo;
@@ -7,9 +7,7 @@ interface Props {
 
 export function PlaylistCard({ playlist }: Props) {
   return (
-    <article
-      key={playlist.id}
-      className="flex-shrink-0 w-56 relative group z-0">
+    <article className="w-56 relative group z-0">
       <div className="absolute inset-0 -z-10 rounded-xl scale-x-90 scale-y-95">
         <img
           src={playlist.image}
@@ -24,7 +22,11 @@ export function PlaylistCard({ playlist }: Props) {
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
         <div className="px-4 pt-4 pb-6">
-          <h3 className="text-white font-semibold mb-1 text-lg">{playlist.name}</h3>
+          <h3
+            className="text-white font-semibold mb-1 text-lg text-nowrap text-ellipsis overflow-hidden"
+            title={playlist.name}>
+            {playlist.name}
+          </h3>
           <p className="text-gray-300 text-sm mb-4">{playlist.songCount} songs</p>
           <div className="flex flex-col gap-2">
             <button className="w-full px-3 py-2 bg-purple-600/80 text-white rounded-lg hover:bg-purple-700 transition-all duration-300 shadow-lg hover:shadow-purple-500/30">
