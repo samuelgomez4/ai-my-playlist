@@ -1,12 +1,12 @@
 export const playlists = [
   {
-    id: 1,
+    id: '1',
     name: 'Summer Vibes',
     songCount: 25,
     image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745',
     songs: [
       {
-        id: 1,
+        id: '1',
         title: 'Summer Nights',
         artist: 'The Beach Boys',
         album: 'Summer Dreams',
@@ -16,7 +16,7 @@ export const playlists = [
         duration: '3:45',
       },
       {
-        id: 2,
+        id: '2',
         title: 'Sunset Vibes',
         artist: 'Tropical Waves',
         album: 'Beach Life',
@@ -28,13 +28,13 @@ export const playlists = [
     ],
   },
   {
-    id: 2,
+    id: '2',
     name: 'Workout Mix',
     songCount: 30,
     image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
     songs: [
       {
-        id: 1,
+        id: '1',
         title: 'Summer Nights',
         artist: 'The Beach Boys',
         album: 'Summer Dreams',
@@ -44,7 +44,7 @@ export const playlists = [
         duration: '3:45',
       },
       {
-        id: 2,
+        id: '2',
         title: 'Sunset Vibes',
         artist: 'Tropical Waves',
         album: 'Beach Life',
@@ -56,13 +56,13 @@ export const playlists = [
     ],
   },
   {
-    id: 3,
+    id: '3',
     name: 'Chill Beats',
     songCount: 40,
     image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
     songs: [
       {
-        id: 1,
+        id: '1',
         title: 'Summer Nights',
         artist: 'The Beach Boys',
         album: 'Summer Dreams',
@@ -72,7 +72,7 @@ export const playlists = [
         duration: '3:45',
       },
       {
-        id: 2,
+        id: '2',
         title: 'Sunset Vibes',
         artist: 'Tropical Waves',
         album: 'Beach Life',
@@ -84,13 +84,13 @@ export const playlists = [
     ],
   },
   {
-    id: 4,
-    name: 'More Songs that i like to sing in the shower',
+    id: '4',
+    name: 'More Songs that i like to sing in the shower and lets see if it fits or not to make the test',
     songCount: 40,
     image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
     songs: [
       {
-        id: 1,
+        id: '1',
         title: 'Summer Nights',
         artist: 'The Beach Boys',
         album: 'Summer Dreams',
@@ -100,7 +100,7 @@ export const playlists = [
         duration: '3:45',
       },
       {
-        id: 2,
+        id: '2',
         title: 'Sunset Vibes',
         artist: 'Tropical Waves',
         album: 'Beach Life',
