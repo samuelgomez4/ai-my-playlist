@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'next-view-transitions';
 import { FaHome } from 'react-icons/fa';
 
 export default function NotFoundPage() {
