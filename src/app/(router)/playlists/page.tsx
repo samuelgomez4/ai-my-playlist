@@ -1,12 +1,13 @@
 import { playlists } from '@/interfaces/playlist-info-response';
 import { SmallPlaylistCard } from './components/SmallPlaylistCard';
-import { FaPlusCircle, FaSearch } from 'react-icons/fa';
+import { FaPlusCircle } from 'react-icons/fa';
 import { Link } from 'next-view-transitions';
+import { SearchBar } from '@/components/ui/SearchBar';
 
 export default function PlaylistsPage() {
   return (
     <section className="mb-8 px-4">
-      <h2 className="text-2xl sm:text-4xl font-bold text-white mb-10 [view-transition-name:title]">
+      <h2 className="text-2xl sm:text-4xl font-bold text-white mb-10 [view-transition-name:your-playlists-title]">
         Your Playlists
       </h2>
       <Link
@@ -14,14 +15,7 @@ export default function PlaylistsPage() {
         className="text-white">
         Go to prompt input
       </Link>
-      <div className="relative">
-        <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-        <input
-          type="text"
-          placeholder="Search playlists"
-          className="w-full bg-gray-800 text-white pl-10 p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-      </div>
+      <SearchBar placeholder="Search playlists..." />
       <div className="grid py-12 px-4 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 justify-items-center">
         {playlists.map((playlist) => (
           <SmallPlaylistCard

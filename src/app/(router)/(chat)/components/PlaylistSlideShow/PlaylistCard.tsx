@@ -1,5 +1,6 @@
 import { FaTrash } from 'react-icons/fa';
 import type { PlaylistInfo } from '../../../../../interfaces/playlist-info-response';
+import { Link } from 'next-view-transitions';
 
 interface Props {
   playlist: PlaylistInfo;
@@ -19,11 +20,11 @@ export function PlaylistCard({ playlist }: Props) {
         <img
           src={playlist.image}
           alt={playlist.name}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          className={`w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300 [view-transition-name:playlist-image-${playlist.id}]`}
         />
         <div className="px-4 pt-4 pb-6">
           <h3
-            className="text-white font-semibold mb-1 text-lg text-nowrap text-ellipsis overflow-hidden"
+            className={`text-white font-semibold mb-1 text-lg text-nowrap text-ellipsis overflow-hidden [view-transition-name:playlist-name-${playlist.id}]`}
             title={playlist.name}>
             {playlist.name}
           </h3>
@@ -33,9 +34,11 @@ export function PlaylistCard({ playlist }: Props) {
               Select to Modify
             </button>
             <div className="flex items-center gap-2">
-              <button className="flex-1 px-3 py-2 bg-gray-700/80 text-white rounded-lg hover:bg-gray-600 transition-all duration-300 shadow-lg hover:shadow-gray-500/30">
+              <Link
+                href={`/playlist/${playlist.id}`}
+                className="flex-1 px-3 py-2 bg-gray-700/80 text-white rounded-lg hover:bg-gray-600 transition-all duration-300 shadow-lg hover:shadow-gray-500/30">
                 View Songs
-              </button>
+              </Link>
               <button
                 title="delete"
                 className="p-3 bg-red-600/80 text-white rounded-lg hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-red-500/30">

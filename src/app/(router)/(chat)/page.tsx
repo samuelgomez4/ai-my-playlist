@@ -54,7 +54,7 @@ export default function DashboardPage() {
         </div>
       </section>
       <section className="mb-8">
-        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 px-4 [view-transition-name:title]">
+        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 px-4 [view-transition-name:your-playlists-title]">
           Your Playlists
         </h2>
         <Link
