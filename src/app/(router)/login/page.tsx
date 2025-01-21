@@ -1,9 +1,17 @@
-import { FaGithub } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
+'use client';
+import { useCallback, useState } from 'react';
+import { FaSpotify } from 'react-icons/fa';
+import { SiYoutubemusic } from 'react-icons/si';
+import { ErrorModal } from './components/ErrorModal';
 
 export default function LoginPage() {
+  const [showModal, setShowModal] = useState(false);
+  const closeModal = useCallback(() => {
+    setShowModal(false);
+  }, []);
   return (
     <>
+      {showModal && <ErrorModal closeModal={closeModal} />}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div className="flex flex-col gap-8 items-center">
           <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 animate-fade-in text-center text-balance md:text-wrap">
@@ -15,12 +23,14 @@ export default function LoginPage() {
           </p>
           <div className="flex flex-col gap-4 w-full max-w-md items-center">
             <button className="flex items-center justify-center gap-3 px-6 py-3 text-lg font-semibold text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300 border border-white/20 w-full max-w-80 md:max-w-full">
-              <FcGoogle className="text-2xl" />
-              <span>Continue with Google</span>
+              <SiYoutubemusic className="text-2xl text-red-600" />
+              <span>Continue with Youtube Music</span>
             </button>
-            <button className="flex items-center justify-center gap-3 px-6 py-3 text-lg font-semibold text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300 border border-white/20 w-full max-w-80 md:max-w-full">
-              <FaGithub className="text-2xl" />
-              <span>Continue with GitHub</span>
+            <button
+              onClick={() => setShowModal(true)}
+              className="flex items-center justify-center space-x-3 px-6 py-3 text-lg font-semibold text-gray-400 bg-gray-700/50 rounded-lg cursor-not-allowed transition-colors duration-300 w-full max-w-80 md:max-w-full">
+              <FaSpotify className="text-2xl " />
+              <span>Continue with Spotify</span>
             </button>
 
             {/* START: Updated Code (Line 54) */}
