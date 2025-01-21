@@ -1,5 +1,5 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { AIMPLogo } from './AIMPLogo';
+import { AIMPLogo } from '../logo/AIMPLogo';
 
 export function Footer({}) {
   return (
