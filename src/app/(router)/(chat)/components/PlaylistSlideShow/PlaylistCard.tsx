@@ -1,6 +1,6 @@
-import { FaTrash } from 'react-icons/fa';
 import type { PlaylistInfo } from '../../../../../interfaces/playlist-info-response';
 import { Link } from 'next-view-transitions';
+import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
 
 interface Props {
   playlist: PlaylistInfo;
@@ -39,11 +39,7 @@ export function PlaylistCard({ playlist }: Props) {
                 className="flex-1 px-3 py-2 bg-gray-700/80 text-white rounded-lg hover:bg-gray-600 transition-all duration-300 shadow-lg hover:shadow-gray-500/30">
                 View Songs
               </Link>
-              <button
-                title="delete"
-                className="p-3 bg-red-600/80 text-white rounded-lg hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-red-500/30">
-                <FaTrash className="text-sm" />
-              </button>
+              <DeleteButton title={playlist.name} />
             </div>
           </div>
         </div>
