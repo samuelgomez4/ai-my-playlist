@@ -27,7 +27,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-4 mb-12">
-          <select className="flex-1 bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <select className="flex-1 bg-gray-800 text-white rounded-lg p-3 outline-none focus:ring-2 focus:ring-purple-500  hover:ring-2 hover:ring-purple-500 transition-all duration-300 cursor-pointer">
             <option value="">Select an action</option>
             {features.map((feature) => (
               <option
@@ -37,16 +37,11 @@ export default function DashboardPage() {
               </option>
             ))}
           </select>
-          <select className="flex-1 bg-gray-800 text-white rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
-            <option value="">Select a playlist</option>
-            {playlists.map((playlist) => (
-              <option
-                key={playlist.id}
-                value={playlist.id}>
-                {playlist.name}
-              </option>
-            ))}
-          </select>
+          <Link
+            href="./playlists"
+            className="flex-1 bg-gray-800 text-white rounded-lg p-3 hover:bg-gray-600 transition-colors duration-300">
+            Select a playlist
+          </Link>
 
           <button className="px-8 py-3 text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:from-purple-700 hover:to-pink-700 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-purple-500/50 font-semibold tracking-wide">
             <span className="flex items-center justify-center gap-2">AI My Playlist</span>
