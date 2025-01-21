@@ -1,8 +1,8 @@
 import { features } from '@/utils/constants';
 import { FaMagic } from 'react-icons/fa';
 import { PlaylistSlideShow } from './components/PlaylistSlideShow/PlaylistSlideShow';
-import { playlists } from '../../../interfaces/playlist-info-response';
 import { Link } from 'next-view-transitions';
+import { playlists } from '@/interfaces/playlist-info-response';
 
 export default function DashboardPage() {
   return (
