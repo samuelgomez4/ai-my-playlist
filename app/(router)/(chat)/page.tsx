@@ -1,7 +1,7 @@
-import { features } from '@/utils/constants';
 import { FaMagic } from 'react-icons/fa';
 import { PlaylistSlideShow } from './components/PlaylistSlideShow/PlaylistSlideShow';
 import { Link } from 'next-view-transitions';
+import { features } from '@/utils/constants';
 import { playlists } from '@/interfaces/playlist-info-response';
 
 export default function DashboardPage() {
@@ -16,7 +16,7 @@ export default function DashboardPage() {
             Type a prompt and select the action you want to do
           </p>
         </div>
-        <div className="relative mb-6">
+        <form className="relative mb-6">
           <textarea
             className="w-full h-32 bg-gray-800 text-white rounded-lg p-4 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
             placeholder="Describe your perfect playlist or click the magic wand to let the AI do that for you..."
@@ -24,7 +24,7 @@ export default function DashboardPage() {
           <button className="absolute bottom-4 right-4 text-purple-300 hover:text-purple-400">
             <FaMagic className="text-2xl transition-colors duration-300" />
           </button>
-        </div>
+        </form>
 
         <div className="flex flex-col md:flex-row gap-4 mb-12">
           <select className="flex-1 bg-gray-800 text-white rounded-lg p-3 outline-none focus:ring-2 focus:ring-purple-500  hover:ring-2 hover:ring-purple-500 transition-all duration-300 cursor-pointer">

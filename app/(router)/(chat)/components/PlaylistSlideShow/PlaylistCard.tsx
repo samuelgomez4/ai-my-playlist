@@ -1,6 +1,6 @@
-import type { PlaylistInfo } from '../../../../../interfaces/playlist-info-response';
-import { Link } from 'next-view-transitions';
 import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
+import type { PlaylistInfo } from '@/interfaces/playlist-info-response';
+import { Link } from 'next-view-transitions';
 
 interface Props {
   playlist: PlaylistInfo;
