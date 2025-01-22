@@ -1,8 +1,8 @@
-import { playlists } from '@/interfaces/playlist-info-response';
 import { SmallPlaylistCard } from './components/SmallPlaylistCard';
 import { FaPlusCircle } from 'react-icons/fa';
 import { Link } from 'next-view-transitions';
 import { SearchBar } from '@/components/ui/SearchBar';
+import { playlists } from '@/utils/constants/playlists';
 
 export default function PlaylistsPage() {
   return (

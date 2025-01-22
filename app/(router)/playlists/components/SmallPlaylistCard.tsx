@@ -1,5 +1,5 @@
 import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
-import type { PlaylistInfo } from '@/interfaces/playlist-info-response';
+import type { PlaylistInfo } from '@/types/playlist-info-response';
 
 interface Props {
   playlist: PlaylistInfo;

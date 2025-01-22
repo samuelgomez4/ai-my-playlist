@@ -112,6 +112,3 @@ export const playlists = [
     ],
   },
 ];
-
-export type PlaylistsInfo = typeof playlists;
-export type PlaylistInfo = PlaylistsInfo[number];

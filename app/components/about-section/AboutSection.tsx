@@ -1,4 +1,4 @@
-import { features } from '@/utils/constants';
+import { features } from '@/utils/constants/features';
 import { FeatureCard } from './FeatureCard';
 
 export function AboutSection({}) {

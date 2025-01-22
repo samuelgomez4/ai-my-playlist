@@ -32,4 +32,4 @@ export const features = [
     description: "Refine your playlist by removing songs that don't fit your taste",
     videoUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
   },
-];
+] as const;

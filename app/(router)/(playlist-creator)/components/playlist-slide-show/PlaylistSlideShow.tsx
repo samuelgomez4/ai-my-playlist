@@ -14,7 +14,7 @@ import './slide-styles.css';
 import { FreeMode, Navigation } from 'swiper/modules';
 import { PlaylistCard } from './PlaylistCard';
 import { FaPlusCircle } from 'react-icons/fa';
-import type { PlaylistsInfo } from '@/interfaces/playlist-info-response';
+import type { PlaylistsInfo } from '@/types/playlist-info-response';
 
 interface Props {
   playlists: PlaylistsInfo;
