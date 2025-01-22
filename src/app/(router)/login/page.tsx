@@ -22,15 +22,17 @@ export default function LoginPage() {
             personalized music journey.
           </p>
           <div className="flex flex-col gap-4 w-full max-w-md items-center">
-            <button className="flex items-center justify-center gap-3 px-6 py-3 text-lg font-semibold text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300 border border-white/20 w-full max-w-80 md:max-w-full">
-              <SiYoutubemusic className="text-2xl text-red-600" />
-              <span>Continue with Youtube Music</span>
+            <button
+              onClick={() => setShowModal(true)}
+              className="flex items-center justify-center gap-3 px-6 py-3 text-lg font-semibold text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300 border border-white/20 w-full max-w-80 md:max-w-full">
+              <FaSpotify className="text-2xl text-green-500" />
+              <span>Continue with Spotify</span>
             </button>
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center justify-center space-x-3 px-6 py-3 text-lg font-semibold text-gray-400 bg-gray-700/50 rounded-lg cursor-not-allowed transition-colors duration-300 w-full max-w-80 md:max-w-full">
-              <FaSpotify className="text-2xl " />
-              <span>Continue with Spotify</span>
+              className="flex items-center justify-center gap-3 px-6 py-3 text-lg font-semibold text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300 border border-white/20 w-full max-w-80 md:max-w-full">
+              <SiYoutubemusic className="text-2xl text-red-600" />
+              <span>Continue with Youtube Music</span>
             </button>
 
             {/* START: Updated Code (Line 54) */}
