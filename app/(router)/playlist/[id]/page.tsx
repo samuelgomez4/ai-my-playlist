@@ -1,5 +1,5 @@
 import { SearchBar } from '@/components/ui/SearchBar';
-import { playlists } from '@/types/playlist-info-response';
+import { playlists } from '@/types/playlist-info';
 import { notFound } from 'next/navigation';
 import { FaTimes } from 'react-icons/fa';
 

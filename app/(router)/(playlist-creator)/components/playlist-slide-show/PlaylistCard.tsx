@@ -1,5 +1,5 @@
 import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
-import type { PlaylistInfo } from '@/types/playlist-info-response';
+import type { PlaylistInfo } from '@/types/playlist-info';
 import { Link } from 'next-view-transitions';
 
 interface Props {
