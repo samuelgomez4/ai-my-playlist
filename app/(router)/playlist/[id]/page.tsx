@@ -1,7 +1,7 @@
+import { CancelButton } from '@/components/ui/CancelButton';
 import { SearchBar } from '@/components/ui/SearchBar';
-import { playlists } from '@/types/playlist-info';
+import { playlists } from '@/utils/constants/playlists';
 import { notFound } from 'next/navigation';
-import { FaTimes } from 'react-icons/fa';
 
 interface Props {
   params: {
@@ -38,9 +38,7 @@ export default async function PlaylistPage({ params }: Props) {
               </h2>
               <p className="text-gray-400">{selectedPlaylistDetails?.songCount ?? 0} songs</p>
             </div>
-            <button className="text-gray-400 hover:text-white transition-colors justify-self-end self-start">
-              <FaTimes className="text-xl" />
-            </button>
+            <CancelButton className="justify-self-end self-start" />
             <SearchBar
               placeholder="Search in playlist..."
               className="col-start-1 col-end-3 self-center"

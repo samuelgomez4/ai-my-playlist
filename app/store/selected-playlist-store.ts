@@ -4,7 +4,7 @@ import type { PlaylistBasicInfo } from '@/types/playlist-info';
 
 export interface State {
   selectedPlaylist: PlaylistBasicInfo | undefined;
-  setSelectedPlaylist: (playlist: PlaylistBasicInfo) => void;
+  setSelectedPlaylist: (playlist: PlaylistBasicInfo | undefined) => void;
 }
 
 export const useSelectedPlaylistStore = create<State>()(

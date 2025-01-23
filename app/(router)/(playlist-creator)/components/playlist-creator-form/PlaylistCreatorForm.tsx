@@ -9,6 +9,10 @@ import type { PlaylistBasicInfo } from '@/types/playlist-info';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formSchema } from '@/schemas/formSchema';
 import { useEffect } from 'react';
+import { MAX_LENGTH_PROMPT } from '@/utils/constants/constants';
+import { CancelButton } from '@/components/ui/CancelButton';
+import clsx from 'clsx';
+import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 
 interface FormInputs {
   prompt: string;
@@ -17,7 +21,7 @@ interface FormInputs {
 }
 
 export function PlaylistCreatorForm({}) {
-  const selectedPlaylist = useSelectedPlaylistStore((store) => store.selectedPlaylist);
+  const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
   const {
     handleSubmit,
     formState: { errors },
@@ -26,13 +30,14 @@ export function PlaylistCreatorForm({}) {
     setValue,
     watch,
   } = useForm<FormInputs>({
-    defaultValues: {
-      prompt: window.localStorage.getItem('prompt') ?? '',
-      action: (window.localStorage.getItem('action') as FeatureOption) ?? '',
-      playlist: selectedPlaylist,
-    },
     resolver: zodResolver(formSchema),
   });
+  watch('playlist');
+
+  useEffect(() => {
+    setValue('prompt', window.localStorage.getItem('prompt') ?? '');
+    setValue('action', (window.localStorage.getItem('action') as FeatureOption) ?? '');
+  }, [setValue]);
 
   useEffect(() => {
     const subscription = watch((data) => {
@@ -50,6 +55,7 @@ export function PlaylistCreatorForm({}) {
     <form>
       <div className="relative mb-6">
         <textarea
+          maxLength={MAX_LENGTH_PROMPT}
           {...register('prompt')}
           className="w-full h-32 bg-gray-800 text-white rounded-lg p-4 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
           placeholder="Describe your perfect playlist or click the magic wand to let the AI do that for you..."
@@ -72,20 +78,7 @@ export function PlaylistCreatorForm({}) {
             </option>
           ))}
         </select>
-        <Link
-          {...register(
-            'playlist' /* , {
-            required: true,
-            validate: {
-              isPlaylistSelected: () =>
-                Boolean(getValues('playlist')) || 'You must select a playlist',
-            },
-          } */
-          )}
-          href="./playlists"
-          className="flex-1 bg-gray-800 text-white rounded-lg p-3 hover:bg-gray-600 transition-colors duration-300">
-          Select a playlist
-        </Link>
+        
 
         <button className="px-8 py-3 text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg hover:from-purple-700 hover:to-pink-700 active:scale-95 transition-all duration-300 shadow-lg hover:shadow-purple-500/50 font-semibold tracking-wide">
           <span className="flex items-center justify-center gap-2">AI My Playlist</span>
