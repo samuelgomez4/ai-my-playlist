@@ -1,4 +1,5 @@
 import { MAX_LENGTH_PROMPT } from '@/utils/constants/constants';
+import { ACTIONS } from '@/utils/constants/features';
 import { z } from 'zod';
 
 export const formSchema = z
@@ -11,19 +12,19 @@ export const formSchema = z
       }),
     action: z.enum(
       [
-        'Create Playlist from Scratch',
-        'Create Playlist from Selected Playlist',
-        'Create New Playlist Based on Existing',
-        'Add New Songs to Existing Playlist',
-        'Delete Songs from Existing Playlist',
+        ACTIONS.addNewSongs,
+        ACTIONS.createBasedOnExisting,
+        ACTIONS.createFromScratch,
+        ACTIONS.createFromSelected,
+        ACTIONS.deleteSongs,
       ],
       { message: 'Action is required' }
     ),
     playlist: z.object(
       {
-        id: z.string().nonempty({ message: 'Playlist ID is required' }),
-        name: z.string().nonempty({ message: 'Playlist name is required' }),
-        image: z.string().url({ message: 'Playlist image must be a valid URL' }),
+        id: z.string(),
+        name: z.string(),
+        image: z.string().url(),
       },
       { message: 'Playlist is required' }
     ),
