@@ -3,33 +3,31 @@ import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 import clsx from 'clsx';
 import { Link } from 'next-view-transitions';
 
-export function PlaylistSelector({}) {
+interface Props {
+  className?: string;
+  disabled: boolean;
+}
+
+export function PlaylistSelector({ className, disabled }: Props) {
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
-  const handleUnSelectPlaylist = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const handleUnSelectPlaylist = () => {
     selectPlaylist(undefined);
   };
+
   return (
-    <Link
-      {...register(
-        'playlist' /* , {
-            required: true,
-            validate: {
-              isPlaylistSelected: () =>
-                Boolean(getValues('playlist')) || 'You must select a playlist',
-            },
-          } */
-      )}
-      href="./playlists"
+    <div
       className={clsx(
-        'flex-1 bg-gray-800 text-white rounded-lg p-3 transition-colors duration-300 overflow-hidden',
+        `flex items-center bg-gray-800  rounded-lg  px-3 transition-colors duration-300 overflow-hidden min-h-14 ${className}`,
         {
-          'hover:bg-gray-600': !selectedPlaylist,
+          ' hover:bg-gray-600': !selectedPlaylist,
+          'opacity-50 pointer-events-none': disabled,
         }
       )}>
-      {selectedPlaylist ? (
-        <div className="flex  justify-between">
-          <div className="flex gap-2 items-center overflow-hidden">
+      <Link
+        href="./playlists"
+        className="flex-1 text-white overflow-hidden py-3">
+        {selectedPlaylist ? (
+          <div className="flex gap-2 items-center">
             <img
               src={selectedPlaylist.image}
               alt={selectedPlaylist.name}
@@ -39,11 +37,11 @@ export function PlaylistSelector({}) {
               {selectedPlaylist.name}
             </span>
           </div>
-          <CancelButton onClick={(e) => handleUnSelectPlaylist(e)} />
-        </div>
-      ) : (
-        <span>Select a playlist</span>
-      )}
-    </Link>
+        ) : (
+          <span>Select a playlist</span>
+        )}
+      </Link>
+      {selectedPlaylist && <CancelButton onClick={() => handleUnSelectPlaylist()} />}
+    </div>
   );
 }

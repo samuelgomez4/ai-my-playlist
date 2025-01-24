@@ -20,13 +20,19 @@ export const formSchema = z
       ],
       { message: 'Action is required' }
     ),
-    playlist: z.object(
-      {
+    playlist: z
+      .object({
         id: z.string(),
         name: z.string(),
         image: z.string().url(),
-      },
-      { message: 'Playlist is required' }
-    ),
+      })
+      .optional(),
   })
-  .required();
+  .superRefine((data, ctx) => {
+    if (data.action !== ACTIONS.createFromScratch && !data.playlist) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'Playlist is required',
+      });
+    }
+  });
