@@ -70,7 +70,7 @@ export function PlaylistCreatorForm({}) {
         <textarea
           maxLength={MAX_LENGTH_PROMPT}
           {...register('prompt')}
-          className="w-full h-32 bg-gray-800 text-white rounded-lg p-4 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full min-h-32 bg-gray-800 text-white rounded-lg px-4 pt-4 pb-10 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 [field-sizing:content]"
           placeholder="Describe your perfect playlist or click the magic wand to let the AI do that for you..."
         />
         <button className="absolute bottom-4 right-4 text-purple-300 hover:text-purple-400">

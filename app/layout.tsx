@@ -41,3 +41,5 @@ export default function RootLayout({
 // TODO: Revisar el responsive de todas las paginas.
 // TODO: Hacer que los botones de + sean para crear una lista desde cero
 // TODO: Revisar el 'use client' de todos los componentes.
+// TODO: Revisar todos los textos
+// TODO: Hacer el readme
