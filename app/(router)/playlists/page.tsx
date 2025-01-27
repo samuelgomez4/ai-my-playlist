@@ -1,8 +1,8 @@
 import { SmallPlaylistCard } from './components/SmallPlaylistCard';
-import { FaPlusCircle } from 'react-icons/fa';
 import { Link } from 'next-view-transitions';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { playlists } from '@/utils/constants/playlists';
+import { CreatePlaylistCard } from '@/components/playlist/CreatePlaylistCard';
 
 export default function PlaylistsPage() {
   return (
@@ -23,9 +23,7 @@ export default function PlaylistsPage() {
             playlist={playlist}
           />
         ))}
-        <div className="w-full max-w-[350px] min-h-32 bg-gray-900 rounded-xl overflow-hidden flex items-center justify-center cursor-pointer hover:bg-gray-800 transition-all duration-300 border-2 border-dashed border-gray-700 hover:border-purple-500 h-full">
-          <FaPlusCircle className="text-4xl text-purple-500 hover:text-purple-400 transition-colors duration-300" />
-        </div>
+        <CreatePlaylistCard className="w-full max-w-[350px] min-h-32" />
       </div>
     </section>
   );

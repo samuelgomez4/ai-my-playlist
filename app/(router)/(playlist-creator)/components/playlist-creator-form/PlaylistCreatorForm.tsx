@@ -11,6 +11,7 @@ import { MAX_LENGTH_PROMPT } from '@/utils/constants/constants';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 import { PlaylistSelector } from './PlaylistSelector';
 import clsx from 'clsx';
+import { useSearchParams } from 'next/navigation';
 
 interface FormInputs {
   prompt: string;
@@ -19,6 +20,8 @@ interface FormInputs {
 }
 
 export function PlaylistCreatorForm({}) {
+  const searchParams = useSearchParams();
+  const startFromScratch = searchParams.get('create-from-scracth');
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
   const {
     handleSubmit,
@@ -28,11 +31,14 @@ export function PlaylistCreatorForm({}) {
     setValue,
     watch,
     reset,
+    setFocus,
   } = useForm<FormInputs>({
     resolver: zodResolver(formSchema),
   });
 
-  console.log({ playlist: getValues('playlist'), isValid });
+  if (startFromScratch) {
+    // setValue('action', ACTIONS.createFromScratch);
+  }
 
   const isPlaylistRequired = getValues('action') !== ACTIONS.createFromScratch;
 
@@ -41,7 +47,12 @@ export function PlaylistCreatorForm({}) {
   useEffect(() => {
     setValue('prompt', window.localStorage.getItem('prompt') ?? '');
     setValue('action', (window.localStorage.getItem('action') as FeatureOption) ?? '');
-  }, [setValue]);
+    setFocus('prompt');
+    if (startFromScratch) {
+      setValue('action', ACTIONS.createFromScratch);
+      window.history.pushState({}, '', '/');
+    }
+  }, [setValue, setFocus, startFromScratch]);
 
   useEffect(() => {
     const subscription = watch((data) => {
