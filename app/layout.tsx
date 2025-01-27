@@ -40,3 +40,4 @@ export default function RootLayout({
 // TODO: Cambiar view transitions
 // TODO: Revisar el responsive de todas las paginas.
 // TODO: Hacer que los botones de + sean para crear una lista desde cero
+// TODO: Revisar el 'use client' de todos los componentes.

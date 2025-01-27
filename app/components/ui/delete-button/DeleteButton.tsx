@@ -16,7 +16,7 @@ export function DeleteButton({ title }: Props) {
       <button
         onClick={() => setShowDeleteModal(true)}
         title="delete"
-        className="p-3 bg-red-600/80 text-white rounded-lg hover:bg-red-700 transition-all duration-300 shadow-lg hover:shadow-red-500/30">
+        className="p-3 bg-red-700 text-white rounded-lg hover:bg-red-600 transition-all duration-300 shadow-lg">
         <FaTrash className="text-sm" />
       </button>
       {showDeleteModal && (
