@@ -1,7 +1,7 @@
-import { SelectPlaylistButton } from '@/(router)/playlists/components/SelectPlaylistButton';
+import { SelectPlaylistButton } from '@/components/playlist/SelectPlaylistButton';
+import { ViewSongsButton } from '@/components/playlist/ViewSongsButton';
 import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
 import type { PlaylistInfo } from '@/types/playlist-info';
-import { Link } from 'next-view-transitions';
 
 interface Props {
   playlist: PlaylistInfo;
@@ -41,11 +41,11 @@ export function PlaylistCard({ playlist }: Props) {
               Select to Modify
             </SelectPlaylistButton>
             <div className="flex items-center gap-2">
-              <Link
-                href={`/playlist/${id}`}
-                className="flex-1 px-3 py-2 bg-gray-700/80 text-white rounded-lg hover:bg-gray-600 transition-all duration-300 shadow-lg">
+              <ViewSongsButton
+                className="flex-1"
+                playlistId={id}>
                 View Songs
-              </Link>
+              </ViewSongsButton>
               <DeleteButton title={name} />
             </div>
           </div>

@@ -1,15 +1,16 @@
 'use client';
 import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
 import type { PlaylistInfo } from '@/types/playlist-info';
-import { SelectPlaylistButton } from './SelectPlaylistButton';
+import { SelectPlaylistButton } from '../../../components/playlist/SelectPlaylistButton';
 import { useTransitionRouter } from 'next-view-transitions';
+import { ViewSongsButton } from '@/components/playlist/ViewSongsButton';
 
 interface Props {
   playlist: PlaylistInfo;
 }
 
 export function SmallPlaylistCard({ playlist }: Props) {
-  const { name, image } = playlist;
+  const { id, name, image } = playlist;
   const router = useTransitionRouter();
 
   return (
@@ -37,9 +38,7 @@ export function SmallPlaylistCard({ playlist }: Props) {
               playlist={playlist}>
               Modify
             </SelectPlaylistButton>
-            <button className="text-ellipsis px-3 py-2 bg-gray-700/80 text-white rounded-lg hover:bg-gray-600 transition-all duration-300 shadow-lg hover:shadow-gray-500/30">
-              Songs
-            </button>
+            <ViewSongsButton playlistId={id}>Songs</ViewSongsButton>
             <DeleteButton title={name} />
           </div>
         </div>
