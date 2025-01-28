@@ -3,15 +3,17 @@ import { SearchBar } from '@/components/ui/SearchBar';
 import { playlists } from '@/utils/constants/playlists';
 import { notFound } from 'next/navigation';
 
+type Id = keyof typeof playlists;
+
 interface Props {
   params: {
-    id: string;
+    id: Id;
   };
 }
 
-const getPlaylistInfo = async (id: string) => {
+const getPlaylistInfo = async (id: Id) => {
   try {
-    const playlistInfo = playlists.find((playlist) => playlist.id === id);
+    const playlistInfo = playlists[id];
     return playlistInfo;
   } catch {
     notFound();
@@ -73,7 +75,7 @@ export default async function PlaylistPage({ params }: Props) {
                       />
                       <div>
                         <div className="text-white font-medium">{song.title}</div>
-                        <div className="text-gray-400 text-sm">{song.artist}</div>
+                        <div className="text-gray-400 text-sm">{song.artists.join(', ')}</div>
                       </div>
                     </div>
                   </td>

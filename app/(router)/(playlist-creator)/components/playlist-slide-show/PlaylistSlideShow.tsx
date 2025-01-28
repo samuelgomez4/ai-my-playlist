@@ -26,7 +26,7 @@ export function PlaylistSlideShow({ playlists }: Props) {
         freeMode={true}
         modules={[Navigation, FreeMode]}
         className="mySwiper">
-        {playlists.map((playlist) => (
+        {Object.values(playlists).map((playlist) => (
           <SwiperSlide key={playlist.id}>
             <PlaylistCard playlist={playlist} />
           </SwiperSlide>

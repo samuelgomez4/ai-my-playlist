@@ -17,7 +17,7 @@ export default function PlaylistsPage() {
       </Link>
       <SearchBar placeholder="Search playlists..." />
       <div className="grid py-12 px-4 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 justify-items-center">
-        {playlists.map((playlist) => (
+        {Object.values(playlists).map((playlist) => (
           <SmallPlaylistCard
             key={playlist.id}
             playlist={playlist}
