@@ -6,7 +6,7 @@ export const ACTIONS = {
   createBasedOnExisting: 'Create New Playlist Based on Existing',
   addNewSongs: 'Add New Songs to Existing Playlist',
   deleteSongs: 'Delete Songs from Existing Playlist',
-};
+} as const;
 
 export const features = [
   {
