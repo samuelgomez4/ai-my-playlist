@@ -2,7 +2,7 @@
 import { generateText } from 'ai';
 import { google } from '@ai-sdk/google';
 import { largeModel, safetySettings } from '../config';
-import type { PromptGenerationOptions } from '@/types/prompt-generation-options';
+import type { PromptGenerationOptions } from '@/actions/ai/types/prompt-generation-options';
 import { formatSongsForAi } from '@/utils/formatSongsForAi';
 import { AI_ERROR_MESSAGE } from '../utils/constants';
 

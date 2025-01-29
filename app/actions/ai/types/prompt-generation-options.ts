@@ -1,5 +1,5 @@
-import type { FeatureOption } from './feature';
-import type { Songs } from './playlist';
+import type { FeatureOption } from '@/types/feature';
+import type { Songs } from '@/types/playlist';
 
 export interface PromptGenerationOptions {
   action: FeatureOption | '';

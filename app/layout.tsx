@@ -45,3 +45,4 @@ export default function RootLayout({
 // TODO: Mirar como reaccionar cuando se elimina una playlist o una cancion
 // TODO: Revisar la estructura del proyecto.
 // TODO: Revisar las modales ya que algunas no funcionan bien.
+// TODO: Revisar todos los imports.
