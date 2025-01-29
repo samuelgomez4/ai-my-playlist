@@ -4,4 +4,4 @@ export const safetySettings = {
 } as const;
 
 export const smallModel = 'gemini-1.5-flash';
-export const largeModel = 'gemini-1.5-pro-latest';
+export const largeModel = 'gemini-2.0-flash-exp';

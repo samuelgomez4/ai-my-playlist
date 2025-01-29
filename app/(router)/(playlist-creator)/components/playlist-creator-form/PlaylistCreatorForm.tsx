@@ -1,77 +1,22 @@
 'use client';
-import { FaMagic } from 'react-icons/fa';
-import { ACTIONS, features } from '@/utils/constants/features';
-import type { FeatureOption } from '@/types/feature';
-import { useForm } from 'react-hook-form';
-import type { PlaylistBasicInfo } from '@/types/playlist-info';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { formSchema } from '@/schemas/formSchema';
-import { useEffect } from 'react';
-import { MAX_LENGTH_PROMPT } from '@/utils/constants/constants';
-import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
+import { FaExclamationCircle, FaMagic } from 'react-icons/fa';
+import { features } from '@/utils/constants/features';
 import { PlaylistSelector } from './PlaylistSelector';
 import clsx from 'clsx';
-import { useSearchParams } from 'next/navigation';
-
-interface FormInputs {
-  prompt: string;
-  action: FeatureOption | '';
-  playlist: PlaylistBasicInfo | undefined;
-}
+import { MAX_LENGTH_PROMPT } from '@/utils/constants/constants';
+import { usePersistentCreatorForm } from '@/(router)/(playlist-creator)/hooks/usePersistentCreatorForm';
 
 export function PlaylistCreatorForm({}) {
-  const searchParams = useSearchParams();
-  const startFromScratch = searchParams.get('create-from-scracth');
-  const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
   const {
     handleSubmit,
-    formState: { isValid },
     register,
-    getValues,
-    setValue,
-    watch,
-    reset,
-    setFocus,
-  } = useForm<FormInputs>({
-    resolver: zodResolver(formSchema),
-  });
-
-  if (startFromScratch) {
-    // setValue('action', ACTIONS.createFromScratch);
-  }
-
-  const isPlaylistRequired = getValues('action') !== ACTIONS.createFromScratch;
-
-  watch(['playlist', 'action']);
-
-  useEffect(() => {
-    setValue('prompt', window.localStorage.getItem('prompt') ?? '');
-    setValue('action', (window.localStorage.getItem('action') as FeatureOption) ?? '');
-    setFocus('prompt');
-    if (startFromScratch) {
-      setValue('action', ACTIONS.createFromScratch);
-      window.history.pushState({}, '', '/');
-    }
-  }, [setValue, setFocus, startFromScratch]);
-
-  useEffect(() => {
-    const subscription = watch((data) => {
-      window.localStorage.setItem('prompt', data.prompt ?? '');
-      window.localStorage.setItem('action', data.action ?? '');
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
-
-  useEffect(() => {
-    setValue('playlist', selectedPlaylist, { shouldValidate: true });
-  }, [selectedPlaylist, setValue]);
-
-  const onSubmit = () => {
-    reset();
-    selectPlaylist(undefined);
-    window.localStorage.removeItem('prompt');
-    window.localStorage.removeItem('action');
-  };
+    isValid,
+    isPlaylistRequired,
+    onSubmit,
+    errors,
+    handleGeneratePrompt,
+    isGeneratingPrompt,
+  } = usePersistentCreatorForm();
 
   return (
     <form
@@ -85,7 +30,12 @@ export function PlaylistCreatorForm({}) {
           className="w-full min-h-32 bg-gray-800 text-white rounded-lg px-4 pt-4 pb-10 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 [field-sizing:content]"
           placeholder="Describe your perfect playlist or click the magic wand to let the AI do that for you..."
         />
-        <button className="absolute bottom-4 right-4 text-purple-300 hover:text-purple-400">
+        <button
+          type="button"
+          onClick={handleGeneratePrompt}
+          className={clsx('absolute bottom-4 right-4 text-purple-300 hover:text-purple-400', {
+            'animate-bounce pointer-events-none': isGeneratingPrompt,
+          })}>
           <FaMagic className="text-2xl transition-colors duration-300" />
         </button>
       </div>
@@ -119,6 +69,12 @@ export function PlaylistCreatorForm({}) {
           <span className="flex items-center justify-center gap-2">AI My Playlist</span>
         </button>
       </div>
+      {errors.root && (
+        <div className="flex items-center text-red-500 text-md mt-2">
+          <FaExclamationCircle className="w-4 h-4 mr-2" />
+          {errors.root.message}
+        </div>
+      )}
     </form>
   );
 }

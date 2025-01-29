@@ -43,3 +43,4 @@ export default function RootLayout({
 // TODO: Revisar el 'use client' de todos los componentes.
 // TODO: Revisar todos los textos
 // TODO: Hacer el readme
+// TODO: Mirar como reaccionar cuando se elimina una playlist o una cancion

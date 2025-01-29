@@ -1,9 +1,8 @@
 import { CancelButton } from '@/components/ui/CancelButton';
 import { SearchBar } from '@/components/ui/SearchBar';
+import type { Id } from '@/types/playlist-info';
 import { playlists } from '@/utils/constants/playlists';
 import { notFound } from 'next/navigation';
-
-type Id = keyof typeof playlists;
 
 interface Props {
   params: {

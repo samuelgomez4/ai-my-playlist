@@ -2,6 +2,7 @@ import { CancelButton } from '@/components/ui/CancelButton';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 import clsx from 'clsx';
 import { Link } from 'next-view-transitions';
+import { useEffect } from 'react';
 
 interface Props {
   className?: string;
@@ -10,6 +11,9 @@ interface Props {
 
 export function PlaylistSelector({ className, disabled }: Props) {
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
+  useEffect(() => {
+    if (disabled) selectPlaylist(undefined);
+  }, [disabled, selectPlaylist]);
   const handleUnSelectPlaylist = () => {
     selectPlaylist(undefined);
   };
