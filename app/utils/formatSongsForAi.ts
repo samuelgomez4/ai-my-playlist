@@ -1,4 +1,4 @@
-import type { Id } from '@/types/playlist-info';
+import type { Id } from '@/types/playlist';
 import { playlists } from './constants/playlists';
 
 export function formatSongsForAi(playlistId: Id | undefined) {

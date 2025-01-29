@@ -39,8 +39,9 @@ export default function RootLayout({
 // TODO: Poner a los elementos cuyo texto es muy largo la propiedad title.
 // TODO: Cambiar view transitions
 // TODO: Revisar el responsive de todas las paginas.
-// TODO: Hacer que los botones de + sean para crear una lista desde cero
 // TODO: Revisar el 'use client' de todos los componentes.
 // TODO: Revisar todos los textos
 // TODO: Hacer el readme
 // TODO: Mirar como reaccionar cuando se elimina una playlist o una cancion
+// TODO: Revisar la estructura del proyecto.
+// TODO: Revisar las modales ya que algunas no funcionan bien.

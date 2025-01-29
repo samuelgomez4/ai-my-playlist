@@ -10,7 +10,7 @@ import './slide-styles.css';
 
 import { FreeMode, Navigation } from 'swiper/modules';
 import { PlaylistCard } from './PlaylistCard';
-import type { PlaylistsInfo } from '@/types/playlist-info';
+import type { PlaylistsInfo } from '@/types/playlist';
 import { CreatePlaylistCard } from '@/components/playlist/CreatePlaylistCard';
 
 interface Props {

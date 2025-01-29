@@ -1,5 +1,5 @@
 import type { FeatureOption } from './feature';
-import type { Id } from './playlist-info';
+import type { Id } from './playlist';
 
 export interface PromptGenerationOptions {
   action: FeatureOption | '';

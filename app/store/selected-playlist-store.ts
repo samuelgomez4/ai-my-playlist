@@ -1,6 +1,6 @@
 import { persist } from 'zustand/middleware';
 import { create } from 'zustand';
-import type { PlaylistBasicInfo } from '@/types/playlist-info';
+import type { PlaylistBasicInfo } from '@/types/playlist';
 
 export interface State {
   selectedPlaylist: PlaylistBasicInfo | undefined;

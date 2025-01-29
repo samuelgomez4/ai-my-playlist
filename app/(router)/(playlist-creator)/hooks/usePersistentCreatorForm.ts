@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useSearchParams } from 'next/navigation';
 import { ACTIONS } from '@/utils/constants/features';
 import type { FeatureOption } from '@/types/feature';
-import type { PlaylistBasicInfo } from '@/types/playlist-info';
+import type { PlaylistBasicInfo } from '@/types/playlist';
 import { formSchema } from '@/schemas/formSchema';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 import { generatePrompt } from '@/actions/ai/generate-prompt/generatePrompt';

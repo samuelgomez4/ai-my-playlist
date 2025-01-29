@@ -1,6 +1,6 @@
 import { CancelButton } from '@/components/ui/CancelButton';
 import { SearchBar } from '@/components/ui/SearchBar';
-import type { Id } from '@/types/playlist-info';
+import type { Id } from '@/types/playlist';
 import { playlists } from '@/utils/constants/playlists';
 import { notFound } from 'next/navigation';
 
@@ -20,14 +20,14 @@ const getPlaylistInfo = async (id: Id) => {
 };
 
 export default async function PlaylistPage({ params }: Props) {
-  const { id } = params;
+  const { id } = await params;
   const selectedPlaylistDetails = await getPlaylistInfo(id);
   return (
     <>
       <section className="p-6 max-w-5xl mx-auto">
         <header className="flex gap-6 mb-12">
           <img
-            src={selectedPlaylistDetails?.image ?? ''}
+            src={selectedPlaylistDetails?.songs[0].image ?? ''}
             alt={selectedPlaylistDetails?.name ?? ''}
             className={`w-48 h-48 object-cover rounded-lg [view-transition-name:playlist-image-${id}]`}
           />
@@ -37,7 +37,7 @@ export default async function PlaylistPage({ params }: Props) {
                 className={`text-4xl font-bold text-white pb-4 [view-transition-name:playlist-image-${id}] text-nowrap overflow-hidden text-ellipsis`}>
                 {selectedPlaylistDetails?.name}
               </h2>
-              <p className="text-gray-400">{selectedPlaylistDetails?.songCount ?? 0} songs</p>
+              <p className="text-gray-400">{selectedPlaylistDetails?.songs.length ?? 0} songs</p>
             </div>
             <CancelButton className="justify-self-end self-start" />
             <SearchBar

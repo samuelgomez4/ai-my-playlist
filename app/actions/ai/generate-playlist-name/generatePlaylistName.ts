@@ -6,7 +6,7 @@ import type { PromptGenerationOptions } from '@/types/prompt-generation-options'
 import { formatSongsForAi } from '@/utils/formatSongsForAi';
 import { AI_ERROR_MESSAGE } from '../utils/constants';
 
-export async function generatePrompt(options: PromptGenerationOptions) {
+export async function generateName(options: PromptGenerationOptions) {
   const formattedSongs = formatSongsForAi(options.playlistId);
   try {
     const { text } = await generateText({
@@ -56,7 +56,7 @@ export async function generatePrompt(options: PromptGenerationOptions) {
     }
     return {
       ok: false,
-      message: AI_ERROR_MESSAGE,
+      message: { AI_ERROR_MESSAGE },
     };
   }
 }

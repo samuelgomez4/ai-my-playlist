@@ -1,6 +1,6 @@
 'use client';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
-import type { PlaylistInfo } from '@/types/playlist-info';
+import type { PlaylistInfo } from '@/types/playlist';
 import clsx from 'clsx';
 
 interface Props {
@@ -11,11 +11,11 @@ interface Props {
 }
 
 export function SelectPlaylistButton({ className, children, playlist, redirectToForm }: Props) {
-  const { id, name, image } = playlist;
+  const { id, name, songs } = playlist;
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
 
   const handleSelectPlaylist = () => {
-    selectPlaylist({ id, name, image });
+    selectPlaylist({ id, name, image: songs[0].image });
     redirectToForm();
   };
 

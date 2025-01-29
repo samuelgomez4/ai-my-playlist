@@ -1,9 +1,10 @@
-export const playlists = {
+import type { PlaylistsInfo } from '@/types/playlist';
+
+export const playlists: PlaylistsInfo = {
   '1': {
     id: '1',
     name: 'Summer Vibes',
-    songCount: 25,
-    image: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745',
+    description: 'Feel the summer vibes with this upbeat playlist.',
     songs: [
       {
         id: '1',
@@ -30,8 +31,7 @@ export const playlists = {
   '2': {
     id: '2',
     name: 'Workout Mix',
-    songCount: 30,
-    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
+    description: 'Get pumped with this high-energy workout mix.',
     songs: [
       {
         id: '1',
@@ -58,8 +58,7 @@ export const playlists = {
   '3': {
     id: '3',
     name: 'Chill Beats',
-    songCount: 40,
-    image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
+    description: 'Relax and unwind with these chill beats.',
     songs: [
       {
         id: '1',
@@ -86,8 +85,7 @@ export const playlists = {
   '4': {
     id: '4',
     name: 'More Songs that i like to sing in the shower and lets see if it fits or not to make the test',
-    songCount: 40,
-    image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
+    description: 'Sing along to your favorite shower songs.',
     songs: [
       {
         id: '1',
@@ -114,8 +112,7 @@ export const playlists = {
   '5': {
     id: '5',
     name: 'Reggaeton Hits',
-    songCount: 3,
-    image: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
+    description: 'Dance to the hottest reggaeton hits.',
     songs: [
       {
         id: '1',
@@ -152,8 +149,7 @@ export const playlists = {
   '6': {
     id: '6',
     name: 'EDM Party',
-    songCount: 5,
-    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
+    description: 'Party all night with these EDM tracks.',
     songs: [
       {
         id: '1',
@@ -217,4 +213,4 @@ export const playlists = {
       },
     ],
   },
-} as const;
+};
