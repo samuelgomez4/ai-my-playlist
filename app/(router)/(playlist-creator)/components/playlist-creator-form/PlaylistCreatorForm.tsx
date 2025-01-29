@@ -32,6 +32,7 @@ export function PlaylistCreatorForm({}) {
         />
         <button
           type="button"
+          title="generate prompt"
           onClick={handleGeneratePrompt}
           className={clsx('absolute bottom-4 right-4 text-purple-300 hover:text-purple-400', {
             'animate-bounce pointer-events-none': isGeneratingPrompt,

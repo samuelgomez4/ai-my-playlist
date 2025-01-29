@@ -29,6 +29,7 @@ export function usePersistentCreatorForm() {
     reset,
     setFocus,
     setError,
+    clearErrors,
   } = useForm<FormInputs>({
     resolver: zodResolver(formSchema),
   });
@@ -60,6 +61,7 @@ export function usePersistentCreatorForm() {
   }, [selectedPlaylist, setValue]);
 
   const handleGeneratePrompt = () => {
+    clearErrors();
     startTransition(async () => {
       const prompt = await generatePrompt({
         action: getValues('action'),
