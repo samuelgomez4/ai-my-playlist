@@ -1,14 +1,8 @@
-import type { Id } from '@/types/playlist';
-import { playlists } from './constants/playlists';
+import type { Songs } from '@/types/playlist';
 
-export function formatSongsForAi(playlistId: Id | undefined) {
-  if (playlistId === undefined) return [];
-  const playlist = playlists[playlistId];
-  if (!playlist) {
-    throw new Error('Playlist not found');
-  }
-
-  return playlist.songs.map((song) => [
+export function formatSongsForAi(songs: Songs | undefined) {
+  if (songs === undefined) return [];
+  return songs.map((song) => [
     song.title,
     song.artists,
     song.album,

@@ -8,6 +8,7 @@ import type { PlaylistBasicInfo } from '@/types/playlist';
 import { formSchema } from '@/schemas/formSchema';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 import { generatePrompt } from '@/actions/ai/generate-prompt/generatePrompt';
+import { usePlaylistsStore } from '@/store/playlists';
 
 interface FormInputs {
   prompt: string;
@@ -19,6 +20,7 @@ export function usePersistentCreatorForm() {
   const searchParams = useSearchParams();
   const startFromScratch = searchParams.get('create-from-scracth');
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
+  const playlists = usePlaylistsStore((state) => state.playlists);
   const {
     handleSubmit,
     formState: { isValid, errors },
@@ -34,6 +36,9 @@ export function usePersistentCreatorForm() {
     resolver: zodResolver(formSchema),
   });
 
+  const selectedPlaylistSongs = getValues('playlist.id')
+    ? playlists[getValues('playlist.id')].songs
+    : [];
   const isPlaylistRequired = getValues('action') !== ACTIONS.createFromScratch;
 
   watch(['playlist', 'action']);
@@ -65,7 +70,7 @@ export function usePersistentCreatorForm() {
     startTransition(async () => {
       const prompt = await generatePrompt({
         action: getValues('action'),
-        playlistId: getValues('playlist')?.id,
+        songs: selectedPlaylistSongs,
       });
       if (!prompt.ok) {
         return setError('root', { type: '500', message: prompt.message });

@@ -7,7 +7,7 @@ import { formatSongsForAi } from '@/utils/formatSongsForAi';
 import { AI_ERROR_MESSAGE } from '../utils/constants';
 
 export async function generatePrompt(options: PromptGenerationOptions) {
-  const formattedSongs = formatSongsForAi(options.playlistId);
+  const formattedSongs = formatSongsForAi(options.songs);
   try {
     const { text } = await generateText({
       model: google(largeModel, { safetySettings: [safetySettings] }),

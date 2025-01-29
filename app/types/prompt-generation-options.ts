@@ -1,7 +1,7 @@
 import type { FeatureOption } from './feature';
-import type { Id } from './playlist';
+import type { Songs } from './playlist';
 
 export interface PromptGenerationOptions {
   action: FeatureOption | '';
-  playlistId: Id | undefined;
+  songs: Songs | undefined;
 }
