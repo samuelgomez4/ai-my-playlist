@@ -6,7 +6,7 @@ import { randomUUID } from 'crypto';
 
 export interface State {
   playlists: PlaylistsInfo;
-  createPlaylist: (name: string, description: string) => void;
+  createPlaylist: ({ name, description }: { name: string; description: string }) => string;
   deletePlaylist: (id: Id) => void;
   addSongsToPlaylist: (playlistId: Id, songs: Songs) => void;
   deleteSongsFromPlaylist: (playlistId: Id, songIds: Id[]) => void;
@@ -16,7 +16,7 @@ export const usePlaylistsStore = create<State>()(
   persist(
     (set) => ({
       playlists: playlists,
-      createPlaylist: (name, description) => {
+      createPlaylist: ({ name, description }) => {
         const id = randomUUID();
         set((state) => ({
           playlists: {
@@ -29,6 +29,7 @@ export const usePlaylistsStore = create<State>()(
             },
           },
         }));
+        return id;
       },
       deletePlaylist: (id) => {
         set((state) => {

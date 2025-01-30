@@ -9,6 +9,8 @@ import { formSchema } from '@/schemas/formSchema';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 import { generatePrompt } from '@/actions/ai/generate-prompt/generatePrompt';
 import { usePlaylistsStore } from '@/store/playlists';
+import { generatePlaylistDetails } from '@/actions/ai/generate-playlist-details/generatePlaylistDetails';
+import { generateSongsSuggestions } from '@/actions/ai/generate-songs-suggestions/generateSongsSuggestions';
 
 interface FormInputs {
   prompt: string;
@@ -21,6 +23,7 @@ export function usePersistentCreatorForm() {
   const startFromScratch = searchParams.get('create-from-scracth');
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
   const playlists = usePlaylistsStore((state) => state.playlists);
+  const createPlaylist = usePlaylistsStore((state) => state.createPlaylist);
   const {
     handleSubmit,
     formState: { isValid, errors },
@@ -79,12 +82,27 @@ export function usePersistentCreatorForm() {
     });
   };
 
-  const onSubmit = (data: FormInputs) => {
+  const onSubmit = async (data: FormInputs) => {
     reset();
     selectPlaylist(undefined);
     window.localStorage.removeItem('prompt');
     window.localStorage.removeItem('action');
-    if(data.action === ACTIONS.createFromScratch)
+    if (data.action === ACTIONS.createFromScratch) {
+      const playlistDetailsResult = await generatePlaylistDetails(data.prompt);
+      if (!playlistDetailsResult.ok) {
+        return setError('root', { type: '500', message: playlistDetailsResult.message });
+      }
+      const newPlaylsitId = createPlaylist({
+        name: playlistDetailsResult.detailsObject?.name ?? 'Playlist',
+        description: playlistDetailsResult.detailsObject?.description ?? 'This is a new playlist',
+      });
+      const songs = playlists[newPlaylsitId].songs;
+      const songsSuggestionsResult = await generateSongsSuggestions({ prompt: data.prompt, songs });
+      if (!songsSuggestionsResult.ok) {
+        return setError('root', { type: '500', message: songsSuggestionsResult.message });
+      }
+      
+    }
   };
 
   return {

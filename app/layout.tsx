@@ -47,3 +47,6 @@ export default function RootLayout({
 // TODO: Revisar las modales ya que algunas no funcionan bien.
 // TODO: Revisar todos los imports.
 // TODO: Revisar console.logs
+// TODO: Adicionar imagen cuando no esta disponible
+// TODO: Hacer que la plas playlists vengan del estado global
+// TODO: Mirar si hay alguna manera de que cuando se cree la nueva playlist se enfoquque la nueva playlist en el slideshow.
