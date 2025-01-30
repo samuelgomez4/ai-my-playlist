@@ -35,7 +35,6 @@ export async function generateIdsToAdd(options: PlaylistGenerationOptions) {
           content: `${prompt} ${formattedSongs}`,
         },
       ],
-      temperature: 1,
     });
     if (text === 'error') {
       return {
