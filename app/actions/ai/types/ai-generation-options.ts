@@ -5,3 +5,8 @@ export interface PromptGenerationOptions {
   action: FeatureOption | '';
   songs: Songs | undefined;
 }
+
+export interface PlaylistGenerationOptions {
+  prompt: string;
+  songs: Songs | undefined;
+}

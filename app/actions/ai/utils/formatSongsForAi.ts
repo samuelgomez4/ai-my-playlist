@@ -3,6 +3,7 @@ import type { Songs } from '@/types/playlist';
 export function formatSongsForAi(songs: Songs | undefined) {
   if (songs === undefined) return [];
   return songs.map((song) => [
+    song.id,
     song.title,
     song.artists,
     song.album,

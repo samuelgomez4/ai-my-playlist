@@ -2,7 +2,7 @@
 import { generateText } from 'ai';
 import { google } from '@ai-sdk/google';
 import { largeModel, safetySettings } from '../config';
-import { AI_ERROR_MESSAGE } from '../utils/constants';
+import { AI_ERROR_MESSAGE, refuseOffTopicAnswer } from '../utils/constants/constants';
 
 export async function generatePlaylistDetails(prompt: string) {
   try {
@@ -64,7 +64,7 @@ export async function generatePlaylistDetails(prompt: string) {
     if (text === 'error') {
       return {
         ok: false,
-        message: `I'm sorry I can't help you with that. Try again with another prompt.`,
+        message: refuseOffTopicAnswer,
       };
     }
     return { ok: true, text };
