@@ -11,6 +11,9 @@ import { generatePrompt } from '@/actions/ai/generate-prompt/generatePrompt';
 import { usePlaylistsStore } from '@/store/playlists';
 import { generatePlaylistDetails } from '@/actions/ai/generate-playlist-details/generatePlaylistDetails';
 import { generateSongsSuggestions } from '@/actions/ai/generate-songs-suggestions/generateSongsSuggestions';
+import { getSongsToAdd } from '@/actions/spotifyAPI/getSongsToAdd';
+import { generateIdsToAdd } from '@/actions/ai/generate-ids-to-add/generateIdsToAdd';
+import { generateIdsToRemove } from '@/actions/ai/generate-ids-to-remove/generateIdsToRemove';
 
 interface FormInputs {
   prompt: string;
@@ -24,9 +27,11 @@ export function usePersistentCreatorForm() {
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
   const playlists = usePlaylistsStore((state) => state.playlists);
   const createPlaylist = usePlaylistsStore((state) => state.createPlaylist);
+  const addSongsToPlaylist = usePlaylistsStore((state) => state.addSongsToPlaylist);
+  const deleteSongsFromPlaylist = usePlaylistsStore((state) => state.deleteSongsFromPlaylist);
   const {
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { isValid, errors, isSubmitting },
     register,
     getValues,
     setValue,
@@ -39,7 +44,7 @@ export function usePersistentCreatorForm() {
     resolver: zodResolver(formSchema),
   });
 
-  const selectedPlaylistSongs = getValues('playlist.id')
+  const currentPlaylistSongs = getValues('playlist.id')
     ? playlists[getValues('playlist.id')].songs
     : [];
   const isPlaylistRequired = getValues('action') !== ACTIONS.createFromScratch;
@@ -73,7 +78,7 @@ export function usePersistentCreatorForm() {
     startTransition(async () => {
       const prompt = await generatePrompt({
         action: getValues('action'),
-        songs: selectedPlaylistSongs,
+        songs: currentPlaylistSongs,
       });
       if (!prompt.ok) {
         return setError('root', { type: '500', message: prompt.message });
@@ -87,7 +92,11 @@ export function usePersistentCreatorForm() {
     selectPlaylist(undefined);
     window.localStorage.removeItem('prompt');
     window.localStorage.removeItem('action');
-    if (data.action === ACTIONS.createFromScratch) {
+    const selectedPlaylistSongs = playlists[data.playlist?.id ?? '']?.songs ?? [];
+    if (
+      data.action === ACTIONS.createFromScratch ||
+      data.action === ACTIONS.createBasedOnExisting
+    ) {
       const playlistDetailsResult = await generatePlaylistDetails(data.prompt);
       if (!playlistDetailsResult.ok) {
         return setError('root', { type: '500', message: playlistDetailsResult.message });
@@ -96,12 +105,62 @@ export function usePersistentCreatorForm() {
         name: playlistDetailsResult.detailsObject?.name ?? 'Playlist',
         description: playlistDetailsResult.detailsObject?.description ?? 'This is a new playlist',
       });
-      const songs = playlists[newPlaylsitId].songs;
-      const songsSuggestionsResult = await generateSongsSuggestions({ prompt: data.prompt, songs });
+      const songsSuggestionsResult = await generateSongsSuggestions({
+        prompt: data.prompt,
+        songs: selectedPlaylistSongs,
+      });
       if (!songsSuggestionsResult.ok) {
         return setError('root', { type: '500', message: songsSuggestionsResult.message });
       }
-      
+      const songsToAddResult = await getSongsToAdd(songsSuggestionsResult.songsSuggestionsList!);
+      if (!songsToAddResult.ok) {
+        return setError('root', { type: '500', message: songsToAddResult.message });
+      }
+      addSongsToPlaylist(newPlaylsitId, songsToAddResult.songsToAdd!);
+    } else if (data.action === ACTIONS.createFromSelected) {
+      const playlistDetailsResult = await generatePlaylistDetails(data.prompt);
+      if (!playlistDetailsResult.ok) {
+        return setError('root', { type: '500', message: playlistDetailsResult.message });
+      }
+      const newPlaylsitId = createPlaylist({
+        name: playlistDetailsResult.detailsObject?.name ?? 'Playlist',
+        description: playlistDetailsResult.detailsObject?.description ?? 'This is a new playlist',
+      });
+      const idsToAddResult = await generateIdsToAdd({
+        prompt: data.prompt,
+        songs: selectedPlaylistSongs,
+      });
+      if (!idsToAddResult.ok) {
+        return setError('root', { type: '500', message: idsToAddResult.message });
+      }
+      const idsToAdd = idsToAddResult.idsToAddList ?? [];
+      const songsToAdd = selectedPlaylistSongs.filter((song) => idsToAdd.includes(song.id));
+      addSongsToPlaylist(newPlaylsitId, songsToAdd);
+    } else if (data.action === ACTIONS.addNewSongs) {
+      const songsSuggestionsResult = await generateSongsSuggestions({
+        prompt: data.prompt,
+        songs: selectedPlaylistSongs,
+      });
+      if (!songsSuggestionsResult.ok) {
+        return setError('root', { type: '500', message: songsSuggestionsResult.message });
+      }
+      const songsToAddResult = await getSongsToAdd(songsSuggestionsResult.songsSuggestionsList!);
+      if (!songsToAddResult.ok) {
+        return setError('root', { type: '500', message: songsToAddResult.message });
+      }
+      addSongsToPlaylist(data.playlist?.id ?? '', songsToAddResult.songsToAdd!);
+    } else if (data.action === ACTIONS.deleteSongs) {
+      const idsToRemoveResult = await generateIdsToRemove({
+        prompt: data.prompt,
+        songs: selectedPlaylistSongs,
+      });
+      if (!idsToRemoveResult.ok) {
+        return setError('root', { type: '500', message: idsToRemoveResult.message });
+      }
+      const idsToRemove = idsToRemoveResult.idsToRemoveList ?? [];
+      deleteSongsFromPlaylist(data.playlist?.id ?? '', idsToRemove);
+    }
+    {
     }
   };
 
@@ -114,5 +173,6 @@ export function usePersistentCreatorForm() {
     errors,
     handleGeneratePrompt,
     isGeneratingPrompt,
+    isSubmitting,
   };
 }

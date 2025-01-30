@@ -13,7 +13,7 @@ export async function getSongsToAdd(songsSuggestions: Array<string>) {
   });
   try {
     const songsToAdd = await Promise.all(songsToAddPromises);
-    return songsToAdd;
+    return { ok: true, songsToAdd };
   } catch (error) {
     console.error('Error:', error);
     return { ok: false, message: 'There was an error fetching the songs. Try again later' };

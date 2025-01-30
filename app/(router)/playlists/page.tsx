@@ -1,8 +1,7 @@
-import { SmallPlaylistCard } from './components/SmallPlaylistCard';
 import { Link } from 'next-view-transitions';
 import { SearchBar } from '@/components/ui/SearchBar';
-import { playlists } from '@/utils/constants/playlists';
 import { CreatePlaylistCard } from '@/components/playlist/CreatePlaylistCard';
+import { PlaylistsGrid } from './components/PlaylistsGrid';
 
 export default function PlaylistsPage() {
   return (
@@ -17,12 +16,7 @@ export default function PlaylistsPage() {
       </Link>
       <SearchBar placeholder="Search playlists..." />
       <div className="grid py-12 px-4 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 justify-items-center">
-        {Object.values(playlists).map((playlist) => (
-          <SmallPlaylistCard
-            key={playlist.id}
-            playlist={playlist}
-          />
-        ))}
+        <PlaylistsGrid />
         <CreatePlaylistCard className="w-full max-w-[350px] min-h-32" />
       </div>
     </section>

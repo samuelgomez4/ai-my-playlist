@@ -1,4 +1,3 @@
-import { playlists } from '@/utils/constants/playlists';
 import { PlaylistSlideShow } from './components/playlist-slide-show/PlaylistSlideShow';
 import { Link } from 'next-view-transitions';
 import { PlaylistCreatorForm } from './components/playlist-creator-form/PlaylistCreatorForm';
@@ -26,7 +25,7 @@ export default function PlaylistCreatorPage() {
           className="text-white">
           See all playlists
         </Link>
-        <PlaylistSlideShow playlists={playlists} />
+        <PlaylistSlideShow />
       </section>
     </div>
   );
