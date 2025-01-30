@@ -88,10 +88,6 @@ export function usePersistentCreatorForm() {
   };
 
   const onSubmit = async (data: FormInputs) => {
-    reset();
-    selectPlaylist(undefined);
-    window.localStorage.removeItem('prompt');
-    window.localStorage.removeItem('action');
     const selectedPlaylistSongs = playlists[data.playlist?.id ?? '']?.songs ?? [];
     if (
       data.action === ACTIONS.createFromScratch ||
@@ -159,9 +155,13 @@ export function usePersistentCreatorForm() {
       }
       const idsToRemove = idsToRemoveResult.idsToRemoveList ?? [];
       deleteSongsFromPlaylist(data.playlist?.id ?? '', idsToRemove);
+    } else {
+      setError('root', { type: '500', message: 'Invalid action' });
     }
-    {
-    }
+    reset();
+    selectPlaylist(undefined);
+    window.localStorage.removeItem('prompt');
+    window.localStorage.removeItem('action');
   };
 
   return {

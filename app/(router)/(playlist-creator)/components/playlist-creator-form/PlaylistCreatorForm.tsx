@@ -5,6 +5,7 @@ import { PlaylistSelector } from './PlaylistSelector';
 import clsx from 'clsx';
 import { MAX_LENGTH_PROMPT } from '@/utils/constants/constants';
 import { usePersistentCreatorForm } from '@/(router)/(playlist-creator)/hooks/usePersistentCreatorForm';
+import { BiLoaderCircle } from 'react-icons/bi';
 
 export function PlaylistCreatorForm({}) {
   const {
@@ -16,6 +17,7 @@ export function PlaylistCreatorForm({}) {
     errors,
     handleGeneratePrompt,
     isGeneratingPrompt,
+    isSubmitting,
   } = usePersistentCreatorForm();
 
   return (
@@ -67,7 +69,11 @@ export function PlaylistCreatorForm({}) {
               'opacity-50 pointer-events-none': !isValid,
             }
           )}>
-          <span className="flex items-center justify-center gap-2">AI My Playlist</span>
+          {isSubmitting ? (
+            <BiLoaderCircle className="text-white text-base animate-spin" />
+          ) : (
+            <span>AI My Playlist</span>
+          )}
         </button>
       </div>
       {errors.root && (
