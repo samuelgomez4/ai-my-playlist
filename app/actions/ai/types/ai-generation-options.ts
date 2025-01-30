@@ -3,10 +3,10 @@ import type { Songs } from '@/types/playlist';
 
 export interface PromptGenerationOptions {
   action: FeatureOption | '';
-  songs: Songs | undefined;
+  songs: Songs;
 }
 
 export interface PlaylistGenerationOptions {
   prompt: string;
-  songs: Songs | undefined;
+  songs: Songs;
 }

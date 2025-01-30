@@ -79,8 +79,7 @@ export function usePersistentCreatorForm() {
     });
   };
 
-  const onSubmit = () => {
-    console.log('submit');
+  const onSubmit = (data: FormInputs) => {
     reset();
     selectPlaylist(undefined);
     window.localStorage.removeItem('prompt');

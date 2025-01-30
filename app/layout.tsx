@@ -46,3 +46,4 @@ export default function RootLayout({
 // TODO: Revisar la estructura del proyecto.
 // TODO: Revisar las modales ya que algunas no funcionan bien.
 // TODO: Revisar todos los imports.
+// TODO: Revisar console.logs
