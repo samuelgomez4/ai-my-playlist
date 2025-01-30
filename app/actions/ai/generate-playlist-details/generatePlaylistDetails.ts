@@ -3,8 +3,10 @@ import { generateText } from 'ai';
 import { google } from '@ai-sdk/google';
 import { largeModel, safetySettings } from '../config';
 import { AI_ERROR_MESSAGE, refuseOffTopicAnswer } from '../utils/constants/constants';
+import { promptSchema } from '@/schemas/formSchema';
 
 export async function generatePlaylistDetails(prompt: string) {
+  promptSchema.parse(prompt);
   try {
     const { text } = await generateText({
       model: google(largeModel, { safetySettings: [safetySettings] }),
@@ -67,7 +69,8 @@ export async function generatePlaylistDetails(prompt: string) {
         message: refuseOffTopicAnswer,
       };
     }
-    return { ok: true, text };
+    const detailsObject: { name: string; description: string } = JSON.parse(text);
+    return { ok: true, detailsObject };
   } catch (e) {
     if (e instanceof Error) {
       console.log({ message: e.message });

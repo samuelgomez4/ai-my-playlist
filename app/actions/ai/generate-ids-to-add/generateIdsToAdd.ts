@@ -6,8 +6,10 @@ import type { PlaylistGenerationOptions } from '@/actions/ai/types/ai-generation
 import { formatSongsForAi } from '@/actions/ai/utils/formatSongsForAi';
 import { AI_ERROR_MESSAGE, refuseOffTopicAnswer } from '../utils/constants/constants';
 import { samplePlaylistString } from '../utils/constants/samplePlaylist';
+import { promptSchema } from '@/schemas/formSchema';
 
 export async function generateIdsToAdd(options: PlaylistGenerationOptions) {
+  promptSchema.parse(options.prompt);
   const formattedSongs = JSON.stringify(formatSongsForAi(options.songs));
   try {
     const { text } = await generateText({
@@ -32,7 +34,7 @@ export async function generateIdsToAdd(options: PlaylistGenerationOptions) {
         },
         {
           role: 'user',
-          content: `${prompt} ${formattedSongs}`,
+          content: `${options.prompt} ${formattedSongs}`,
         },
       ],
     });
@@ -42,7 +44,8 @@ export async function generateIdsToAdd(options: PlaylistGenerationOptions) {
         message: refuseOffTopicAnswer,
       };
     }
-    return { ok: true, text };
+    const idsToAddList: Array<string> = JSON.parse(text);
+    return { ok: true, idsToAddList };
   } catch (e) {
     if (e instanceof Error) {
       console.log({ message: e.message });

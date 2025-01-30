@@ -84,6 +84,7 @@ export function usePersistentCreatorForm() {
     selectPlaylist(undefined);
     window.localStorage.removeItem('prompt');
     window.localStorage.removeItem('action');
+    if(data.action === ACTIONS.createFromScratch)
   };
 
   return {

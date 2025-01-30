@@ -6,8 +6,10 @@ import type { PlaylistGenerationOptions } from '@/actions/ai/types/ai-generation
 import { formatSongsForAi } from '@/actions/ai/utils/formatSongsForAi';
 import { AI_ERROR_MESSAGE, refuseOffTopicAnswer } from '../utils/constants/constants';
 import { samplePlaylistString } from '../utils/constants/samplePlaylist';
+import { promptSchema } from '@/schemas/formSchema';
 
 export async function generateSongsSuggestions(options: PlaylistGenerationOptions) {
+  promptSchema.parse(options.prompt);
   const formattedSongs = JSON.stringify(formatSongsForAi(options.songs));
   try {
     const { text } = await generateText({
@@ -53,7 +55,7 @@ export async function generateSongsSuggestions(options: PlaylistGenerationOption
         },
         {
           role: 'user',
-          content: `${prompt} ${formattedSongs}`,
+          content: `${options.prompt} ${formattedSongs}`,
         },
       ],
     });
@@ -63,7 +65,11 @@ export async function generateSongsSuggestions(options: PlaylistGenerationOption
         message: refuseOffTopicAnswer,
       };
     }
-    return { ok: true, text };
+    const songsSuggestionsList: Array<string> = JSON.parse(text);
+    if (songsSuggestionsList.length > 20) {
+      songsSuggestionsList.slice(0, 20);
+    }
+    return { ok: true, songsSuggestionsList };
   } catch (e) {
     if (e instanceof Error) {
       console.log({ message: e.message });
