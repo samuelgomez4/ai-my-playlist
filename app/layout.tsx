@@ -54,3 +54,5 @@ export default function RootLayout({
 // TODO: Adicionar boton de x en la pagina de playlists
 // TODO: Darle interactivida a boton de x en la pagina de playlist
 // TODO: Corregir pagina de playlsit.
+// TODO: Implementar el searchbar
+// TODO: Hacer que el icono vaya a inicio

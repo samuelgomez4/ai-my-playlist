@@ -1,9 +1,9 @@
 'use client';
-import { usePlaylistsStore } from '@/store/playlists';
 import { SmallPlaylistCard } from './SmallPlaylistCard';
+import { usePlaylists } from '@/hooks/usePlaylists';
 
 export function PlaylistsGrid() {
-  const playlists = usePlaylistsStore((state) => state.playlists);
+  const playlists = usePlaylists();
   return (
     <>
       {Object.values(playlists).map((playlist) => (

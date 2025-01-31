@@ -14,6 +14,7 @@ import { generateSongsSuggestions } from '@/actions/ai/generate-songs-suggestion
 import { getSongsToAdd } from '@/actions/spotifyAPI/getSongsToAdd';
 import { generateIdsToAdd } from '@/actions/ai/generate-ids-to-add/generateIdsToAdd';
 import { generateIdsToRemove } from '@/actions/ai/generate-ids-to-remove/generateIdsToRemove';
+import { usePlaylists } from '@/hooks/usePlaylists';
 
 interface FormInputs {
   prompt: string;
@@ -25,7 +26,7 @@ export function usePersistentCreatorForm() {
   const searchParams = useSearchParams();
   const startFromScratch = searchParams.get('create-from-scracth');
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
-  const playlists = usePlaylistsStore((state) => state.playlists);
+  const playlists = usePlaylists();
   const createPlaylist = usePlaylistsStore((state) => state.createPlaylist);
   const addSongsToPlaylist = usePlaylistsStore((state) => state.addSongsToPlaylist);
   const deleteSongsFromPlaylist = usePlaylistsStore((state) => state.deleteSongsFromPlaylist);

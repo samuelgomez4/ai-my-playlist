@@ -64,13 +64,14 @@ export function PlaylistCreatorForm({}) {
         <button
           type="submit"
           className={clsx(
-            'px-8 py-3 text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg  active:scale-95 transition-all duration-300 shadow-lg hover:shadow-purple-500/50 font-semibold tracking-wide',
+            'min-w-44 px-8 py-3 text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg  active:scale-95 transition-all duration-300 shadow-lg hover:shadow-purple-500/50 font-semibold tracking-wide flex justify-center items-center',
             {
               'opacity-50 pointer-events-none': !isValid,
+              'pointer-events-none': isSubmitting,
             }
           )}>
           {isSubmitting ? (
-            <BiLoaderCircle className="text-white text-base animate-spin" />
+            <BiLoaderCircle className="text-2xl  animate-spin" />
           ) : (
             <span>AI My Playlist</span>
           )}

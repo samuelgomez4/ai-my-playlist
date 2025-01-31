@@ -11,10 +11,10 @@ import './slide-styles.css';
 import { FreeMode, Navigation } from 'swiper/modules';
 import { PlaylistCard } from './PlaylistCard';
 import { CreatePlaylistCard } from '@/components/playlist/CreatePlaylistCard';
-import { usePlaylistsStore } from '@/store/playlists';
+import { usePlaylists } from '@/hooks/usePlaylists';
 
 export function PlaylistSlideShow() {
-  const playlists = usePlaylistsStore((state) => state.playlists);
+  const playlists = usePlaylists();
   return (
     <div className="relative swiper-container">
       <Swiper
