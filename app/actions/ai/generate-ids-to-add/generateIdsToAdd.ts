@@ -22,7 +22,8 @@ export async function generateIdsToAdd(options: PlaylistGenerationOptions) {
         },
         {
           role: 'assistant',
-          content: '[0, 5, 7, 17]',
+          content:
+            '["e1c0d1f0-1c0d-1f0e-1c0d-1f0e1c0d1f0e", "f6a5b4c7-6a5b-4c7f-6a5b-4c7f6a5b4c7f", "b8c7d6e9-8c7d-6e9b-8c7d-6e9b8c7d6e9b", "f8a7b6c9-8a7b-6c9f-8a7b-6c9f8a7b6c9f"]',
         },
         {
           role: 'user',

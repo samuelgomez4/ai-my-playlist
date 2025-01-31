@@ -22,7 +22,8 @@ export async function generateIdsToRemove(options: PlaylistGenerationOptions) {
         },
         {
           role: 'assistant',
-          content: '[0, 5, 7, 17]',
+          content:
+            '["e1c0d1f0-1c0d-1f0e-1c0d-1f0e1c0d1f0e", "f6a5b4c7-6a5b-4c7f-6a5b-4c7f6a5b4c7f", "b8c7d6e9-8c7d-6e9b-8c7d-6e9b8c7d6e9b", "f8a7b6c9-8a7b-6c9f-8a7b-6c9f8a7b6c9f"]',
         },
         {
           role: 'user',
@@ -30,15 +31,7 @@ export async function generateIdsToRemove(options: PlaylistGenerationOptions) {
         },
         {
           role: 'assistant',
-          content: `I'm sorry I can't help you with that. Try again with another prompt.`,
-        },
-        {
-          role: 'user',
-          content: `Keep songs from Manuel Turizo ${samplePlaylistString}`,
-        },
-        {
-          role: 'assistant',
-          content: '[0, 5, 7, 17]',
+          content: 'error',
         },
         {
           role: 'user',
@@ -46,7 +39,8 @@ export async function generateIdsToRemove(options: PlaylistGenerationOptions) {
         },
         {
           role: 'assistant',
-          content: `[0, 2, 3, 4, 5, 6, 8, 10, 12, 13, 14, 16, 17, 18, 19]`,
+          content:
+            '["e1c0d1f0-1c0d-1f0e-1c0d-1f0e1c0d1f0e", "c3d2e1f4-3d2e-1f4c-3d2e-1f4c3d2e1f4c", "d4e3f2a5-4e3f-2a5d-4e3f-2a5d4e3f2a5d", "e5f4a3b6-5f4a-3b6e-5f4a-3b6e5f4a3b6e", "f6a5b4c7-6a5b-4c7f-6a5b-4c7f6a5b4c7f", "a7b6c5d8-7b6c-5d8a-7b6c-5d8a7b6c5d8a", "c9d8e7f0-9d8e-7f0c-9d8e-7f0c9d8e7f0c", "e1f0a9b2-1f0a-9b2e-1f0a-9b2e1f0a9b2e", "a3b2c1d4-3b2c-1d4a-3b2c-1d4a3b2c1d4a", "b4c3d2e5-4c3d-2e5b-4c3d-2e5b4c3d2e5b", "c5d4e3f6-5d4e-3f6c-5d4e-3f6c5d4e3f6c", "e7f6a5b8-7f6a-5b8e-7f6a-5b8e7f6a5b8e", "f8a7b6c9-8a7b-6c9f-8a7b-6c9f8a7b6c9f", "a9b8c7d0-9b8c-7d0a-9b8c-7d0a9b8c7d0a", "b0c9d8e1-0c9d-8e1b-0c9d-8e1b0c9d8e1b"]',
         },
         {
           role: 'user',

@@ -56,3 +56,5 @@ export default function RootLayout({
 // TODO: Corregir pagina de playlsit.
 // TODO: Implementar el searchbar
 // TODO: Hacer que el icono vaya a inicio
+// TODO: Refactorizar ondubmit
+// TODO: Mirar que si se crea la playlist y no se adicionan canciones entonces se elimine la playlist y se muestre un mensaje de error.
