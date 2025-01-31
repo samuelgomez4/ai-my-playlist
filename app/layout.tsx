@@ -49,7 +49,7 @@ export default function RootLayout({
 // TODO: Revisar console.logs
 // TODO: Adicionar imagen cuando no esta disponible
 // TODO: Hacer que la plas playlists vengan del estado global
-// TODO: Mirar si hay alguna manera de que cuando se cree la nueva playlist se enfoquque la nueva playlist en el slideshow.
+// TODO: Mirar si hay alguna manera de que cuando se cree la nueva playlist se enfoquque la nueva playlist en el slideshow.Q
 // TODO: Revisar el scrollbar
 // TODO: Adicionar boton de x en la pagina de playlists
 // TODO: Darle interactivida a boton de x en la pagina de playlist
