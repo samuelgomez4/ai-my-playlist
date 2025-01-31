@@ -14,6 +14,10 @@ export function formatSongToAdd(item: Item): Song {
     )
       .toFixed(0)
       .padStart(2, '0')}`,
-    addedOn: new Date().toISOString(),
+    addedOn: new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    }),
   };
 }

@@ -3,10 +3,12 @@ import { CancelButton } from '@/components/ui/CancelButton';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { usePlaylists } from '@/hooks/usePlaylists';
 import type { Id } from '@/types/playlist';
+import { useTransitionRouter } from 'next-view-transitions';
 
 export function PlaylistHeader({ id }: { id: Id }) {
   const playlists = usePlaylists();
   const currentPlaylistInfo = playlists[id];
+  const router = useTransitionRouter();
   return (
     <header className="flex gap-6 mb-12">
       <img
@@ -22,7 +24,10 @@ export function PlaylistHeader({ id }: { id: Id }) {
           </h2>
           <p className="text-gray-400">{currentPlaylistInfo?.songs.length ?? 0} songs</p>
         </div>
-        <CancelButton className="justify-self-end self-start" />
+        <CancelButton
+          onClick={() => router.push('/')}
+          className="justify-self-end self-start"
+        />
         <SearchBar
           placeholder="Search in playlist..."
           className="col-start-1 col-end-3 self-center"

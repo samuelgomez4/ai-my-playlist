@@ -77,3 +77,9 @@
   display: none;
 }
 }
+
+.swiper-container .swiper-wrapper {
+  transition-duration: 0.8s !important;
+  /*Ease-out for scrolling, big difference when changed*/
+  transition-timing-function: ease-out;
+}

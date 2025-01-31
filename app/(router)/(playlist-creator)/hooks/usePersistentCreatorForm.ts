@@ -30,6 +30,7 @@ export function usePersistentCreatorForm() {
   const createPlaylist = usePlaylistsStore((state) => state.createPlaylist);
   const addSongsToPlaylist = usePlaylistsStore((state) => state.addSongsToPlaylist);
   const deleteSongsFromPlaylist = usePlaylistsStore((state) => state.deleteSongsFromPlaylist);
+  const swiper = document.getElementById('playlist-slide-show');
   const {
     handleSubmit,
     formState: { isValid, errors, isSubmitting },
@@ -114,6 +115,8 @@ export function usePersistentCreatorForm() {
         return setError('root', { type: '500', message: songsToAddResult.message });
       }
       addSongsToPlaylist(newPlaylsitId, songsToAddResult.songsToAdd!);
+      swiper?.scrollIntoView({ behavior: 'smooth' });
+      swiper?.swiper.slideTo(Object.keys(playlists).length);
     } else if (data.action === ACTIONS.createFromSelected) {
       const playlistDetailsResult = await generatePlaylistDetails(data.prompt);
       if (!playlistDetailsResult.ok) {
@@ -133,6 +136,7 @@ export function usePersistentCreatorForm() {
       const idsToAdd = idsToAddResult.idsToAddList ?? [];
       const songsToAdd = selectedPlaylistSongs.filter((song) => idsToAdd.includes(song.id));
       addSongsToPlaylist(newPlaylsitId, songsToAdd);
+      swiper?.scrollIntoView({ behavior: 'smooth' });
     } else if (data.action === ACTIONS.addNewSongs) {
       const songsSuggestionsResult = await generateSongsSuggestions({
         prompt: data.prompt,
@@ -146,6 +150,7 @@ export function usePersistentCreatorForm() {
         return setError('root', { type: '500', message: songsToAddResult.message });
       }
       addSongsToPlaylist(data.playlist?.id ?? '', songsToAddResult.songsToAdd!);
+      swiper?.scrollIntoView({ behavior: 'smooth' });
     } else if (data.action === ACTIONS.deleteSongs) {
       const idsToRemoveResult = await generateIdsToRemove({
         prompt: data.prompt,
@@ -156,6 +161,7 @@ export function usePersistentCreatorForm() {
       }
       const idsToRemove = idsToRemoveResult.idsToRemoveList ?? [];
       deleteSongsFromPlaylist(data.playlist?.id ?? '', idsToRemove);
+      swiper?.scrollIntoView({ behavior: 'smooth' });
     } else {
       setError('root', { type: '500', message: 'Invalid action' });
     }

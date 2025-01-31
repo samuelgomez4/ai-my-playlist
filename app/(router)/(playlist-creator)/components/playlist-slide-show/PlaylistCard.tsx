@@ -19,7 +19,7 @@ export function PlaylistCard({ playlist }: Props) {
           className="w-full h-full object-cover blur-xl"
         />
       </div>
-      <div className=" h-full rounded-xl overflow-hidden backdrop-blur-xl bg-black/30 border border-gray-700/50 hover:border-purple-600/60">
+      <div className=" h-full rounded-xl overflow-hidden backdrop-blur-xl bg-black/40 border border-gray-700/50 hover:border-purple-600/60">
         <img
           src={songs[0]?.image}
           alt={name}

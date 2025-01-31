@@ -51,10 +51,7 @@ export default function RootLayout({
 // TODO: Hacer que la plas playlists vengan del estado global
 // TODO: Mirar si hay alguna manera de que cuando se cree la nueva playlist se enfoquque la nueva playlist en el slideshow.Q
 // TODO: Revisar el scrollbar
-// TODO: Adicionar boton de x en la pagina de playlists
-// TODO: Darle interactivida a boton de x en la pagina de playlist
 // TODO: Corregir pagina de playlsit.
 // TODO: Implementar el searchbar
-// TODO: Hacer que el icono vaya a inicio
 // TODO: Refactorizar ondubmit
 // TODO: Mirar que si se crea la playlist y no se adicionan canciones entonces se elimine la playlist y se muestre un mensaje de error.
