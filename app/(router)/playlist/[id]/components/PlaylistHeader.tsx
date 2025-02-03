@@ -14,15 +14,19 @@ export function PlaylistHeader({ id }: { id: Id }) {
       <img
         src={currentPlaylistInfo?.songs[0].image ?? ''}
         alt={currentPlaylistInfo?.name ?? ''}
-        className={`w-48 h-48 object-cover rounded-lg`}
+        className={`w-24 h-24 sm:w-48 sm:h-48 object-cover rounded-lg`}
       />
       <div className="grid grid-cols-[10fr,1fr] gap-6 flex-1">
         <div className="overflow-hidden self-center">
           <h2
-            className={`text-4xl font-bold text-white pb-4 text-nowrap overflow-hidden text-ellipsis`}>
+            className={`text-3xl sm:text-6xl font-bold text-white pb-4 text-nowrap overflow-hidden text-ellipsis`}>
             {currentPlaylistInfo?.name}
           </h2>
-          <p className="text-gray-400">{currentPlaylistInfo?.songs.length ?? 0} songs</p>
+          <p className="text-gray-400">
+            <span>{currentPlaylistInfo?.songs.length ?? 0} songs </span>
+            <span>• </span>
+            <span>{currentPlaylistInfo?.description}</span>
+          </p>
         </div>
         <CancelButton
           onClick={() => router.push('/')}
