@@ -49,10 +49,7 @@ export function usePersistentCreatorForm() {
   } = useForm<FormInputs>({
     resolver: zodResolver(formSchema),
   });
-
-  const currentPlaylistSongs = getValues('playlist.id')
-    ? playlists[getValues('playlist.id')].songs
-    : [];
+  const currentPlaylistSongs = playlists[getValues('playlist.id')]?.songs ?? [];
   const isPlaylistRequired = getValues('action') !== ACTIONS.createFromScratch;
 
   watch(['playlist', 'action']);

@@ -45,7 +45,7 @@ export function PlaylistSlideShow() {
         <SwiperSlide
           className="!h-auto"
           id="last-slide">
-          <CreatePlaylistCard className="w-56" />
+          <CreatePlaylistCard className="w-56 min-h-96" />
         </SwiperSlide>
       </Swiper>
     </div>

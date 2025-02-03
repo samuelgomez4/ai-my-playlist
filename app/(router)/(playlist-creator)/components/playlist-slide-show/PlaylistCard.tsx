@@ -23,11 +23,11 @@ export function PlaylistCard({ playlist }: Props) {
         <img
           src={songs[0]?.image}
           alt={name}
-          className={`w-full h-48 object-cover transition-transform duration-300 [view-transition-name:playlist-image-${id}]`}
+          className={`w-full h-48 object-cover transition-transform duration-300`}
         />
         <div className="px-4 pt-4 pb-6">
           <h3
-            className={`text-white font-semibold mb-1 text-lg text-nowrap text-ellipsis overflow-hidden [view-transition-name:playlist-name-${id}]`}
+            className={`text-white font-semibold mb-1 text-lg text-nowrap text-ellipsis overflow-hidden`}
             title={name}>
             {name}
           </h3>

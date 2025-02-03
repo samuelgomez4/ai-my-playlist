@@ -31,7 +31,7 @@ export function PlaylistSelector({ className, disabled }: Props) {
         href="./playlists"
         className="flex-1 text-white overflow-hidden py-3">
         {selectedPlaylist ? (
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-3 items-center">
             <img
               src={selectedPlaylist.image}
               alt={selectedPlaylist.name}
