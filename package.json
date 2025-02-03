@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^1.1.6",
+    "@formkit/auto-animate": "^0.8.2",
     "@hookform/resolvers": "^3.10.0",
     "ai": "^4.1.9",
     "clsx": "^2.1.1",

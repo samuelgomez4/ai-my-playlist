@@ -4,9 +4,11 @@ import { SearchBar } from '@/components/ui/SearchBar';
 import { CreatePlaylistCard } from '@/components/playlist/CreatePlaylistCard';
 import { PlaylistsGrid } from './components/PlaylistsGrid';
 import { CancelButton } from '@/components/ui/CancelButton';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 export default function PlaylistsPage() {
   const router = useTransitionRouter();
+  const [animationParent] = useAutoAnimate();
   return (
     <section className="mb-8 px-4">
       <div className="flex justify-between items-center mb-10">
@@ -16,7 +18,9 @@ export default function PlaylistsPage() {
         <CancelButton onClick={() => router.push('/')} />
       </div>
       <SearchBar placeholder="Search playlists..." />
-      <div className="grid py-12 px-4 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 justify-items-center">
+      <div
+        ref={animationParent}
+        className="grid py-12 px-4 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 justify-items-center">
         <PlaylistsGrid />
         <CreatePlaylistCard className="w-full max-w-[350px] min-h-32" />
       </div>

@@ -1,6 +1,6 @@
+import { DeletePlaylistButton } from '@/components/delete-playlist/DeletePlaylistButton';
 import { SelectPlaylistButton } from '@/components/playlist/SelectPlaylistButton';
 import { ViewSongsButton } from '@/components/playlist/ViewSongsButton';
-import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
 import type { PlaylistInfo } from '@/types/playlist';
 
 interface Props {
@@ -46,7 +46,10 @@ export function PlaylistCard({ playlist }: Props) {
                 playlistId={id}>
                 View Songs
               </ViewSongsButton>
-              <DeleteButton title={name} />
+              <DeletePlaylistButton
+                id={id}
+                itemName={name}
+              />
             </div>
           </div>
         </div>

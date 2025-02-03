@@ -1,30 +1,15 @@
 'use client';
-import { useCallback, useState } from 'react';
+import type { ButtonHTMLAttributes } from 'react';
 import { FaTrash } from 'react-icons/fa';
-import { DeleteModal } from './DeleteModal';
 
-interface Props {
-  title: string;
-}
-export function DeleteButton({ title }: Props) {
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const closeModal = useCallback(() => {
-    setShowDeleteModal(false);
-  }, []);
+export function DeleteButton({ ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <>
       <button
-        onClick={() => setShowDeleteModal(true)}
-        title="delete"
+        {...props}
         className="p-3 bg-red-700 text-white rounded-lg hover:bg-red-600 transition-all duration-300 shadow-lg">
         <FaTrash className="text-sm" />
       </button>
-      {showDeleteModal && (
-        <DeleteModal
-          closeModal={closeModal}
-          title={title}
-        />
-      )}
     </>
   );
 }
