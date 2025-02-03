@@ -42,16 +42,15 @@ export default function RootLayout({
 // TODO: Revisar el 'use client' de todos los componentes.
 // TODO: Revisar todos los textos
 // TODO: Hacer el readme
-// TODO: Mirar como reaccionar cuando se elimina una playlist o una cancion
+// TODO: Mirar como reaccionar cuando se elimina una playlist
 // TODO: Revisar la estructura del proyecto.
 // TODO: Revisar las modales ya que algunas no funcionan bien.
 // TODO: Revisar todos los imports.
 // TODO: Revisar console.logs
 // TODO: Adicionar imagen cuando no esta disponible
-// TODO: Hacer que la plas playlists vengan del estado global
-// TODO: Mirar si hay alguna manera de que cuando se cree la nueva playlist se enfoquque la nueva playlist en el slideshow.Q
 // TODO: Revisar el scrollbar
 // TODO: Corregir pagina de playlsit.
 // TODO: Implementar el searchbar
 // TODO: Refactorizar ondubmit
-// TODO: Mirar que si se crea la playlist y no se adicionan canciones entonces se elimine la playlist y se muestre un mensaje de error.
+//  TODO: Mirar que si una imporacion se esta usando en mas de un lugar no este metido en una carpeta
+// TODO: Implementar botones de eliminar playlist y eliminar cancion.

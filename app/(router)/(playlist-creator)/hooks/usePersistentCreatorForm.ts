@@ -16,6 +16,7 @@ import { generateIdsToAdd } from '@/actions/ai/generate-ids-to-add/generateIdsTo
 import { generateIdsToRemove } from '@/actions/ai/generate-ids-to-remove/generateIdsToRemove';
 import { usePlaylists } from '@/hooks/usePlaylists';
 import { useSlideShow } from '@/hooks/useSlideShow';
+import { refuseOffTopicAnswer } from '@/actions/ai/utils/constants/constants';
 
 interface FormInputs {
   prompt: string;
@@ -29,6 +30,7 @@ export function usePersistentCreatorForm() {
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
   const playlists = usePlaylists();
   const createPlaylist = usePlaylistsStore((state) => state.createPlaylist);
+  const deletePlaylist = usePlaylistsStore((state) => state.deletePlaylist);
   const addSongsToPlaylist = usePlaylistsStore((state) => state.addSongsToPlaylist);
   const deleteSongsFromPlaylist = usePlaylistsStore((state) => state.deleteSongsFromPlaylist);
   const { slideShowRef, slideShowTitleRef } = useSlideShow();
@@ -137,6 +139,10 @@ export function usePersistentCreatorForm() {
       }
       const idsToAdd = idsToAddResult.idsToAddList ?? [];
       const songsToAdd = selectedPlaylistSongs.filter((song) => idsToAdd.includes(song.id));
+      if (songsToAdd.length === 0) {
+        deletePlaylist(newPlaylsitId);
+        return setError('root', { type: '500', message: refuseOffTopicAnswer });
+      }
       addSongsToPlaylist(newPlaylsitId, songsToAdd);
       slideShowTitleRef?.current?.scrollIntoView({ behavior: 'smooth' });
       slideShowRef?.current?.swiper?.slideTo(Object.keys(playlists).length);
@@ -163,6 +169,9 @@ export function usePersistentCreatorForm() {
         return setError('root', { type: '500', message: idsToRemoveResult.message });
       }
       const idsToRemove = idsToRemoveResult.idsToRemoveList ?? [];
+      if (idsToRemove.length === 0) {
+        return setError('root', { type: '500', message: refuseOffTopicAnswer });
+      }
       deleteSongsFromPlaylist(data.playlist?.id ?? '', idsToRemove);
       slideShowTitleRef?.current?.scrollIntoView({ behavior: 'smooth' });
     } else {
