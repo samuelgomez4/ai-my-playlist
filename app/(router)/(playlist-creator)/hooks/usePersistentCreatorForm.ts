@@ -109,11 +109,17 @@ export function usePersistentCreatorForm() {
         songs: selectedPlaylistSongs,
       });
       if (!songsSuggestionsResult.ok) {
+        deletePlaylist(newPlaylsitId);
         return setError('root', { type: '500', message: songsSuggestionsResult.message });
       }
       const songsToAddResult = await getSongsToAdd(songsSuggestionsResult.songsSuggestionsList!);
       if (!songsToAddResult.ok) {
+        deletePlaylist(newPlaylsitId);
         return setError('root', { type: '500', message: songsToAddResult.message });
+      }
+      if (songsToAddResult?.songsToAdd?.length === 0) {
+        deletePlaylist(newPlaylsitId);
+        return setError('root', { type: '500', message: refuseOffTopicAnswer });
       }
       addSongsToPlaylist(newPlaylsitId, songsToAddResult.songsToAdd!);
       slideShowTitleRef?.current?.scrollIntoView({ behavior: 'smooth' });
@@ -132,6 +138,7 @@ export function usePersistentCreatorForm() {
         songs: selectedPlaylistSongs,
       });
       if (!idsToAddResult.ok) {
+        deletePlaylist(newPlaylsitId);
         return setError('root', { type: '500', message: idsToAddResult.message });
       }
       const idsToAdd = idsToAddResult.idsToAddList ?? [];
@@ -154,6 +161,9 @@ export function usePersistentCreatorForm() {
       const songsToAddResult = await getSongsToAdd(songsSuggestionsResult.songsSuggestionsList!);
       if (!songsToAddResult.ok) {
         return setError('root', { type: '500', message: songsToAddResult.message });
+      }
+      if (songsToAddResult?.songsToAdd?.length === 0) {
+        return setError('root', { type: '500', message: refuseOffTopicAnswer });
       }
       addSongsToPlaylist(data.playlist?.id ?? '', songsToAddResult.songsToAdd!);
       slideShowTitleRef?.current?.scrollIntoView({ behavior: 'smooth' });
