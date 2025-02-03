@@ -13,7 +13,6 @@ interface Props {
 export function SelectPlaylistButton({ className, children, playlist, redirectToForm }: Props) {
   const { id, name, songs } = playlist;
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
-
   const handleSelectPlaylist = () => {
     selectPlaylist({ id, name, image: songs[0].image });
     redirectToForm();

@@ -1,7 +1,7 @@
 import { persist } from 'zustand/middleware';
 import { create } from 'zustand';
 import type { Id, PlaylistsInfo, Songs } from '@/types/playlist';
-import { playlists } from '@/utils/constants/playlists';
+import { playlistsSample } from '@/utils/constants/playlistsSample';
 
 export interface State {
   playlists: PlaylistsInfo;
@@ -14,7 +14,7 @@ export interface State {
 export const usePlaylistsStore = create<State>()(
   persist(
     (set) => ({
-      playlists: playlists,
+      playlists: playlistsSample,
       createPlaylist: ({ name, description }) => {
         const id = crypto.randomUUID();
         set((state) => ({

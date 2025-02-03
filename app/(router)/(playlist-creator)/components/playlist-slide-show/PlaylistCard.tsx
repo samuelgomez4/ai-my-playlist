@@ -12,14 +12,14 @@ export function PlaylistCard({ playlist }: Props) {
 
   return (
     <article className="w-56 relative z-0">
-      <div className="absolute inset-0 -z-10 rounded-xl scale-x-90 scale-y-95">
+      <div className="absolute inset-0 -z-10 rounded-xl overflow-hidden">
         <img
           src={songs[0]?.image}
           alt="card background image"
-          className="w-full h-full object-cover blur-xl"
+          className="w-full h-full object-cover"
         />
       </div>
-      <div className=" h-full rounded-xl overflow-hidden backdrop-blur-xl bg-black/40 border border-gray-700/50 hover:border-purple-600/60">
+      <div className=" h-full rounded-xl overflow-hidden backdrop-blur-2xl bg-black/50 border border-gray-700/50 hover:border-purple-600/60">
         <img
           src={songs[0]?.image}
           alt={name}

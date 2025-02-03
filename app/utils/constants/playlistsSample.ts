@@ -1,6 +1,6 @@
 import type { PlaylistsInfo } from '@/types/playlist';
 
-export const playlists: PlaylistsInfo = {
+export const playlistsSample: PlaylistsInfo = {
   '1': {
     id: '1',
     name: 'Summer Vibes',
