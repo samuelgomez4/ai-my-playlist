@@ -1,5 +1,4 @@
 import { PlaylistSlideShow } from './components/playlist-slide-show/PlaylistSlideShow';
-import Link from 'next/link';
 import { PlaylistCreatorForm } from './components/playlist-creator-form/PlaylistCreatorForm';
 import { SlideShowContextProvider } from '@/components/providers/SlideShowProvider';
 import { SlideShowTitle } from './components/playlist-slide-show-title/SlideShowTitle';
@@ -24,11 +23,6 @@ export default function PlaylistCreatorPage() {
         </section>
         <section className="mb-8">
           <SlideShowTitle />
-          <Link
-            href={'./playlists'}
-            className="text-white">
-            See all playlists
-          </Link>
           <PlaylistSlideShow />
         </section>
       </div>
