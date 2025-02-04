@@ -1,6 +1,6 @@
 import type { Id } from '@/types/playlist';
 import { DeleteButton } from '../ui/delete-button/DeleteButton';
-import { usePlaylistsStore } from '@/store/playlists';
+import { usePlaylistsStore } from '@/store/playlists-store';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 
 interface Props {

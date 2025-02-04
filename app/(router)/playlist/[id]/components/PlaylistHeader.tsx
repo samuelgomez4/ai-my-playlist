@@ -2,11 +2,13 @@
 import { CancelButton } from '@/components/ui/CancelButton';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { usePlaylists } from '@/hooks/usePlaylists';
+import { useSongQuerytStore } from '@/store/song-query-store';
 import type { Id } from '@/types/playlist';
 import { useRouter } from 'next/navigation';
 
 export function PlaylistHeader({ id }: { id: Id }) {
   const { playlists } = usePlaylists();
+  const { query, setQuery } = useSongQuerytStore();
   const currentPlaylistInfo = playlists[id];
   const router = useRouter();
   return (
@@ -32,6 +34,8 @@ export function PlaylistHeader({ id }: { id: Id }) {
         className="justify-self-end self-start"
       />
       <SearchBar
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
         placeholder="Search in playlist..."
         className="col-start-1 col-end-4 sm:col-start-2 sm:col-end-4 self-center"
       />

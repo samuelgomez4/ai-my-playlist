@@ -1,16 +1,20 @@
 'use client';
 import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
-import { usePlaylists } from '@/hooks/usePlaylists';
-import { usePlaylistsStore } from '@/store/playlists';
+import { usePlaylistsStore } from '@/store/playlists-store';
 import type { Id } from '@/types/playlist';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { IoTimeOutline } from 'react-icons/io5';
+import { useFilteredSongs } from '../hooks/useFilteredSongs';
 
-export function PlaylistTable({ id }: { id: Id }) {
-  const { playlists } = usePlaylists();
-  const [parent] = useAutoAnimate();
-  const currentPlaylistInfo = playlists[id];
+interface Props {
+  id: Id;
+}
+
+export function PlaylistTable({ id }: Props) {
   const deleteSongsFromPlaylist = usePlaylistsStore((state) => state.deleteSongsFromPlaylist);
+  const [parent] = useAutoAnimate();
+  const { filteredSongs } = useFilteredSongs(id);
+
   return (
     <div className="overflow-x-auto [transform:rotateX(180deg)]">
       <table className="w-full table-fixed min-w-[736px] [transform:rotateX(180deg)]">
@@ -27,7 +31,7 @@ export function PlaylistTable({ id }: { id: Id }) {
           </tr>
         </thead>
         <tbody ref={parent}>
-          {currentPlaylistInfo?.songs?.map((song, index) => (
+          {filteredSongs().map((song, index) => (
             <tr
               key={`${song.id}${index}`}
               className=" group hover:bg-gray-800/50 border-b border-gray-800/50">

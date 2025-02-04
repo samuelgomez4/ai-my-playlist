@@ -1,4 +1,4 @@
-import { usePlaylistsStore } from '@/store/playlists';
+import { usePlaylistsStore } from '@/store/playlists-store';
 import { useEffect, useMemo } from 'react';
 
 export function usePlaylists(query = '') {
@@ -7,7 +7,7 @@ export function usePlaylists(query = '') {
   useEffect(() => {
     usePlaylistsStore.persist.rehydrate();
   }, []);
-  const filteredPlaylists = useMemo(() => {
+  const filteredPlaylists = () => {
     if (query === '') return playlistsArray;
     const filterResult = playlistsArray.filter((playlist) => {
       const name = playlist.name.toLowerCase();
@@ -16,6 +16,6 @@ export function usePlaylists(query = '') {
       return name.includes(queryLower) || description.includes(queryLower);
     });
     return filterResult;
-  }, [playlistsArray, query]);
+  };
   return { playlists, filteredPlaylists };
 }

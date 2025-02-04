@@ -8,7 +8,7 @@ import type { PlaylistBasicInfo } from '@/types/playlist';
 import { formSchema } from '@/schemas/formSchema';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 import { generatePrompt } from '@/actions/ai/generate-prompt/generatePrompt';
-import { usePlaylistsStore } from '@/store/playlists';
+import { usePlaylistsStore } from '@/store/playlists-store';
 import { generatePlaylistDetails } from '@/actions/ai/generate-playlist-details/generatePlaylistDetails';
 import { generateSongsSuggestions } from '@/actions/ai/generate-songs-suggestions/generateSongsSuggestions';
 import { getSongsToAdd } from '@/actions/spotifyAPI/getSongsToAdd';
