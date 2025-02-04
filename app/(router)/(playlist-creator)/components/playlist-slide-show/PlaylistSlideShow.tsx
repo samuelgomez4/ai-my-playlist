@@ -4,9 +4,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
-import './slide-styles.css';
+import './styles.css';
 
 import { FreeMode, Navigation } from 'swiper/modules';
 import { PlaylistCard } from './PlaylistCard';
@@ -35,6 +34,7 @@ export function PlaylistSlideShow() {
         slidesPerView={'auto'}
         navigation={true}
         freeMode={true}
+        cssMode={true}
         modules={[Navigation, FreeMode]}
         className="mySwiper">
         {Object.values(playlists).map((playlist) => (

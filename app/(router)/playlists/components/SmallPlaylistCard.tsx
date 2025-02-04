@@ -16,7 +16,7 @@ export function SmallPlaylistCard({ playlist }: Props) {
   return (
     <article className="relative z-0 max-w-[350px] shadow-xl">
       <div
-        className="flex rounded-xl overflow-hidden border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 bg-cover bg-center"
+        className="flex rounded-xl overflow-hidden border border-gray-700  hover:border-purple-500 transition-all duration-300 bg-cover bg-center"
         style={{ backgroundImage: `url(${songs[0]?.image})` }}>
         <img
           src={songs[0]?.image}

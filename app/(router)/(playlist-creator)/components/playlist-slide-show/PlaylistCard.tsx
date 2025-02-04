@@ -11,7 +11,7 @@ export function PlaylistCard({ playlist }: Props) {
   const { id, name, songs } = playlist;
 
   return (
-    <article className="w-56 relative z-0">
+    <article className="w-56 relative z-0 shadow-xl">
       <div className="absolute inset-0 -z-10 rounded-xl overflow-hidden">
         <img
           src={songs[0]?.image}

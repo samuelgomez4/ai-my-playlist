@@ -3,9 +3,9 @@ import { PlaylistHeader } from './components/PlaylistHeader';
 import { PlaylistTable } from './components/PlaylistTable';
 
 interface Props {
-  params: {
+  params: Promise<{
     id: Id;
-  };
+  }>;
 }
 
 export default async function PlaylistPage({ params }: Props) {
