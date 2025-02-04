@@ -23,9 +23,9 @@ export function PlaylistTable({ id }: { id: Id }) {
           </tr>
         </thead>
         <tbody>
-          {currentPlaylistInfo?.songs?.map((song) => (
+          {currentPlaylistInfo?.songs?.map((song, index) => (
             <tr
-              key={song.id}
+              key={`${song.id}${index}`}
               className=" group hover:bg-gray-800/50 border-b border-gray-800/50">
               <td className="py-3 pr-4">
                 <div className="flex items-center gap-3">

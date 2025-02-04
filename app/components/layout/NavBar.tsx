@@ -1,5 +1,5 @@
 import { FaUserCircle } from 'react-icons/fa';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 import { AIMPLogo } from '../logo/AIMPLogo';
 
 export function NavBar() {

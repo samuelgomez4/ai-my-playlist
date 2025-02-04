@@ -57,7 +57,6 @@ export function usePersistentCreatorForm() {
   useEffect(() => {
     setValue('prompt', window.localStorage.getItem('prompt') ?? '');
     setValue('action', (window.localStorage.getItem('action') as FeatureOption) ?? '');
-    setFocus('prompt');
     if (startFromScratch) {
       setValue('action', ACTIONS.createFromScratch);
       window.history.pushState({}, '', '/');
@@ -167,6 +166,9 @@ export function usePersistentCreatorForm() {
       }
       addSongsToPlaylist(data.playlist?.id ?? '', songsToAddResult.songsToAdd!);
       slideShowTitleRef?.current?.scrollIntoView({ behavior: 'smooth' });
+      slideShowRef?.current?.swiper?.slideTo(
+        Object.keys(playlists).findIndex((id) => selectedPlaylist?.id === id)
+      );
     } else if (data.action === ACTIONS.deleteSongs) {
       const idsToRemoveResult = await generateIdsToRemove({
         prompt: data.prompt,
@@ -181,11 +183,13 @@ export function usePersistentCreatorForm() {
       }
       deleteSongsFromPlaylist(data.playlist?.id ?? '', idsToRemove);
       slideShowTitleRef?.current?.scrollIntoView({ behavior: 'smooth' });
+      slideShowRef?.current?.swiper?.slideTo(
+        Object.keys(playlists).findIndex((id) => selectedPlaylist?.id === id)
+      );
     } else {
       setError('root', { type: '500', message: 'Invalid action' });
     }
     reset();
-    selectPlaylist(undefined);
     window.localStorage.removeItem('prompt');
     window.localStorage.removeItem('action');
   };

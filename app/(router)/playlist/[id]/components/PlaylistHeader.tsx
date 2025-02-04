@@ -3,12 +3,12 @@ import { CancelButton } from '@/components/ui/CancelButton';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { usePlaylists } from '@/hooks/usePlaylists';
 import type { Id } from '@/types/playlist';
-import { useTransitionRouter } from 'next-view-transitions';
+import { useRouter } from 'next/navigation';
 
 export function PlaylistHeader({ id }: { id: Id }) {
   const playlists = usePlaylists();
   const currentPlaylistInfo = playlists[id];
-  const router = useTransitionRouter();
+  const router = useRouter();
   return (
     <header className="grid grid-cols-[minmax(96px,1fr),6fr,1fr] sm:grid-cols-[minmax(192px,2fr),6fr,1fr] gap-6 mb-12 ">
       <img
@@ -28,7 +28,7 @@ export function PlaylistHeader({ id }: { id: Id }) {
         </p>
       </div>
       <CancelButton
-        onClick={() => router.push('/')}
+        onClick={() => router.back()}
         className="justify-self-end self-start"
       />
       <SearchBar

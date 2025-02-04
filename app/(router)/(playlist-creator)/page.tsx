@@ -1,8 +1,9 @@
 import { PlaylistSlideShow } from './components/playlist-slide-show/PlaylistSlideShow';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 import { PlaylistCreatorForm } from './components/playlist-creator-form/PlaylistCreatorForm';
 import { SlideShowContextProvider } from '@/components/providers/SlideShowProvider';
 import { SlideShowTitle } from './components/playlist-slide-show-title/SlideShowTitle';
+import { Suspense } from 'react';
 
 export default function PlaylistCreatorPage() {
   return (
@@ -11,13 +12,15 @@ export default function PlaylistCreatorPage() {
         <section className="px-4">
           <div className="text-center mb-8">
             <h1 className=" text-4xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-4 text-balance">
-              <span className="text-white">Be creative and</span> AI your playlist
+              <span className="text-white">Be creative and</span> AI your playlistH
             </h1>
             <p className="text-gray-300 mt-2 text-lg sm:text-xl text-pretty">
               Type a prompt and select the action you want to do
             </p>
           </div>
-          <PlaylistCreatorForm />
+          <Suspense>
+            <PlaylistCreatorForm />
+          </Suspense>
         </section>
         <section className="mb-8">
           <SlideShowTitle />

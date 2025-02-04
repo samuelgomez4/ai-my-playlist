@@ -1,5 +1,5 @@
 'use client';
-import { useTransitionRouter } from 'next-view-transitions';
+import { useRouter } from 'next/navigation';
 import { FaPlusCircle } from 'react-icons/fa';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export function CreatePlaylistCard({ className }: Props) {
-  const router = useTransitionRouter();
+  const router = useRouter();
   return (
     <div
       onClick={() => router.replace('/?create-from-scracth=true')}

@@ -1,7 +1,7 @@
 import { CancelButton } from '@/components/ui/CancelButton';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 import clsx from 'clsx';
-import { Link } from 'next-view-transitions';
+import Link from 'next/link';
 import { useEffect } from 'react';
 
 interface Props {

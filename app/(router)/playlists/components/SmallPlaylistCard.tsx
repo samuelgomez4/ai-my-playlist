@@ -1,7 +1,7 @@
 'use client';
 import type { PlaylistInfo } from '@/types/playlist';
 import { SelectPlaylistButton } from '../../../components/playlist/SelectPlaylistButton';
-import { useTransitionRouter } from 'next-view-transitions';
+import { useRouter } from 'next/navigation';
 import { ViewSongsButton } from '@/components/playlist/ViewSongsButton';
 import { DeletePlaylistButton } from '@/components/delete-playlist/DeletePlaylistButton';
 
@@ -11,7 +11,7 @@ interface Props {
 
 export function SmallPlaylistCard({ playlist }: Props) {
   const { id, name, songs } = playlist;
-  const router = useTransitionRouter();
+  const router = useRouter();
 
   return (
     <article className="relative z-0 max-w-[350px] shadow-xl">
