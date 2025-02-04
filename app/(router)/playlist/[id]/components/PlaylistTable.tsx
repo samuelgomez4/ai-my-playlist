@@ -1,12 +1,14 @@
 'use client';
 import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
 import { usePlaylists } from '@/hooks/usePlaylists';
+import { usePlaylistsStore } from '@/store/playlists';
 import type { Id } from '@/types/playlist';
 import { IoTimeOutline } from 'react-icons/io5';
 
 export function PlaylistTable({ id }: { id: Id }) {
   const playlists = usePlaylists();
   const currentPlaylistInfo = playlists[id];
+  const deleteSongsFromPlaylist = usePlaylistsStore((state) => state.deleteSongsFromPlaylist);
   return (
     <div className="overflow-x-auto [transform:rotateX(180deg)]">
       <table className="w-full table-fixed min-w-[736px] [transform:rotateX(180deg)]">
@@ -58,7 +60,10 @@ export function PlaylistTable({ id }: { id: Id }) {
               <td className="py-3 text-gray-400 text-center">{song.duration}</td>
               <td className="py-3 text-gray-400 text-center ">
                 <div className="hidden group-hover:block">
-                  <DeleteButton />
+                  <DeleteButton
+                    itemName={song.title}
+                    deleteItem={() => deleteSongsFromPlaylist(id, [song.id])}
+                  />
                 </div>
               </td>
             </tr>

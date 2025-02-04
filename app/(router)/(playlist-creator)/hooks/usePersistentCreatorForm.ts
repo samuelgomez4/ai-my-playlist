@@ -27,7 +27,7 @@ export function usePersistentCreatorForm() {
   const [isGeneratingPrompt, startTransition] = useTransition();
   const searchParams = useSearchParams();
   const startFromScratch = searchParams.get('create-from-scracth');
-  const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
+  const { selectedPlaylist } = useSelectedPlaylist();
   const playlists = usePlaylists();
   const createPlaylist = usePlaylistsStore((state) => state.createPlaylist);
   const deletePlaylist = usePlaylistsStore((state) => state.deletePlaylist);

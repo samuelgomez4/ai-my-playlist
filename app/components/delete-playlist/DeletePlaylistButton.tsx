@@ -1,7 +1,5 @@
 import type { Id } from '@/types/playlist';
 import { DeleteButton } from '../ui/delete-button/DeleteButton';
-import { DeleteModal } from '../ui/delete-button/DeleteModal';
-import { useState } from 'react';
 import { usePlaylistsStore } from '@/store/playlists';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 
@@ -11,13 +9,9 @@ interface Props {
 }
 
 export function DeletePlaylistButton({ id, itemName }: Props) {
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
   const deletePlaylist = usePlaylistsStore((state) => state.deletePlaylist);
 
-  const closeModal = () => {
-    setShowDeleteModal(false);
-  };
   const deleteItem = () => {
     if (selectedPlaylist?.id === id) selectPlaylist(undefined);
     deletePlaylist(id);
@@ -25,16 +19,9 @@ export function DeletePlaylistButton({ id, itemName }: Props) {
   return (
     <>
       <DeleteButton
-        onClick={() => setShowDeleteModal(true)}
-        title={`delete ${itemName}`}
+        itemName={itemName}
+        deleteItem={deleteItem}
       />
-      {showDeleteModal && (
-        <DeleteModal
-          closeModal={closeModal}
-          deleteItem={deleteItem}
-          itemName={itemName}
-        />
-      )}
     </>
   );
 }
