@@ -14,7 +14,7 @@ import { usePlaylists } from '@/hooks/usePlaylists';
 import { useSlideShow } from '@/hooks/useSlideShow';
 
 export function PlaylistSlideShow() {
-  const playlists = usePlaylists();
+  const { playlists } = usePlaylists();
   const { slideShowRef } = useSlideShow();
   return (
     <div className="relative swiper-container">

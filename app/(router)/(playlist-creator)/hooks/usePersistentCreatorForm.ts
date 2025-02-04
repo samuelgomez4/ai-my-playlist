@@ -28,7 +28,7 @@ export function usePersistentCreatorForm() {
   const searchParams = useSearchParams();
   const startFromScratch = searchParams.get('create-from-scracth');
   const { selectedPlaylist } = useSelectedPlaylist();
-  const playlists = usePlaylists();
+  const { playlists } = usePlaylists();
   const createPlaylist = usePlaylistsStore((state) => state.createPlaylist);
   const deletePlaylist = usePlaylistsStore((state) => state.deletePlaylist);
   const addSongsToPlaylist = usePlaylistsStore((state) => state.addSongsToPlaylist);

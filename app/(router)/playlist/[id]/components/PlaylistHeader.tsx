@@ -6,7 +6,7 @@ import type { Id } from '@/types/playlist';
 import { useRouter } from 'next/navigation';
 
 export function PlaylistHeader({ id }: { id: Id }) {
-  const playlists = usePlaylists();
+  const { playlists } = usePlaylists();
   const currentPlaylistInfo = playlists[id];
   const router = useRouter();
   return (

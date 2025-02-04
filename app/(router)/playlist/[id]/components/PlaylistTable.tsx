@@ -6,7 +6,7 @@ import type { Id } from '@/types/playlist';
 import { IoTimeOutline } from 'react-icons/io5';
 
 export function PlaylistTable({ id }: { id: Id }) {
-  const playlists = usePlaylists();
+  const { playlists } = usePlaylists();
   const currentPlaylistInfo = playlists[id];
   const deleteSongsFromPlaylist = usePlaylistsStore((state) => state.deleteSongsFromPlaylist);
   return (

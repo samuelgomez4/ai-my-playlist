@@ -30,7 +30,7 @@ export function PlaylistCreatorForm({}) {
           maxLength={MAX_LENGTH_PROMPT}
           {...register('prompt')}
           className="w-full min-h-32 bg-gray-800 text-white rounded-lg px-4 pt-4 pb-10 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500 [field-sizing:content]"
-          placeholder="Describe your perfect playlist or click the magic wand to let the AI do that for you..."
+          placeholder="Create a playlist of the best rock songs of all time..."
         />
         <button
           type="button"
