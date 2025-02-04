@@ -10,33 +10,31 @@ export function PlaylistHeader({ id }: { id: Id }) {
   const currentPlaylistInfo = playlists[id];
   const router = useTransitionRouter();
   return (
-    <header className="flex gap-6 mb-12">
+    <header className="grid grid-cols-[minmax(96px,1fr),6fr,1fr] sm:grid-cols-[minmax(192px,2fr),6fr,1fr] gap-6 mb-12 ">
       <img
         src={currentPlaylistInfo?.songs[0].image ?? ''}
         alt={currentPlaylistInfo?.name ?? ''}
-        className={`w-24 h-24 sm:w-48 sm:h-48 object-cover rounded-lg`}
+        className={`w-24 h-24 sm:w-48 sm:h-48 object-cover rounded-lg sm:row-span-2`}
       />
-      <div className="grid grid-cols-[10fr,1fr] gap-6 flex-1">
-        <div className="overflow-hidden self-center">
-          <h2
-            className={`text-3xl sm:text-6xl font-bold text-white pb-4 text-nowrap overflow-hidden text-ellipsis`}>
-            {currentPlaylistInfo?.name}
-          </h2>
-          <p className="text-gray-400">
-            <span>{currentPlaylistInfo?.songs.length ?? 0} songs </span>
-            <span>• </span>
-            <span>{currentPlaylistInfo?.description}</span>
-          </p>
-        </div>
-        <CancelButton
-          onClick={() => router.push('/')}
-          className="justify-self-end self-start"
-        />
-        <SearchBar
-          placeholder="Search in playlist..."
-          className="col-start-1 col-end-3 self-center"
-        />
+      <div className="overflow-hidden sm:self-start self-center">
+        <h2
+          className={`text-3xl sm:text-6xl font-bold text-white pb-4 text-nowrap overflow-hidden text-ellipsis`}>
+          {currentPlaylistInfo?.name}
+        </h2>
+        <p className="text-gray-400 overflow-hidden text-nowrap text-ellipsis">
+          <span>{currentPlaylistInfo?.songs.length ?? 0} songs </span>
+          <span>• </span>
+          <span className="max-w-prose">{currentPlaylistInfo?.description}</span>
+        </p>
       </div>
+      <CancelButton
+        onClick={() => router.push('/')}
+        className="justify-self-end self-start"
+      />
+      <SearchBar
+        placeholder="Search in playlist..."
+        className="col-start-1 col-end-4 sm:col-start-2 sm:col-end-4 self-center"
+      />
     </header>
   );
 }
