@@ -3,10 +3,12 @@ import { DeleteButton } from '@/components/ui/delete-button/DeleteButton';
 import { usePlaylists } from '@/hooks/usePlaylists';
 import { usePlaylistsStore } from '@/store/playlists';
 import type { Id } from '@/types/playlist';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { IoTimeOutline } from 'react-icons/io5';
 
 export function PlaylistTable({ id }: { id: Id }) {
   const { playlists } = usePlaylists();
+  const [parent] = useAutoAnimate();
   const currentPlaylistInfo = playlists[id];
   const deleteSongsFromPlaylist = usePlaylistsStore((state) => state.deleteSongsFromPlaylist);
   return (
@@ -24,7 +26,7 @@ export function PlaylistTable({ id }: { id: Id }) {
             <th className="text-center py-3" />
           </tr>
         </thead>
-        <tbody>
+        <tbody ref={parent}>
           {currentPlaylistInfo?.songs?.map((song, index) => (
             <tr
               key={`${song.id}${index}`}

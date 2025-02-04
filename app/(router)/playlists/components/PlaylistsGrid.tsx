@@ -1,12 +1,15 @@
 'use client';
+import type { PlaylistInfo } from '@/types/playlist';
 import { SmallPlaylistCard } from './SmallPlaylistCard';
-import { usePlaylists } from '@/hooks/usePlaylists';
 
-export function PlaylistsGrid() {
-  const { playlists } = usePlaylists();
+type Props = {
+  playlists: PlaylistInfo[];
+};
+
+export function PlaylistsGrid({ playlists }: Props) {
   return (
     <>
-      {Object.values(playlists).map((playlist) => (
+      {playlists.map((playlist) => (
         <SmallPlaylistCard
           key={playlist.id}
           playlist={playlist}
