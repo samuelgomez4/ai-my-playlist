@@ -8,8 +8,8 @@ export function PlaylistTable({ id }: { id: Id }) {
   const playlists = usePlaylists();
   const currentPlaylistInfo = playlists[id];
   return (
-    <div className="rotate-180 overflow-x-auto">
-      <table className="w-full table-fixed min-w-[736px] rotate-180">
+    <div className="overflow-x-auto [transform:rotateX(180deg)]">
+      <table className="w-full table-fixed min-w-[736px] [transform:rotateX(180deg)]">
         <thead className="text-gray-400 text-sm">
           <tr className="border-b border-gray-800">
             <th className="text-left py-3 w-1/4">TITLE</th>
