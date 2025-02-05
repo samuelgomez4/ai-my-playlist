@@ -9,7 +9,7 @@ import './styles.css';
 
 import { FreeMode, Navigation } from 'swiper/modules';
 import { PlaylistCard } from './PlaylistCard';
-import { PlaylistCardSkeleton } from './PlaylistCard';
+import { PlaylistCardSkeleton } from './PlaylistCardSkeleton';
 import { CreatePlaylistCard } from '@/components/playlist/CreatePlaylistCard';
 import { usePlaylists } from '@/hooks/usePlaylists';
 import { useSlideShow } from '@/hooks/useSlideShow';
