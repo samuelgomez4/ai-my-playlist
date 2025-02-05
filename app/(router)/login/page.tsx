@@ -3,6 +3,7 @@ import { useCallback, useState } from 'react';
 import { FaSpotify } from 'react-icons/fa';
 import { SiYoutubemusic } from 'react-icons/si';
 import { ErrorModal } from './components/ErrorModal';
+import { CustomImage } from '@/components/ui/CustomImage';
 
 export default function LoginPage() {
   const [showModal, setShowModal] = useState(false);
@@ -46,7 +47,7 @@ export default function LoginPage() {
           </div>
         </div>
         <div className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl h-screen md:h-[calc(100vh-8rem)]">
-          <img
+          <CustomImage
             src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
             alt="Music visualization"
             className="w-full h-full object-cover absolute inset-0"

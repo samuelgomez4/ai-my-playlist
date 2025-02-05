@@ -1,4 +1,5 @@
 import type { IconType } from 'react-icons';
+import { CustomImage } from '../ui/CustomImage';
 
 interface Props {
   feature: {
@@ -19,7 +20,7 @@ export function FeatureCard({ feature }: Props) {
         </h3>
         <p className="text-gray-300 text-center mb-4 text-pretty max-w-prose">{description}</p>
         <div className="w-full aspect-video rounded-lg overflow-hidden">
-          <img
+          <CustomImage
             src={videoUrl}
             alt={title}
             className="w-full h-full object-cover"

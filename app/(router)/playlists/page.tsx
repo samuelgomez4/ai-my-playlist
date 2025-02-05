@@ -1,6 +1,6 @@
 'use client';
 import { SearchBar } from '@/components/ui/SearchBar';
-import { CreatePlaylistCard } from '@/components/playlist/CreatePlaylistCard';
+import { CreatePlaylistCard } from '@/components/ui/playlist/CreatePlaylistCard';
 import { PlaylistsGrid } from './components/PlaylistsGrid';
 import { CancelButton } from '@/components/ui/CancelButton';
 import { useAutoAnimate } from '@formkit/auto-animate/react';

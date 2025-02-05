@@ -6,6 +6,7 @@ import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { IoTimeOutline } from 'react-icons/io5';
 import { useFilteredSongs } from '../hooks/useFilteredSongs';
 import { notFound } from 'next/navigation';
+import { CustomImage } from '@/components/ui/CustomImage';
 
 interface Props {
   id: Id;
@@ -51,8 +52,7 @@ export function PlaylistTable({ id }: Props) {
                   className=" group hover:bg-gray-800/50 border-b border-gray-800/50">
                   <td className="py-3 pr-4">
                     <div className="flex items-center gap-3">
-                      <img
-                        loading="lazy"
+                      <CustomImage
                         src={song.image}
                         alt={song.title}
                         className="w-10 h-10 rounded object-cover"

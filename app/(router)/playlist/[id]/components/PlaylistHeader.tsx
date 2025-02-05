@@ -1,5 +1,6 @@
 'use client';
 import { CancelButton } from '@/components/ui/CancelButton';
+import { CustomImage } from '@/components/ui/CustomImage';
 import { SearchBar } from '@/components/ui/SearchBar';
 import { usePlaylists } from '@/hooks/usePlaylists';
 import { useSongQuerytStore } from '@/store/song-query-store';
@@ -28,8 +29,8 @@ export function PlaylistHeader({ id }: { id: Id }) {
 
   return (
     <header className="grid grid-cols-[96px,6fr,1fr] sm:grid-cols-[192px,6fr,1fr] gap-6 mb-12 ">
-      <img
-        src={currentPlaylistInfo?.songs[0].image ?? ''}
+      <CustomImage
+        src={currentPlaylistInfo?.songs[0]?.image}
         alt={currentPlaylistInfo?.name ?? ''}
         className={`w-24 h-24 sm:w-48 sm:h-48 object-cover rounded-lg sm:row-span-2`}
       />

@@ -1,9 +1,10 @@
 'use client';
 import type { PlaylistInfo } from '@/types/playlist';
-import { SelectPlaylistButton } from '../../../components/playlist/SelectPlaylistButton';
+import { SelectPlaylistButton } from '../../../components/ui/playlist/SelectPlaylistButton';
 import { useRouter } from 'next/navigation';
-import { ViewSongsButton } from '@/components/playlist/ViewSongsButton';
+import { ViewSongsButton } from '@/components/ui/playlist/ViewSongsButton';
 import { DeletePlaylistButton } from '@/components/delete-playlist/DeletePlaylistButton';
+import { CustomImage } from '@/components/ui/CustomImage';
 
 interface Props {
   playlist: PlaylistInfo;
@@ -18,7 +19,7 @@ export function SmallPlaylistCard({ playlist }: Props) {
       <div
         className="flex rounded-xl overflow-hidden border border-gray-700  hover:border-purple-500 transition-all duration-300 bg-cover bg-center"
         style={{ backgroundImage: `url(${songs[0]?.image})` }}>
-        <img
+        <CustomImage
           src={songs[0]?.image}
           alt={name}
           className="object-cover transition-transform duration-300 min-w-[60px] w-32 aspect-square"

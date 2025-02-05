@@ -20,7 +20,7 @@ export function NavBar() {
           </button>
           {/* {isSignedIn ? (
               <div className="relative group">
-                <img
+                <CustomImage
                   src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=40&h=40"
                   alt="User profile"
                   className="w-10 h-10 rounded-full cursor-pointer object-cover"
@@ -32,7 +32,7 @@ export function NavBar() {
                 />
               </div>
               <div className="relative group">
-                <img
+                <CustomImage
                   src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=40&h=40"
                   alt="User profile"
                   className="w-10 h-10 rounded-full cursor-pointer object-cover"

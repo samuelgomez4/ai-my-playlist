@@ -1,4 +1,5 @@
 import { CancelButton } from '@/components/ui/CancelButton';
+import { CustomImage } from '@/components/ui/CustomImage';
 import { useSelectedPlaylist } from '@/hooks/useSelectedPlaylist';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -34,7 +35,7 @@ export function PlaylistSelector({ className, disabled }: Props) {
         className="flex-1 text-white overflow-hidden py-3">
         {selectedPlaylist ? (
           <div className="flex gap-3 items-center">
-            <img
+            <CustomImage
               src={selectedPlaylist.image}
               alt={selectedPlaylist.name}
               className="w-8 h-8 rounded object-cover"

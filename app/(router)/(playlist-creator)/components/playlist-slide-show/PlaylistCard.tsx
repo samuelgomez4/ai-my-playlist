@@ -1,7 +1,8 @@
 import { DeletePlaylistButton } from '@/components/delete-playlist/DeletePlaylistButton';
-import { SelectPlaylistButton } from '@/components/playlist/SelectPlaylistButton';
-import { ViewSongsButton } from '@/components/playlist/ViewSongsButton';
+import { SelectPlaylistButton } from '@/components/ui/playlist/SelectPlaylistButton';
+import { ViewSongsButton } from '@/components/ui/playlist/ViewSongsButton';
 import type { PlaylistInfo } from '@/types/playlist';
+import { CustomImage } from '@/components/ui/CustomImage';
 
 interface Props {
   playlist: PlaylistInfo;
@@ -13,14 +14,14 @@ export function PlaylistCard({ playlist }: Props) {
   return (
     <article className="w-56 relative z-0 shadow-xl">
       <div className="absolute inset-0 -z-10 rounded-xl overflow-hidden">
-        <img
+        <CustomImage
           src={songs[0]?.image}
           alt="card background image"
           className="w-full h-full object-cover"
         />
       </div>
       <div className=" h-full rounded-xl overflow-hidden backdrop-blur-2xl bg-black/50 border border-gray-700/50 hover:border-purple-600/60">
-        <img
+        <CustomImage
           src={songs[0]?.image}
           alt={name}
           className={`w-full h-48 object-cover transition-transform duration-300`}
