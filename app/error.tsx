@@ -2,20 +2,19 @@
 import { RxReset } from 'react-icons/rx';
 
 export default function Error({
-  error,
   reset,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center min-h-dv">
+    <div className="flex flex-col items-center justify-center min-h-dvh bg-gradient-to-b from-gray-900 to-gray-800 pt-12 pb-12 px-4">
       <h1 className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 mb-4">
         500
       </h1>
       <p className="text-2xl text-white mb-2">Server Error</p>
       <p className="text-gray-400 mb-8 max-w-md mx-auto text-center text-pretty">
-        Oops, Something went wrong! {error.message}.
+        Oops! Something went wrong.
       </p>
       <button
         onClick={() => reset()}
