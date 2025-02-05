@@ -1,10 +1,10 @@
 'use client';
 import type { PlaylistInfo } from '@/types/playlist';
-import { SelectPlaylistButton } from '../../../components/ui/playlist/SelectPlaylistButton';
 import { useRouter } from 'next/navigation';
 import { ViewSongsButton } from '@/components/ui/playlist/ViewSongsButton';
 import { DeletePlaylistButton } from '@/components/delete-playlist/DeletePlaylistButton';
 import { CustomImage } from '@/components/ui/CustomImage';
+import { SelectPlaylistButton } from '@/components/ui/playlist/SelectPlaylistButton';
 
 interface Props {
   playlist: PlaylistInfo;

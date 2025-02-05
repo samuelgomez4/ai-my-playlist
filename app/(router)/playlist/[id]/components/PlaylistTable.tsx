@@ -4,9 +4,9 @@ import { usePlaylistsStore } from '@/store/playlists-store';
 import type { Id } from '@/types/playlist';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { IoTimeOutline } from 'react-icons/io5';
-import { useFilteredSongs } from '../hooks/useFilteredSongs';
 import { notFound } from 'next/navigation';
 import { CustomImage } from '@/components/ui/CustomImage';
+import { useFilteredSongs } from '../hooks/useFilteredSongs';
 
 interface Props {
   id: Id;

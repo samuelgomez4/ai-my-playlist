@@ -40,7 +40,9 @@ export function PlaylistSelector({ className, disabled }: Props) {
               alt={selectedPlaylist.name}
               className="w-8 h-8 rounded object-cover"
             />
-            <span className="overflow-hidden text-nowrap text-ellipsis">
+            <span
+              title={selectedPlaylist.name}
+              className="overflow-hidden text-nowrap text-ellipsis">
               {selectedPlaylist.name}
             </span>
           </div>

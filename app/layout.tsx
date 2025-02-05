@@ -29,18 +29,7 @@ export default function RootLayout({
   );
 }
 
-// TODO: Mirar que todos los estilos tengan sentido, quitando etiquetas que no deberian estar o poniendo algo mas semantico. Tambien revisar que todos los estilos tengan sentido y que al separarse en componentes no queden estilos que dependan de un padre.
-// TODO: Mirar las etiquetas img y optimizar imagenes si es necesario.
-// TODO: Poner a los elementos cuyo texto es muy largo la propiedad title.
-// TODO: Revisar el responsive de todas las paginas.
 // TODO: Revisar todos los textos
 // TODO: Hacer el readme
-// TODO: Revisar la estructura del proyecto.
-// TODO: Revisar todos los imports.
-// TODO: Revisar console.logs
-// TODO: Adicionar imagen cuando no esta disponible
 // TODO: Refactorizar ondubmit
-//  TODO: Mirar que si una imporacion se esta usando en mas de un lugar no este metido en una carpeta
-// REvsar si los useCallback si son necesarios y mirar useMemo tambien
-// TODO: Revisar que las imagenes no tengan error si no viene un url para el src
-//  Implement 404 for playlist page
+// TODO: Revsar si los useCallback si son necesarios y mirar useMemo tambien

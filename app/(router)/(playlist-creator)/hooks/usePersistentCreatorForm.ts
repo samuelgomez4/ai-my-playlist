@@ -42,7 +42,6 @@ export function usePersistentCreatorForm() {
     getValues,
     setValue,
     watch,
-    reset,
     setFocus,
     setError,
     clearErrors,

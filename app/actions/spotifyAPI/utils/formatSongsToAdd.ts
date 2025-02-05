@@ -1,4 +1,4 @@
-import type { Song } from '../../../types/playlist';
+import type { Song } from '@/types/playlist';
 import type { Item } from '../types/SearchRes';
 
 export function formatSongToAdd(item: Item): Song {
