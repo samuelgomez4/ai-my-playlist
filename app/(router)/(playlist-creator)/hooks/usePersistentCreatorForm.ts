@@ -189,7 +189,8 @@ export function usePersistentCreatorForm() {
     } else {
       setError('root', { type: '500', message: 'Invalid action' });
     }
-    reset();
+    setValue('prompt', '', { shouldValidate: true });
+    setValue('action', '', { shouldValidate: true });
     window.localStorage.removeItem('prompt');
     window.localStorage.removeItem('action');
   };
