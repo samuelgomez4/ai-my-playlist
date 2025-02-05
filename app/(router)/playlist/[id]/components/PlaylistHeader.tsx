@@ -20,13 +20,18 @@ export function PlaylistHeader({ id }: { id: Id }) {
       />
       <div className="overflow-hidden sm:self-start self-center">
         <h2
+          title={`${currentPlaylistInfo?.name}`}
           className={`text-3xl sm:text-6xl font-bold text-white pb-4 text-nowrap overflow-hidden text-ellipsis`}>
           {currentPlaylistInfo?.name}
         </h2>
         <p className="text-gray-400 overflow-hidden text-nowrap text-ellipsis">
           <span>{currentPlaylistInfo?.songs.length ?? 0} songs </span>
           <span>• </span>
-          <span className="max-w-prose">{currentPlaylistInfo?.description}</span>
+          <span
+            title={currentPlaylistInfo?.description}
+            className="max-w-prose">
+            {currentPlaylistInfo?.description}
+          </span>
         </p>
       </div>
       <CancelButton

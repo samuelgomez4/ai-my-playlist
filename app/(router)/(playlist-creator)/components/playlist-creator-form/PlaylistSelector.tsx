@@ -11,9 +11,11 @@ interface Props {
 
 export function PlaylistSelector({ className, disabled }: Props) {
   const { selectedPlaylist, selectPlaylist } = useSelectedPlaylist();
+
   useEffect(() => {
     if (disabled) selectPlaylist(undefined);
   }, [disabled, selectPlaylist]);
+
   const handleUnSelectPlaylist = () => {
     selectPlaylist(undefined);
   };

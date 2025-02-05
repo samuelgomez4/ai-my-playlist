@@ -17,7 +17,7 @@ export function DeleteButton({ itemName, deleteItem, ...props }: Props) {
       <button
         {...props}
         onClick={() => setShowDeleteModal(true)}
-        title={`delete ${itemName}}`}
+        title={`Delete "${itemName}"`}
         className="p-3 bg-red-700 text-white rounded-lg hover:bg-red-600 transition-all duration-300 shadow-lg">
         <FaTrash className="text-sm" />
       </button>

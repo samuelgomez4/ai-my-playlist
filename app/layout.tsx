@@ -32,16 +32,13 @@ export default function RootLayout({
 // TODO: Mirar que todos los estilos tengan sentido, quitando etiquetas que no deberian estar o poniendo algo mas semantico. Tambien revisar que todos los estilos tengan sentido y que al separarse en componentes no queden estilos que dependan de un padre.
 // TODO: Mirar las etiquetas img y optimizar imagenes si es necesario.
 // TODO: Poner a los elementos cuyo texto es muy largo la propiedad title.
-// TODO: Cambiar view transitions
 // TODO: Revisar el responsive de todas las paginas.
 // TODO: Revisar todos los textos
 // TODO: Hacer el readme
 // TODO: Revisar la estructura del proyecto.
-// TODO: Revisar las modales ya que algunas no funcionan bien.
 // TODO: Revisar todos los imports.
 // TODO: Revisar console.logs
 // TODO: Adicionar imagen cuando no esta disponible
-// TODO: Implementar el searchbar
 // TODO: Refactorizar ondubmit
 //  TODO: Mirar que si una imporacion se esta usando en mas de un lugar no este metido en una carpeta
 // REvsar si los useCallback si son necesarios y mirar useMemo tambien
