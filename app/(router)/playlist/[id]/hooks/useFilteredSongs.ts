@@ -4,9 +4,9 @@ import type { Id } from '@/types/playlist';
 import { useMemo } from 'react';
 
 export function useFilteredSongs(id: Id) {
-  const { playlists } = usePlaylists();
+  const { playlists, isLoading } = usePlaylists();
   const query = useSongQuerytStore((state) => state.query);
-  const songs = useMemo(() => playlists[id].songs, [playlists, id]);
+  const songs = useMemo(() => playlists[id]?.songs, [playlists, id]);
   const filteredSongs = () => {
     if (!query) return songs;
     return songs.filter((song) => {
@@ -21,5 +21,5 @@ export function useFilteredSongs(id: Id) {
       );
     });
   };
-  return { filteredSongs };
+  return { filteredSongs, isLoading };
 }

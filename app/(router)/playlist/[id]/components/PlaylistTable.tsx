@@ -5,6 +5,7 @@ import type { Id } from '@/types/playlist';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { IoTimeOutline } from 'react-icons/io5';
 import { useFilteredSongs } from '../hooks/useFilteredSongs';
+import { notFound } from 'next/navigation';
 
 interface Props {
   id: Id;
@@ -12,9 +13,9 @@ interface Props {
 
 export function PlaylistTable({ id }: Props) {
   const deleteSongsFromPlaylist = usePlaylistsStore((state) => state.deleteSongsFromPlaylist);
-  const [parent] = useAutoAnimate();
-  const { filteredSongs } = useFilteredSongs(id);
-
+  const [parent] = useAutoAnimate({ duration: 200, easing: 'ease-in' });
+  const { filteredSongs, isLoading } = useFilteredSongs(id);
+  if (!filteredSongs && !isLoading) notFound();
   return (
     <div className="overflow-x-auto [transform:rotateX(180deg)]">
       <table className="w-full table-fixed min-w-[736px] [transform:rotateX(180deg)]">
@@ -31,49 +32,63 @@ export function PlaylistTable({ id }: Props) {
           </tr>
         </thead>
         <tbody ref={parent}>
-          {filteredSongs().map((song, index) => (
-            <tr
-              key={`${song.id}${index}`}
-              className=" group hover:bg-gray-800/50 border-b border-gray-800/50">
-              <td className="py-3 pr-4">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={song.image}
-                    alt={song.title}
-                    className="w-10 h-10 rounded object-cover"
-                  />
-                  <div className="overflow-hidden">
-                    <div
-                      title={song.title}
-                      className="text-white font-medium text-nowrap overflow-hidden text-ellipsis">
-                      {song.title}
+          {isLoading
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <tr key={index}>
+                  <td
+                    className="py-3 "
+                    colSpan={6}>
+                    <div className="flex gap-2">
+                      <div className="w-10 h-10 bg-gray-300 animate-pulse rounded" />
+                      <div className="h-10 bg-gray-300 animate-pulse rounded flex-1" />
                     </div>
-                    <div
-                      title={song.artists.join(', ')}
-                      className="text-gray-400 text-sm text-nowrap overflow-hidden text-ellipsis">
-                      {song.artists.join(', ')}
+                  </td>
+                </tr>
+              ))
+            : filteredSongs().map((song, index) => (
+                <tr
+                  key={`${song.id}${index}`}
+                  className=" group hover:bg-gray-800/50 border-b border-gray-800/50">
+                  <td className="py-3 pr-4">
+                    <div className="flex items-center gap-3">
+                      <img
+                        loading="lazy"
+                        src={song.image}
+                        alt={song.title}
+                        className="w-10 h-10 rounded object-cover"
+                      />
+                      <div className="overflow-hidden">
+                        <div
+                          title={song.title}
+                          className="text-white font-medium text-nowrap overflow-hidden text-ellipsis">
+                          {song.title}
+                        </div>
+                        <div
+                          title={song.artists.join(', ')}
+                          className="text-gray-400 text-sm text-nowrap overflow-hidden text-ellipsis">
+                          {song.artists.join(', ')}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </td>
-              <td
-                title={song.album}
-                className="py-3 pr-4 text-gray-400 text-nowrap overflow-hidden text-ellipsis">
-                {song.album}
-              </td>
-              <td className="py-3 text-gray-400 text-center">{song.releaseDate}</td>
-              <td className="py-3 text-gray-400 text-center">{song.addedOn}</td>
-              <td className="py-3 text-gray-400 text-center">{song.duration}</td>
-              <td className="py-3 text-gray-400 text-center ">
-                <div className="hidden group-hover:block">
-                  <DeleteButton
-                    itemName={song.title}
-                    deleteItem={() => deleteSongsFromPlaylist(id, [song.id])}
-                  />
-                </div>
-              </td>
-            </tr>
-          ))}
+                  </td>
+                  <td
+                    title={song.album}
+                    className="py-3 pr-4 text-gray-400 text-nowrap overflow-hidden text-ellipsis">
+                    {song.album}
+                  </td>
+                  <td className="py-3 text-gray-400 text-center">{song.releaseDate}</td>
+                  <td className="py-3 text-gray-400 text-center">{song.addedOn}</td>
+                  <td className="py-3 text-gray-400 text-center">{song.duration}</td>
+                  <td className="py-3 text-gray-400 text-center ">
+                    <div className="hidden group-hover:block">
+                      <DeleteButton
+                        itemName={song.title}
+                        deleteItem={() => deleteSongsFromPlaylist(id, [song.id])}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
         </tbody>
       </table>
     </div>

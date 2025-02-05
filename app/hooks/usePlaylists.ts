@@ -1,11 +1,13 @@
 import { usePlaylistsStore } from '@/store/playlists-store';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export function usePlaylists(query = '') {
   const playlists = usePlaylistsStore((state) => state.playlists);
+  const [isLoading, setIsLoading] = useState(true);
   const playlistsArray = useMemo(() => Object.values(playlists), [playlists]);
   useEffect(() => {
     usePlaylistsStore.persist.rehydrate();
+    setIsLoading(false);
   }, []);
   const filteredPlaylists = () => {
     if (query === '') return playlistsArray;
@@ -17,5 +19,5 @@ export function usePlaylists(query = '') {
     });
     return filterResult;
   };
-  return { playlists, filteredPlaylists };
+  return { playlists, filteredPlaylists, isLoading };
 }

@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 export default function PlaylistsPage() {
   const [query, setQuery] = useState('');
-  const { filteredPlaylists } = usePlaylists(query);
+  const { filteredPlaylists, isLoading } = usePlaylists(query);
   const router = useRouter();
   const [animationParent] = useAutoAnimate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,10 @@ export default function PlaylistsPage() {
       <div
         ref={animationParent}
         className="grid py-12 px-4 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-8 justify-items-center">
-        <PlaylistsGrid playlists={filteredPlaylists()} />
+        <PlaylistsGrid
+          playlists={filteredPlaylists()}
+          isLoading={isLoading}
+        />
         <CreatePlaylistCard className="w-full max-w-[350px] min-h-32" />
       </div>
     </section>

@@ -9,12 +9,13 @@ import './styles.css';
 
 import { FreeMode, Navigation } from 'swiper/modules';
 import { PlaylistCard } from './PlaylistCard';
+import { PlaylistCardSkeleton } from './PlaylistCard';
 import { CreatePlaylistCard } from '@/components/playlist/CreatePlaylistCard';
 import { usePlaylists } from '@/hooks/usePlaylists';
 import { useSlideShow } from '@/hooks/useSlideShow';
 
 export function PlaylistSlideShow() {
-  const { playlists } = usePlaylists();
+  const { playlists, isLoading } = usePlaylists();
   const { slideShowRef } = useSlideShow();
   return (
     <div className="relative swiper-container">
@@ -27,11 +28,17 @@ export function PlaylistSlideShow() {
         cssMode={true}
         modules={[Navigation, FreeMode]}
         className="mySwiper">
-        {Object.values(playlists).map((playlist) => (
-          <SwiperSlide key={playlist.id}>
-            <PlaylistCard playlist={playlist} />
-          </SwiperSlide>
-        ))}
+        {isLoading
+          ? Array.from({ length: 4 }).map((_, index) => (
+              <SwiperSlide key={index}>
+                <PlaylistCardSkeleton />
+              </SwiperSlide>
+            ))
+          : Object.values(playlists).map((playlist) => (
+              <SwiperSlide key={playlist.id}>
+                <PlaylistCard playlist={playlist} />
+              </SwiperSlide>
+            ))}
         <SwiperSlide
           className="!h-auto"
           id="last-slide">
