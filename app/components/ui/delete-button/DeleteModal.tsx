@@ -1,6 +1,5 @@
 'use client';
 
-import { useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 interface Props {
@@ -9,10 +8,10 @@ interface Props {
   closeModal: () => void;
 }
 export function DeleteModal({ closeModal, deleteItem, itemName }: Props) {
-  const handleDelete = useCallback(() => {
+  const handleDelete = () => {
     deleteItem();
     closeModal();
-  }, [closeModal, deleteItem]);
+  };
   return createPortal(
     <>
       <dialog className="w-full h-full fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">

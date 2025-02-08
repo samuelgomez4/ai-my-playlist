@@ -2,10 +2,10 @@ import { FaPlayCircle, FaPlusCircle, FaSync, FaTrash, FaMusic } from 'react-icon
 
 export const ACTIONS = {
   createFromScratch: 'Create Playlist from Scratch',
-  createFromSelected: 'Create Playlist from Selected Playlist',
-  createBasedOnExisting: 'Create New Playlist Based on Existing',
-  addNewSongs: 'Add New Songs to Existing Playlist',
-  deleteSongs: 'Delete Songs from Existing Playlist',
+  filterSelected: 'Filter Selected Playlist and Create New',
+  createBasedOnSelected: 'Create New Playlist Based on Selected',
+  addNewSongs: 'Add New Songs to Selected Playlist',
+  deleteSongs: 'Delete Songs from Selected Playlist',
 } as const;
 
 export const features = [
@@ -18,13 +18,13 @@ export const features = [
   },
   {
     Icon: FaMusic,
-    title: ACTIONS.createFromSelected,
+    title: ACTIONS.filterSelected,
     description: 'Use an existing playlist as inspiration for a new curated collection',
     videoUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
   },
   {
     Icon: FaSync,
-    title: ACTIONS.createBasedOnExisting,
+    title: ACTIONS.createBasedOnSelected,
     description: 'Transform your favorite playlist with fresh, AI-recommended songs',
     videoUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
   },

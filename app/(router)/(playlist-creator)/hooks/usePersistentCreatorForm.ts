@@ -92,7 +92,7 @@ export function usePersistentCreatorForm() {
     const selectedPlaylistSongs = playlists[data.playlist?.id ?? '']?.songs ?? [];
     if (
       data.action === ACTIONS.createFromScratch ||
-      data.action === ACTIONS.createBasedOnExisting
+      data.action === ACTIONS.createBasedOnSelected
     ) {
       const playlistDetailsResult = await generatePlaylistDetails(data.prompt);
       if (!playlistDetailsResult.ok) {
@@ -122,7 +122,7 @@ export function usePersistentCreatorForm() {
       addSongsToPlaylist(newPlaylsitId, songsToAddResult.songsToAdd!);
       slideShowTitleRef?.current?.scrollIntoView({ behavior: 'smooth' });
       slideShowRef?.current?.swiper?.slideTo(Object.keys(playlists).length);
-    } else if (data.action === ACTIONS.createFromSelected) {
+    } else if (data.action === ACTIONS.filterSelected) {
       const playlistDetailsResult = await generatePlaylistDetails(data.prompt);
       if (!playlistDetailsResult.ok) {
         return setError('root', { type: '500', message: playlistDetailsResult.message });

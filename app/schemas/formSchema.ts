@@ -15,9 +15,9 @@ export const formSchema = z
     action: z.enum(
       [
         ACTIONS.addNewSongs,
-        ACTIONS.createBasedOnExisting,
+        ACTIONS.createBasedOnSelected,
         ACTIONS.createFromScratch,
-        ACTIONS.createFromSelected,
+        ACTIONS.filterSelected,
         ACTIONS.deleteSongs,
       ],
       { message: 'Action is required' }

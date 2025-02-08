@@ -32,4 +32,3 @@ export default function RootLayout({
 // TODO: Revisar todos los textos
 // TODO: Hacer el readme
 // TODO: Refactorizar ondubmit
-// TODO: Revsar si los useCallback si son necesarios y mirar useMemo tambien

@@ -1,15 +1,14 @@
 'use client';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { FaSpotify } from 'react-icons/fa';
-import { SiYoutubemusic } from 'react-icons/si';
 import { ErrorModal } from './components/ErrorModal';
 import { CustomImage } from '@/components/ui/CustomImage';
 
 export default function LoginPage() {
   const [showModal, setShowModal] = useState(false);
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     setShowModal(false);
-  }, []);
+  };
   return (
     <>
       {showModal && <ErrorModal closeModal={closeModal} />}
@@ -28,12 +27,6 @@ export default function LoginPage() {
               className="flex items-center justify-center gap-3 px-6 py-3 text-lg font-semibold text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300 border border-white/20 w-full max-w-80 md:max-w-full">
               <FaSpotify className="text-2xl text-green-500" />
               <span>Continue with Spotify</span>
-            </button>
-            <button
-              onClick={() => setShowModal(true)}
-              className="flex items-center justify-center gap-3 px-6 py-3 text-lg font-semibold text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300 border border-white/20 w-full max-w-80 md:max-w-full">
-              <SiYoutubemusic className="text-2xl text-red-600" />
-              <span>Continue with Youtube Music</span>
             </button>
 
             {/* START: Updated Code (Line 54) */}
