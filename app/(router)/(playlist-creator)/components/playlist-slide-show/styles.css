@@ -39,7 +39,7 @@
 
 
 .swiper-container::before{
-  background: linear-gradient(#151d2b, #171f2e);
+  background: linear-gradient(#18202f, #1e2836);
   mask-image: linear-gradient(to right, black, transparent);
   content: ""; 
   height: 100%; 
@@ -53,7 +53,7 @@
 }
 
 .swiper-container::after{
-  background: linear-gradient(#151d2b, #171f2e);
+  background: linear-gradient(#18202f, #1e2836);
   mask-image: linear-gradient(to left, black, transparent);
   content: ""; 
   height: 100%; 
