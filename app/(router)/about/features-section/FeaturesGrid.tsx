@@ -1,7 +1,7 @@
 import { features } from '@/utils/constants/features';
 import { FeatureCard } from './FeatureCard';
 
-export function AboutSection({}) {
+export function FeaturesGrid({}) {
   return (
     <>
       <h2 className="text-2xl md:text-3xl font-bold text-white mb-12 text-center text-balance">

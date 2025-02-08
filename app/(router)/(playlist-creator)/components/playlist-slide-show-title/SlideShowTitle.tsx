@@ -8,7 +8,7 @@ export function SlideShowTitle() {
   return (
     <h2
       ref={slideShowTitleRef}
-      className="text-2xl sm:text-4xl font-bold text-white mb-2 px-4">
+      className="text-2xl sm:text-4xl font-bold text-white mb-2 px-4 sm:px-8">
       Your Playlists
     </h2>
   );

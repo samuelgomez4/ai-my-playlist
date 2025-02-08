@@ -1,3 +1,5 @@
+import { FeaturesGrid } from './features-section/FeaturesGrid';
+
 export const metadata = {
   title: 'AIMyPlaylist - About',
   description: 'Learn all you can do with AIMyPlaylist an AI-powered playlist generator and editor',
@@ -27,6 +29,7 @@ export default function AboutPage() {
             playlists:
           </p>
         </div>
+        <FeaturesGrid />
       </div>
     </>
   );

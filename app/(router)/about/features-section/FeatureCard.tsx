@@ -1,5 +1,5 @@
+import { CustomImage } from '@/components/ui/CustomImage';
 import type { IconType } from 'react-icons';
-import { CustomImage } from '../ui/CustomImage';
 
 interface Props {
   feature: {

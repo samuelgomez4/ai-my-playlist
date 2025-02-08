@@ -18,7 +18,7 @@ export function PlaylistSlideShow() {
   const { playlists, isLoading } = usePlaylists();
   const { slideShowRef } = useSlideShow();
   return (
-    <div className="relative swiper-container">
+    <div className="relative swiper-container lg:mx-8">
       <Swiper
         ref={slideShowRef}
         id="playlist-slide-show"
