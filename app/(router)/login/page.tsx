@@ -1,23 +1,15 @@
-'use client';
-import { useState } from 'react';
-import { FaSpotify } from 'react-icons/fa';
-import { ErrorModal } from './components/ErrorModal';
 import { CustomImage } from '@/components/ui/CustomImage';
 import Link from 'next/link';
+import { LoginButton } from './components/LoginButton';
 
-// export const metadata = {
-//   title: 'AIMyPlaylist - About',
-//   description: 'Learn all you can do with AIMyPlaylist an AI-powered playlist generator and editor',
-// };
+export const metadata = {
+  title: 'AIMyPlaylist - Login',
+  description: 'Sing in or sign up to AIMyPlaylist to start your personalized music journey',
+};
 
 export default function LoginPage() {
-  const [showModal, setShowModal] = useState(false);
-  const closeModal = () => {
-    setShowModal(false);
-  };
   return (
     <>
-      {showModal && <ErrorModal closeModal={closeModal} />}
       <div className=" flex flex-col lg:flex-row gap-8 px-4 sm:px-8 items-center">
         <div className="flex flex-col gap-8 items-center">
           <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 animate-fade-in text-center text-balance md:text-wrap">
@@ -28,14 +20,7 @@ export default function LoginPage() {
             personalized music journey.
           </p>
           <div className="flex flex-col gap-4 w-full max-w-md items-center">
-            <button
-              onClick={() => setShowModal(true)}
-              className="flex items-center justify-center gap-3 px-6 py-3 text-lg font-semibold text-white bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-300 border border-white/20 w-full max-w-80 md:max-w-full">
-              <FaSpotify className="text-2xl text-green-500" />
-              <span>Continue with Spotify</span>
-            </button>
-
-            {/* START: Updated Code (Line 54) */}
+            <LoginButton />
             <div className="mt-6 text-center">
               <p className="text-gray-400 mb-2">Not sure about signing up yet?</p>
               <p>
