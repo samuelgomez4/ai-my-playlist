@@ -13,6 +13,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@hookform/resolvers": "^3.10.0",
     "ai": "^4.1.9",
+    "blendy": "^0.0.1",
     "clsx": "^2.1.1",
     "next": "15.1.0",
     "react": "19.0.0",

@@ -14,7 +14,7 @@ export function DeleteModal({ closeModal, deleteItem, itemName }: Props) {
   };
   return createPortal(
     <>
-      <dialog className="w-full h-full fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+      <div className="w-full h-full fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
         <div
           className="bg-gray-900 rounded-xl p-6 max-w-md w-full mx-4"
           onBlur={closeModal}>
@@ -37,7 +37,7 @@ export function DeleteModal({ closeModal, deleteItem, itemName }: Props) {
             </button>
           </div>
         </div>
-      </dialog>
+      </div>
     </>,
     document.body
   );
