@@ -1,4 +1,6 @@
-import { FaPlayCircle, FaPlusCircle, FaSync, FaTrash, FaMusic } from 'react-icons/fa';
+import { FaPlusCircle, FaTrash } from 'react-icons/fa';
+import { RiPlayListAddFill, RiPlayListFill } from 'react-icons/ri';
+import { TbFilterPlus } from 'react-icons/tb';
 
 export const ACTIONS = {
   createFromScratch: 'Create Playlist from Scratch',
@@ -10,20 +12,20 @@ export const ACTIONS = {
 
 export const features = [
   {
-    Icon: <FaPlayCircle className="text-4xl text-purple-500" />,
+    Icon: <RiPlayListAddFill className="text-4xl text-purple-500" />,
     title: ACTIONS.createFromScratch,
     description:
       'Start fresh and let AI generate a completely new playlist based on your preferences',
     videoUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745',
   },
   {
-    Icon: <FaMusic className="text-4xl text-purple-500" />,
+    Icon: <TbFilterPlus className="text-4xl text-purple-500" />,
     title: ACTIONS.filterSelected,
     description: 'Use an existing playlist as inspiration for a new curated collection',
     videoUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
   },
   {
-    Icon: <FaSync className="text-4xl text-purple-500" />,
+    Icon: <RiPlayListFill className="text-4xl text-purple-500" />,
     title: ACTIONS.createBasedOnSelected,
     description: 'Transform your favorite playlist with fresh, AI-recommended songs',
     videoUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
