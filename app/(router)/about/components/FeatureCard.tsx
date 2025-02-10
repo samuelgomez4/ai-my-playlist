@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { type Blendy, createBlendy } from 'blendy';
 import { FeatureModal } from './FeatureModal';
+import clsx from 'clsx';
 
 interface Props {
   feature: {
@@ -18,10 +19,19 @@ export function FeatureCard({ feature }: Props) {
 
   const blendy = useRef<Blendy | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [showBackground, setShowBackground] = useState(false);
 
   const onOpenModal = () => {
+    setShowBackground(true);
     setShowModal(true);
     blendy.current?.toggle(blendySelector);
+  };
+
+  const onCloseModal = () => {
+    setShowBackground(false);
+    blendy.current?.untoggle(blendySelector, () => {
+      setShowModal(false);
+    });
   };
 
   useEffect(() => {
@@ -29,7 +39,21 @@ export function FeatureCard({ feature }: Props) {
   }, []);
   return (
     <>
-      {showModal && <FeatureModal blendySelector={blendySelector} />}
+      <div
+        className={clsx(
+          'w-full h-full fixed inset-0 flex items-center justify-center  bg-black duration-500 transition-opacity',
+          {
+            'z-50 opacity-100  bg-opacity-75 backdrop-blur-sm': showBackground,
+            '-z-10 opacity-0 backdrop-blur-0': !showBackground,
+          }
+        )}>
+        {showModal && (
+          <FeatureModal
+            blendySelector={blendySelector}
+            onCloseModal={onCloseModal}
+          />
+        )}
+      </div>
       <button
         data-blendy-from={blendySelector}
         onClick={onOpenModal}
