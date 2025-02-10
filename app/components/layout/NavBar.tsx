@@ -1,4 +1,3 @@
-import { FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link';
 import { AIMPLogo } from '../logo/AIMPLogo';
 
@@ -11,25 +10,23 @@ export function NavBar() {
           className="flex items-center gap-4">
           <AIMPLogo className="w-10 h-10" />
           <span className="text-xl font-bold text-white hidden sm:inline">AIMyPlaylist</span>
-          <span className="text-xl font-bold text-white sm:hidden">AIMP</span>
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center">
           <Link
             href="/"
-            className="px-4 py-2 text-sm font-semibold text-white bg-purple-600 rounded-full hover:bg-purple-700 transition-colors duration-300">
+            className="px-4 py-2 text-sm font-semibold text-white rounded-full hover:bg-purple-700 transition-colors duration-300">
             Demo
           </Link>
           <Link
-            href="/"
-            className="px-4 py-2 text-sm font-semibold text-white bg-purple-600 rounded-full hover:bg-purple-700 transition-colors duration-300">
+            href="/about"
+            className="px-4 py-2 text-sm font-semibold text-white rounded-full hover:bg-purple-700 transition-colors duration-300">
             Learn more
           </Link>
           <Link
             href="/login"
-            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-gray-700 rounded-full hover:bg-gray-600 transition-colors duration-300">
-            <FaUserCircle className="text-lg" />
-            <span>Sign In</span>
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-gray-700 rounded-full hover:bg-gray-600 transition-colors duration-300 ml-4">
+            Log in
           </Link>
           {/* )} */}
         </div>

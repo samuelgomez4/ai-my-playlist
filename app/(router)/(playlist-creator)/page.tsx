@@ -4,6 +4,11 @@ import { SlideShowContextProvider } from '@/components/providers/SlideShowProvid
 import { SlideShowTitle } from './components/playlist-slide-show-title/SlideShowTitle';
 import { Suspense } from 'react';
 
+export const metadata = {
+  title: 'AIMyPlaylist - Demo',
+  description: 'Try AIMyPlaylist, an AI-powered playlist generator and editor',
+};
+
 export default function PlaylistCreatorPage() {
   return (
     <SlideShowContextProvider>
@@ -13,16 +18,15 @@ export default function PlaylistCreatorPage() {
             <h1 className=" text-4xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-4 text-balance">
               <span className="text-white">Be creative and</span> AI your playlist
             </h1>
-            <p className="text-gray-300 mt-2 text-lg sm:text-xl max-w-prose mx-auto">
-              Describe your perfect playlist or click the magic wand to let the AI do that for
-              you...
+            <p className="text-gray-300 mt-2 text-lg sm:text-xl max-w-prose mx-auto text-pretty">
+              Describe your perfect playlist or click the wand to let the AI do that for you...
             </p>
           </div>
           <Suspense>
             <PlaylistCreatorForm />
           </Suspense>
         </section>
-        <section className="mb-8">
+        <section className="mb-8 mx-auto">
           <SlideShowTitle />
           <PlaylistSlideShow />
         </section>

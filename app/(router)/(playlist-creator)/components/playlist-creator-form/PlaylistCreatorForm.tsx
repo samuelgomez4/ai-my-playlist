@@ -23,7 +23,7 @@ export function PlaylistCreatorForm({}) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mb-20">
+      className="mb-20 mx-auto max-w-4xl">
       <div className="relative mb-6">
         <textarea
           spellCheck={false}
