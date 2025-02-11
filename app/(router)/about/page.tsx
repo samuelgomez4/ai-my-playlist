@@ -12,7 +12,7 @@ export default function AboutPage() {
     <div className="px-4 sm:px-8">
       <header className="flex flex-col items-center justify-center mb-12 gap-6">
         <h2 className="text-3xl md:text-5xl font-bold text-white text-center text-balance">
-          Explore AIMyPlaylist features
+          Explore AIMyPlaylist Features
         </h2>
         <p className="text-gray-400 text-xl max-w-prose text-pretty text-center">
           Our AI tool lets you create a new playlist or edit an existing one.
