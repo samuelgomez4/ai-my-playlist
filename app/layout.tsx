@@ -28,7 +28,4 @@ export default function RootLayout({
     </html>
   );
 }
-
-// TODO: Revisar todos los textos
 // TODO: Hacer el readme
-// TODO: Refactorizar ondubmit
