@@ -16,9 +16,9 @@ export default function PlaylistCreatorPage() {
         <section className="px-4 sm:px-8">
           <div className="text-center mb-8">
             <h1 className=" text-4xl sm:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 pb-4 text-balance">
-              <span className="text-white">Be creative and</span> AI your playlist
+              <span className="text-white">Be Creative and</span> AI Your Playlist
             </h1>
-            <p className="text-gray-300 mt-2 text-lg sm:text-xl max-w-prose mx-auto text-pretty">
+            <p className="text-gray-300 mt-2 text-base sm:text-xl max-w-prose mx-auto text-pretty">
               Describe your perfect playlist or click the wand to let the AI do that for you...
             </p>
           </div>

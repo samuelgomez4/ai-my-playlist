@@ -15,31 +15,35 @@ export const features = [
     Icon: <RiPlayListAddFill className="text-4xl text-purple-500" />,
     title: ACTIONS.createFromScratch,
     description:
-      'Start fresh and let AI generate a completely new playlist based on your preferences',
-    videoUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745',
+      'With this feature, you can use AI to generate a completely new playlist straight from your imagination. The AI will create the playlist and fill it with songs that match the description you provide in the prompt.',
+    videoFileName: 'scratch-fvVBqg9jHTAzGDtNzfKr1Zz15Gstfx.mp4',
   },
   {
     Icon: <TbFilterPlus className="text-4xl text-purple-500" />,
     title: ACTIONS.filterSelected,
-    description: 'Use an existing playlist as inspiration for a new curated collection',
-    videoUrl: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
+    description:
+      'Do you want a playlist with all the songs from your favorite artist without searching through a long list? With this option, you can select a playlist from your catalog, filter out the songs you want to keep, and create a separate copy instead of editing the original. The AI will use both your selected playlist and the prompt as context to generate the new playlist.',
+    videoFileName: 'scratch-fvVBqg9jHTAzGDtNzfKr1Zz15Gstfx.mp4',
   },
   {
     Icon: <RiPlayListFill className="text-4xl text-purple-500" />,
     title: ACTIONS.createBasedOnSelected,
-    description: 'Transform your favorite playlist with fresh, AI-recommended songs',
-    videoUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
+    description:
+      'Want a fresh playlist similar to one you already have but without modifying the original? This feature lets you use an existing playlist as context, allowing the AI to generate a new playlist adding new recommended songs based on your prompt.',
+    videoFileName: 'scratch-fvVBqg9jHTAzGDtNzfKr1Zz15Gstfx.mp4',
   },
   {
     Icon: <FaPlusCircle className="text-4xl text-purple-500" />,
     title: ACTIONS.addNewSongs,
-    description: 'Enhance your playlist with AI-suggested tracks that match your style',
-    videoUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
+    description:
+      'Use this feature to add new songs to your playlist. The AI will take both your selected playlist and the prompt you provide as context to recommend and add new songs.',
+    videoFileName: 'scratch-fvVBqg9jHTAzGDtNzfKr1Zz15Gstfx.mp4',
   },
   {
     Icon: <FaTrash className="text-4xl text-purple-500" />,
     title: ACTIONS.deleteSongs,
-    description: "Refine your playlist by removing songs that don't fit your taste",
-    videoUrl: 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea',
+    description:
+      'Is there an artist who no longer deserves a spot in your favorite playlist? With this feature, you can remove songs from your selected playlist using the prompt you enter.',
+    videoFileName: 'scratch-fvVBqg9jHTAzGDtNzfKr1Zz15Gstfx.mp4',
   },
 ] as const;

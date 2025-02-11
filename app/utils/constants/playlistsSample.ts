@@ -210,7 +210,7 @@ export const playlistsSample: PlaylistsInfo = {
   },
   'dd21835d-4157-4460-926b-ea7cfa77392a': {
     id: 'dd21835d-4157-4460-926b-ea7cfa77392a',
-    name: 'Top songs of the month',
+    name: 'Top Songs',
     description: 'The songs that everyone is listening right now',
     songs: [
       {
@@ -417,8 +417,8 @@ export const playlistsSample: PlaylistsInfo = {
   },
   '72c8c4b2-353a-4ef1-bb89-bc14bff2ffdb': {
     id: '72c8c4b2-353a-4ef1-bb89-bc14bff2ffdb',
-    name: 'Acoustic songs (based on another list)',
-    description: 'Acoustic playlist based on another playlist',
+    name: 'Acoustic Songs',
+    description: 'Acoustic Playlist',
     songs: [
       {
         id: '0tgVpDi06FyKpA1z0VMD4v',

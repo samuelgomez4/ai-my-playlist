@@ -12,7 +12,7 @@ export default function LoginPage() {
     <>
       <div className=" flex flex-col lg:flex-row gap-8 px-4 sm:px-8 items-center">
         <div className="flex flex-col gap-8 items-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 animate-fade-in text-center text-balance md:text-wrap">
+          <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 animate-fade-in text-center sm:text-balance md:text-wrap">
             <span className="text-white">Transform Your Music </span>Experience with AI
           </h1>
           <p className="text-lg md:text-xl text-gray-300 text-center text-pretty max-w-prose">

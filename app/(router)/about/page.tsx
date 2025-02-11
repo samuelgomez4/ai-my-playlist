@@ -1,5 +1,6 @@
 import { features } from '@/utils/constants/features';
 import { FeatureCard } from './components/FeatureCard';
+import { FeatureVideo } from '@/components/ui/video/FeatureVideo';
 
 export const metadata = {
   title: 'AIMyPlaylist - About',
@@ -20,9 +21,13 @@ export default function AboutPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
         {features.map((feature) => (
           <FeatureCard
-            feature={feature}
             key={feature.title}
-          />
+            feature={feature}>
+            <FeatureVideo
+              videoFileName={feature.videoFileName}
+              title={feature.title}
+            />
+          </FeatureCard>
         ))}
       </div>
     </div>

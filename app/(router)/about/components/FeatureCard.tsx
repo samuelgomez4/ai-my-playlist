@@ -10,11 +10,11 @@ interface Props {
     Icon: ReactNode;
     title: string;
     description: string;
-    videoUrl: string;
   };
+  children: ReactNode;
 }
-export function FeatureCard({ feature }: Props) {
-  const { Icon, title } = feature;
+export function FeatureCard({ feature, children }: Props) {
+  const { Icon, title, description } = feature;
   const blendySelector = title.replaceAll(' ', '-').toLowerCase();
 
   const blendy = useRef<Blendy | null>(null);
@@ -51,7 +51,10 @@ export function FeatureCard({ feature }: Props) {
           <FeatureModal
             blendySelector={blendySelector}
             onCloseModal={onCloseModal}
-          />
+            title={title}
+            description={description}>
+            {children}
+          </FeatureModal>
         )}
       </div>
       <button
