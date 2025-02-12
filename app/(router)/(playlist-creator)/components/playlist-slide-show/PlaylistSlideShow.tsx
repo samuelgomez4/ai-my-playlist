@@ -13,19 +13,26 @@ import { PlaylistCardSkeleton } from './PlaylistCardSkeleton';
 import { CreatePlaylistCard } from '@/components/ui/playlist/CreatePlaylistCard';
 import { usePlaylists } from '@/hooks/usePlaylists';
 import { useSlideShow } from '@/hooks/useSlideShow';
+import { useEffect, useState } from 'react';
 
 export function PlaylistSlideShow() {
   const { playlists, isLoading } = usePlaylists();
   const { slideShowRef } = useSlideShow();
+  // if the prop of centeredSlides is passed as true from the beginning, it creates a bug where one is unable to see the first slide completely.
+  const [center, setCenter] = useState(false);
+  useEffect(() => {
+    setCenter(true);
+  }, []);
   return (
     <div className="relative swiper-container lg:mx-8">
       <Swiper
         ref={slideShowRef}
-        id="playlist-slide-show"
         slidesPerView={'auto'}
         navigation={true}
         freeMode={true}
         cssMode={true}
+        centeredSlides={center}
+        centeredSlidesBounds={true}
         modules={[Navigation, FreeMode]}
         className="mySwiper">
         {isLoading
@@ -39,9 +46,7 @@ export function PlaylistSlideShow() {
                 <PlaylistCard playlist={playlist} />
               </SwiperSlide>
             ))}
-        <SwiperSlide
-          className="!h-auto"
-          id="last-slide">
+        <SwiperSlide className="!h-auto">
           <CreatePlaylistCard className="w-56 min-h-96" />
         </SwiperSlide>
       </Swiper>

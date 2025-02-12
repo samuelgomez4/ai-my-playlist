@@ -25,11 +25,7 @@ export function FeatureModal({
           <h3 className="text-white font-bold text-lg sm:text-2xl">{title}</h3>
           <p className="text-gray-300 text-base sm:text-lg text-pretty">{description}</p>
         </div>
-        <div className="w-full max-w-lg rounded-xl overflow-hidden">
-          <Suspense fallback={<div className="animate-pulse w-full h-full bg-slate-200" />}>
-            {children}
-          </Suspense>
-        </div>
+        <div className="w-full max-w-lg rounded-xl overflow-hidden">{children}</div>
       </div>
       <CancelButton
         onClick={onCloseModal}

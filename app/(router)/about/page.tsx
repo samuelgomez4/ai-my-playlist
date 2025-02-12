@@ -1,6 +1,7 @@
 import { features } from '@/utils/constants/features';
 import { FeatureCard } from './components/FeatureCard';
 import { FeatureVideo } from '@/components/ui/video/FeatureVideo';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'AIMyPlaylist - About',
@@ -23,10 +24,12 @@ export default function AboutPage() {
           <FeatureCard
             key={feature.title}
             feature={feature}>
-            <FeatureVideo
-              videoFileName={feature.videoFileName}
-              title={feature.title}
-            />
+            <Suspense fallback={<div className="animate-pulse w-full h-full bg-slate-200" />}>
+              <FeatureVideo
+                videoFileName={feature.videoFileName}
+                title={feature.title}
+              />
+            </Suspense>
           </FeatureCard>
         ))}
       </div>
