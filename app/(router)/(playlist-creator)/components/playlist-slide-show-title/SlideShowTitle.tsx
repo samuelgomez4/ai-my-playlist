@@ -2,13 +2,13 @@
 
 import { useSlideShow } from '@/hooks/useSlideShow';
 
-export function SlideShowTitle() {
+export function SlideShowTitle({ className }: { className?: string }) {
   const { slideShowTitleRef } = useSlideShow();
 
   return (
     <h2
       ref={slideShowTitleRef}
-      className="text-2xl sm:text-4xl font-bold text-white mb-2 px-4 sm:px-8">
+      className={`${className}`}>
       Your Playlists
     </h2>
   );

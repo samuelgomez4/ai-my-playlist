@@ -1,5 +1,4 @@
 import { CancelButton } from '@/components/ui/CancelButton';
-import { Suspense } from 'react';
 
 interface Props {
   blendySelector: string;

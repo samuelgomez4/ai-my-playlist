@@ -27,7 +27,9 @@ export default function PlaylistCreatorPage() {
           </Suspense>
         </section>
         <section className="mb-8 mx-auto">
-          <SlideShowTitle />
+          <div className="mb-6 pl-4 sm:pl-8">
+            <SlideShowTitle className="text-2xl sm:text-4xl font-bold text-white" />
+          </div>
           <PlaylistSlideShow />
         </section>
       </div>
