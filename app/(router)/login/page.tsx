@@ -25,7 +25,7 @@ export default function LoginPage() {
               <p className="text-gray-400 mb-2">Not sure about signing up yet?</p>
               <p>
                 <Link
-                  href="/"
+                  href="/demo"
                   className="text-purple-400 hover:text-purple-300 font-semibold">
                   Try our demo
                 </Link>

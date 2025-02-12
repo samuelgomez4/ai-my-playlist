@@ -15,7 +15,7 @@ export function ErrorModal({ closeModal }: Props) {
           Due to Spotify's quota policies, this option is still under development. To give you an
           idea of how it will work in the future you can try our{' '}
           <Link
-            href="/"
+            href="/demo"
             className="text-purple-400">
             demo
           </Link>

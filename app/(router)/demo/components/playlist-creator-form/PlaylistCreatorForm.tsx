@@ -4,7 +4,7 @@ import { features } from '@/utils/constants/features';
 import { PlaylistSelector } from './PlaylistSelector';
 import clsx from 'clsx';
 import { MAX_LENGTH_PROMPT } from '@/utils/constants/constants';
-import { usePersistentCreatorForm } from '@/(router)/(playlist-creator)/hooks/usePersistentCreatorForm';
+import { usePersistentCreatorForm } from '@/(router)/demo/hooks/usePersistentCreatorForm';
 import { BiLoaderCircle } from 'react-icons/bi';
 
 export function PlaylistCreatorForm({}) {
