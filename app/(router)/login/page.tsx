@@ -1,6 +1,9 @@
-import { CustomImage } from '@/components/ui/CustomImage';
 import Link from 'next/link';
 import { LoginButton } from './components/LoginButton';
+import { VideoSlideShow } from './components/VideoSlideShow';
+import { features } from '@/utils/constants/features';
+import { FeatureVideo } from '@/components/ui/video/FeatureVideo';
+import { Suspense } from 'react';
 
 export const metadata = {
   title: 'AIMyPlaylist - Login',
@@ -37,14 +40,21 @@ export default function LoginPage() {
                 </Link>
               </p>
             </div>
-            {/* END: Updated Code (Line 57) */}
           </div>
         </div>
-        <div className="aspect-video rounded-xl overflow-hidden shadow-2xl max-w-md lg:max-w-lg">
-          <CustomImage
-            src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
-            alt="Music visualization"
-          />
+        <div className="rounded-xl overflow-hidden shadow-2xl w-full max-w-md sm:max-w-xl lg:max-w-lg">
+          <VideoSlideShow>
+            {features.map((feature) => (
+              <Suspense
+                key={feature.title}
+                fallback={<div className="animate-pulse w-full h-full bg-slate-200" />}>
+                <FeatureVideo
+                  videoFileName={feature.videoFileName}
+                  title={feature.title}
+                />
+              </Suspense>
+            ))}
+          </VideoSlideShow>
         </div>
       </div>
     </>
