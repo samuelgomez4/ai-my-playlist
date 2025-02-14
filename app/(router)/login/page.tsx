@@ -1,16 +1,19 @@
 import Link from 'next/link';
 import { LoginButton } from './components/LoginButton';
-import { VideoSlideShow } from './components/VideoSlideShow';
 import { features } from '@/utils/constants/features';
 import { FeatureVideo } from '@/components/ui/video/FeatureVideo';
 import { Suspense } from 'react';
+import { connection } from 'next/server';
 
 export const metadata = {
   title: 'AIMyPlaylist - Login',
   description: 'Sing in or sign up to AIMyPlaylist to start your personalized music journey',
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  // force dynamic page
+  await connection();
+  const randomFeature = features[Math.floor(Math.random() * features.length)];
   return (
     <>
       <div className=" flex flex-col lg:flex-row gap-8 px-4 sm:px-8 items-center">
@@ -43,18 +46,12 @@ export default function LoginPage() {
           </div>
         </div>
         <div className="rounded-xl overflow-hidden shadow-2xl w-full max-w-md sm:max-w-xl lg:max-w-lg">
-          <VideoSlideShow>
-            {features.map((feature) => (
-              <Suspense
-                key={feature.title}
-                fallback={<div className="animate-pulse w-full h-full bg-slate-200" />}>
-                <FeatureVideo
-                  videoFileName={feature.videoFileName}
-                  title={feature.title}
-                />
-              </Suspense>
-            ))}
-          </VideoSlideShow>
+          <Suspense fallback={<div className="animate-pulse w-full h-full bg-slate-200" />}>
+            <FeatureVideo
+              videoFileName={randomFeature.videoFileName}
+              title={randomFeature.title}
+            />
+          </Suspense>
         </div>
       </div>
     </>
