@@ -22,8 +22,8 @@ export default async function LoginPage() {
             <span className="text-white">Transform Your Music </span>Experience with AI
           </h1>
           <p className="text-lg md:text-xl text-gray-300 text-center text-pretty max-w-prose">
-            Let AI curate the perfect soundtrack for any occasion. Sign in to start your
-            personalized music journey.
+            A smart music management tool to customize your playlists in seconds with a single
+            prompt. Sign in to start your personalized music journey.
           </p>
           <div className="flex flex-col gap-4 w-full max-w-md items-center">
             <LoginButton />
