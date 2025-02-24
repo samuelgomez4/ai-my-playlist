@@ -14,7 +14,7 @@ export function Footer({}) {
               <FaGithub className="text-2xl" />
             </a>
             <a
-              href="https://linkedin.com/in/samuelgomez"
+              href="https://linkedin.com/in/samuel-gomez-suarez-0427321a4"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors">
