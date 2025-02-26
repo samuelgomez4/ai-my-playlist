@@ -22,7 +22,15 @@ export function Footer({}) {
             </a>
           </div>
           <div className="text-center text-gray-400">
-            <p>Created by Samuel Gomez</p>
+            <p>
+              Created by{' '}
+              <a
+                href="https://samuel-gomez-suarez.vercel.app/"
+                className="text-gray-200 hover:underline">
+                Samuel Gomez
+              </a>{' '}
+              | {new Date().getFullYear()}
+            </p>
           </div>
         </div>
       </div>
