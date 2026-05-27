@@ -1,5 +1,6 @@
 'use server';
-import { generateText } from 'ai';
+import { generateObject } from 'ai';
+import { z } from 'zod';
 import { google } from '@ai-sdk/google';
 import { largeModel, safetySettings } from '../config';
 import type { PlaylistGenerationOptions } from '@/actions/ai/types/ai-generation-options';
@@ -12,9 +13,13 @@ export async function generateSongsSuggestions(options: PlaylistGenerationOption
   promptSchema.parse(options.prompt);
   const formattedSongs = JSON.stringify(formatSongsForAi(options.songs));
   try {
-    const { text } = await generateText({
+    const { object } = await generateObject({
       model: google(largeModel, { safetySettings: [safetySettings] }),
-      system: `You are an assistant who receives a prompt to create/edit a playlist or suggest new songs to add to a playlist. The user will send you an instruction for songs to add and you will have to respond with a list (in a JSON format) of maximum 20 names of songs to add including first the name of only the main artist and then immediately after without extra symbols or words the name of the song. The user can also send you along with the prompt a list that represents tracks of the playlist. The shape of each one of the internal list is the following: [id, name, artists[], album, duration with the format minutes:seconds, releaseDate, addedByUserAt]. In case the user includes the list is for you to have context but you have to suggest songs that are different from the ones the user already has. Your task as an assistant is simply to return the list with ONLY the names and artists of new songs. You CANNOT reply with something that is not a list of the tracks. That is, you don't reply with words, only the list of songs. The only reason you reply with something else that is not a list is if the user prompt contains or asks for something that is not related to creating a new playlist or editing the playlist or adding new songs to the playlist. In that case you have to answer 'error'. You can accept other languages other than English.`,
+      schema: z.object({
+        isOffTopic: z.boolean(),
+        songs: z.array(z.string()).max(20),
+      }),
+      system: `You are an assistant who receives a prompt to create/edit a playlist or suggest new songs to add to a playlist. The user will send you an instruction for songs to add and you will have to respond with a list of maximum 20 names of songs to add including first the name of only the main artist and then immediately after without extra symbols or words the name of the song. The user can also send you along with the prompt a list that represents tracks of the playlist. The shape of each one of the internal list is the following: [id, name, artists[], album, duration with the format minutes:seconds, releaseDate, addedByUserAt]. In case the user includes the list is for you to have context but you have to suggest songs that are different from the ones the user already has. Your task as an assistant is simply to return the list with ONLY the names and artists of new songs. If the user prompt contains or asks for something that is not related to creating a new playlist or editing the playlist or adding new songs to the playlist, set isOffTopic to true. You can accept other languages other than English.`,
       messages: [
         {
           role: 'user',
@@ -22,28 +27,31 @@ export async function generateSongsSuggestions(options: PlaylistGenerationOption
         },
         {
           role: 'assistant',
-          content: `${JSON.stringify([
-            'David Guetta Titanium',
-            'Avicii Wake Me Up',
-            'Martin Garrix Animals',
-            'Sebastian Ingrosso Reload',
-            "Swedish House Mafia Don't You Worry Child",
-            'Don Diablo Starlight (Could You Be Mine)',
-            'DVBBS Tsunami',
-            'Martin Solveig Intoxicated',
-            'Major Lazer Lean On',
-            'Meduza Lose Control',
-            'Armin van Buuren This Is What It Feels Like',
-            'FISHER Losing It',
-            'Showtek Get Loose',
-            'Nelly Furtado Promiscuous',
-            'Afrojack Take Over Control',
-            'The Prodigy Firestarter',
-            'Dimitri Vegas & Like Mike The Hum',
-            'David Guetta Bad',
-            'Black Eyed Peas Boom Boom Pow',
-            'R3HAB On The Run',
-          ])}`,
+          content: JSON.stringify({
+            isOffTopic: false,
+            songs: [
+              'David Guetta Titanium',
+              'Avicii Wake Me Up',
+              'Martin Garrix Animals',
+              'Sebastian Ingrosso Reload',
+              "Swedish House Mafia Don't You Worry Child",
+              'Don Diablo Starlight (Could You Be Mine)',
+              'DVBBS Tsunami',
+              'Martin Solveig Intoxicated',
+              'Major Lazer Lean On',
+              'Meduza Lose Control',
+              'Armin van Buuren This Is What It Feels Like',
+              'FISHER Losing It',
+              'Showtek Get Loose',
+              'Nelly Furtado Promiscuous',
+              'Afrojack Take Over Control',
+              'The Prodigy Firestarter',
+              'Dimitri Vegas & Like Mike The Hum',
+              'David Guetta Bad',
+              'Black Eyed Peas Boom Boom Pow',
+              'R3HAB On The Run',
+            ],
+          }),
         },
         {
           role: 'user',
@@ -51,7 +59,7 @@ export async function generateSongsSuggestions(options: PlaylistGenerationOption
         },
         {
           role: 'assistant',
-          content: 'error',
+          content: JSON.stringify({ isOffTopic: true, songs: [] }),
         },
         {
           role: 'user',
@@ -59,16 +67,15 @@ export async function generateSongsSuggestions(options: PlaylistGenerationOption
         },
       ],
     });
-    if (text === 'error') {
+
+    if (object.isOffTopic) {
       return {
         ok: false,
         message: refuseOffTopicAnswer,
       };
     }
-    const songsSuggestionsList: Array<string> = JSON.parse(text);
-    if (songsSuggestionsList.length > 20) {
-      songsSuggestionsList.slice(0, 20);
-    }
+
+    const songsSuggestionsList = object.songs;
     return { ok: true, songsSuggestionsList };
   } catch (e) {
     if (e instanceof Error) {

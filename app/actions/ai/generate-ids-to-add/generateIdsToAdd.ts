@@ -1,5 +1,6 @@
 'use server';
-import { generateText } from 'ai';
+import { generateObject } from 'ai';
+import { z } from 'zod';
 import { google } from '@ai-sdk/google';
 import { largeModel, safetySettings } from '../config';
 import type { PlaylistGenerationOptions } from '@/actions/ai/types/ai-generation-options';
@@ -12,9 +13,13 @@ export async function generateIdsToAdd(options: PlaylistGenerationOptions) {
   promptSchema.parse(options.prompt);
   const formattedSongs = JSON.stringify(formatSongsForAi(options.songs));
   try {
-    const { text } = await generateText({
+    const { object } = await generateObject({
       model: google(largeModel, { safetySettings: [safetySettings] }),
-      system: `You are an assistant who receives a list of lists that represent tracks of a playlist. The shape of each one of the internal lists is the following: [id, name, artists[], album, duration with the format minutes:seconds, releaseDate, addedByUserAt]. The user would like to create a new playlist based on the current playlist or simply edit the current playlist. Your task as an assistant is to filter the list and simply return a list with ONLY the ids of the tracks using the prompt and the list of the current message from the user. You CANNOT reply with something that is not a list of ids of the tracks. That is, you don't reply with words, only the list of ids. The only reason you reply with something else that is not a list is if the user prompt contains or asks for something that is not related to creating a new list or editing the list or you cannot filter using the content of the list of songs or with your knowledge. In that case you have to answer 'error'. You can accept other languages other than English.`,
+      schema: z.object({
+        isOffTopic: z.boolean(),
+        ids: z.array(z.string()),
+      }),
+      system: `You are an assistant who receives a list of lists that represent tracks of a playlist. The shape of each one of the internal lists is the following: [id, name, artists[], album, duration with the format minutes:seconds, releaseDate, addedByUserAt]. The user would like to create a new playlist based on the current playlist or simply edit the current playlist. Your task as an assistant is to filter the list and simply return a list with ONLY the ids of the tracks using the prompt and the list of the current message from the user. If the user prompt contains or asks for something that is not related to creating a new list or editing the list or you cannot filter using the content of the list of songs or with your knowledge, set isOffTopic to true. You can accept other languages other than English.`,
       messages: [
         {
           role: 'user',
@@ -22,8 +27,15 @@ export async function generateIdsToAdd(options: PlaylistGenerationOptions) {
         },
         {
           role: 'assistant',
-          content:
-            '["e1c0d1f0-1c0d-1f0e-1c0d-1f0e1c0d1f0e", "f6a5b4c7-6a5b-4c7f-6a5b-4c7f6a5b4c7f", "b8c7d6e9-8c7d-6e9b-8c7d-6e9b8c7d6e9b", "f8a7b6c9-8a7b-6c9f-8a7b-6c9f8a7b6c9f"]',
+          content: JSON.stringify({
+            isOffTopic: false,
+            ids: [
+              'e1c0d1f0-1c0d-1f0e-1c0d-1f0e1c0d1f0e',
+              'f6a5b4c7-6a5b-4c7f-6a5b-4c7f6a5b4c7f',
+              'b8c7d6e9-8c7d-6e9b-8c7d-6e9b8c7d6e9b',
+              'f8a7b6c9-8a7b-6c9f-8a7b-6c9f8a7b6c9f',
+            ],
+          }),
         },
         {
           role: 'user',
@@ -31,7 +43,7 @@ export async function generateIdsToAdd(options: PlaylistGenerationOptions) {
         },
         {
           role: 'assistant',
-          content: 'error',
+          content: JSON.stringify({ isOffTopic: true, ids: [] }),
         },
         {
           role: 'user',
@@ -39,13 +51,13 @@ export async function generateIdsToAdd(options: PlaylistGenerationOptions) {
         },
       ],
     });
-    if (text === 'error') {
+    if (object.isOffTopic) {
       return {
         ok: false,
         message: refuseOffTopicAnswer,
       };
     }
-    const idsToAddList: Array<string> = JSON.parse(text);
+    const idsToAddList = object.ids;
     return { ok: true, idsToAddList };
   } catch (e) {
     if (e instanceof Error) {
